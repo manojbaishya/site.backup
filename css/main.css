@@ -2,16 +2,36 @@
 * @Author: Manoj Baishya
 * @Date:   2020-04-13 22:38:32
 * @Last Modified by:   Manoj Baishya
-* @Last Modified time: 2020-04-13 23:12:40
+* @Last Modified time: 2020-04-19 00:00:56
 */
 
 .title {
-    font-family: 'Bungee', cursive;
-    color: orchid;
+    font-family: 'Playfair Display', serif;
+    color: #069f;
     text-align: center;
+    margin-top: -2.5rem;
 }
 
 .para {
     font-family: georgia;
     text-align: center;
+}
+
+.img-fit {
+    margin-top: 2.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+}
+
+.main-container {
+  float: left;
+  position: relative;
+  left: 50%;
+}
+.fixer-container {
+  float: left;
+  position: relative;
+  left: -50%;
 }

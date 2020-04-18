@@ -1,0 +1,1041 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+    <title>Assignment 3 Problem 3 and Problem 5 Part 1</title>
+    <meta name="generator" content="MATLAB 9.8">
+    <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+    <meta name="DC.date" content="2020-04-18">
+    <meta name="DC.source" content="p3Solution.m">
+    <style type="text/css">
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    font,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        font-size: 100%;
+        vertical-align: baseline;
+        background: transparent
+    }
+
+    body {
+        line-height: 1
+    }
+
+    ol,
+    ul {
+        list-style: none
+    }
+
+    blockquote,
+    q {
+        quotes: none
+    }
+
+    blockquote:before,
+    blockquote:after,
+    q:before,
+    q:after {
+        content: '';
+        content: none
+    }
+
+    :focus {
+        outine: 0
+    }
+
+    ins {
+        text-decoration: none
+    }
+
+    del {
+        text-decoration: line-through
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0
+    }
+
+    html {
+        min-height: 100%;
+        margin-bottom: 1px;
+    }
+
+    html body {
+        height: 100%;
+        margin: 0px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 10px;
+        color: #000;
+        line-height: 140%;
+        background: #fff none;
+        overflow-y: scroll;
+    }
+
+    html body td {
+        vertical-align: top;
+        text-align: left;
+    }
+
+    h1 {
+        padding: 0px;
+        margin: 0px 0px 25px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.5em;
+        color: #d55000;
+        line-height: 100%;
+        font-weight: normal;
+    }
+
+    h2 {
+        padding: 0px;
+        margin: 0px 0px 8px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.2em;
+        color: #000;
+        font-weight: bold;
+        line-height: 140%;
+        border-bottom: 1px solid #d6d4d4;
+        display: block;
+    }
+
+    h3 {
+        padding: 0px;
+        margin: 0px 0px 5px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.1em;
+        color: #000;
+        font-weight: bold;
+        line-height: 140%;
+    }
+
+    a {
+        color: #005fce;
+        text-decoration: none;
+    }
+
+    a:hover {
+        color: #005fce;
+        text-decoration: underline;
+    }
+
+    a:visited {
+        color: #004aa0;
+        text-decoration: none;
+    }
+
+    p {
+        padding: 0px;
+        margin: 0px 0px 20px;
+    }
+
+    img {
+        padding: 0px;
+        margin: 0px 0px 20px;
+        border: none;
+    }
+
+    p img,
+    pre img,
+    tt img,
+    li img,
+    h1 img,
+    h2 img {
+        margin-bottom: 0px;
+    }
+
+    ul {
+        padding: 0px;
+        margin: 0px 0px 20px 23px;
+        list-style: square;
+    }
+
+    ul li {
+        padding: 0px;
+        margin: 0px 0px 7px 0px;
+    }
+
+    ul li ul {
+        padding: 5px 0px 0px;
+        margin: 0px 0px 7px 23px;
+    }
+
+    ul li ol li {
+        list-style: decimal;
+    }
+
+    ol {
+        padding: 0px;
+        margin: 0px 0px 20px 0px;
+        list-style: decimal;
+    }
+
+    ol li {
+        padding: 0px;
+        margin: 0px 0px 7px 23px;
+        list-style-type: decimal;
+    }
+
+    ol li ol {
+        padding: 5px 0px 0px;
+        margin: 0px 0px 7px 0px;
+    }
+
+    ol li ol li {
+        list-style-type: lower-alpha;
+    }
+
+    ol li ul {
+        padding-top: 7px;
+    }
+
+    ol li ul li {
+        list-style: square;
+    }
+
+    .content {
+        font-size: 1.2em;
+        line-height: 140%;
+        padding: 20px;
+    }
+
+    pre,
+    code {
+        font-size: 12px;
+    }
+
+    tt {
+        font-size: 1.2em;
+    }
+
+    pre {
+        margin: 0px 0px 20px;
+    }
+
+    pre.codeinput {
+        padding: 10px;
+        border: 1px solid #d3d3d3;
+        background: #f7f7f7;
+    }
+
+    pre.codeoutput {
+        padding: 10px 11px;
+        margin: 0px 0px 20px;
+        color: #4c4c4c;
+    }
+
+    pre.error {
+        color: red;
+    }
+
+    @media print {
+
+        pre.codeinput,
+        pre.codeoutput {
+            word-wrap: break-word;
+            width: 100%;
+        }
+    }
+
+    span.keyword {
+        color: #0000FF
+    }
+
+    span.comment {
+        color: #228B22
+    }
+
+    span.string {
+        color: #A020F0
+    }
+
+    span.untermstring {
+        color: #B20000
+    }
+
+    span.syscmd {
+        color: #B28C00
+    }
+
+    span.typesection {
+        color: #A0522D
+    }
+
+    .footer {
+        width: auto;
+        padding: 10px 0px;
+        margin: 25px 0px 0px;
+        border-top: 1px dotted #878787;
+        font-size: 0.8em;
+        line-height: 140%;
+        font-style: italic;
+        color: #878787;
+        text-align: left;
+        float: none;
+    }
+
+    .footer p {
+        margin: 0px;
+    }
+
+    .footer a {
+        color: #878787;
+    }
+
+    .footer a:hover {
+        color: #878787;
+        text-decoration: underline;
+    }
+
+    .footer a:visited {
+        color: #878787;
+    }
+
+    table th {
+        padding: 7px 5px;
+        text-align: left;
+        vertical-align: middle;
+        border: 1px solid #d6d4d4;
+        font-weight: bold;
+    }
+
+    table td {
+        padding: 7px 5px;
+        text-align: left;
+        vertical-align: top;
+        border: 1px solid #d6d4d4;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <h1>Assignment 3 Problem 3 and Problem 5 Part 1</h1>
+        <!--introduction-->
+        <pre>Constant Speed Missile Model - Simulations from Impact Angle Constrained Interception of Stationary Targets</pre>
+        <!--/introduction-->
+        <p>
+            <h1> Case 1 Simulation - Constant Speed Missile with impact angle -120 degrees </h1>
+        </p>
+        <h2 id="2">Equations of Motion</h2>
+        <p>Solve non-linear M-T kinematics</p>
+        <pre class="codeinput">alm0 = deg2rad(30); almf = deg2rad(-120);
+Vm = 300; <span class="comment">% m/s</span>
+R0 = 5000; Th0 = deg2rad(0);
+
+initCond = [R0; Th0; alm0; 0; 0; R0 * cos(Th0); R0 * sin(Th0)];
+simTime = [0, 50];
+solverOptions =  odeset(<span class="string">'Event'</span>, @terminate_intg, <span class="string">'AbsTol'</span>, 1.0e-8, <span class="string">'RelTol'</span>, 1.0e-6, <span class="string">'Refine'</span>, 5);
+
+<span class="comment">% *************************************************************************</span>
+
+
+<span class="comment">% Solve equations of motion using orientation switching guidance</span>
+[tsol1, ysol1, evT1, evS1, seq1] = ode45(@(t, y) p3state(t, y, Vm, alm0, almf, Th0), simTime, initCond, solverOptions);
+
+<span class="comment">% Solve equations of motion using classical PNG</span>
+[tsol2, ysol2, evT2, evS2, seq2] = ode45(@(t, y) p2state(t, y, 1.25, Vm), simTime, initCond, solverOptions);
+
+
+<span class="comment">% Parameter calculations</span>
+
+Am1 = zeros(length(tsol1), 1);
+<span class="keyword">for</span> index = 1:length(tsol1)
+    deriv = p3state(tsol1(index), ysol1(index, :), Vm, alm0, almf, Th0);
+    Am1(index) = Vm * deriv(3);
+<span class="keyword">end</span>
+
+Am2 = zeros(length(tsol2), 1);
+<span class="keyword">for</span> index = 1:length(tsol2)
+    deriv = p2state(tsol2(index), ysol2(index, :), 1.25, Vm);
+    Am2(index) = Vm * deriv(3);
+<span class="keyword">end</span>
+</pre>
+        <h2 id="3">Vehicle Trajectories with LOS Shots</h2>
+        <p>Missile Target Engagement Simulation</p>
+        <pre class="codeinput">figure; fig = gcf; fig.Name = <span class="string">'Trajectories'</span>; fig.Color = <span class="string">'White'</span>; fig.WindowStyle = <span class="string">'normal'</span>; fig.WindowState = <span class="string">'maximized'</span>;
+ax = axes(fig);
+hold <span class="string">on</span>;
+
+plot(ax, ysol1(:, 4), ysol1(:, 5), <span class="string">'--b'</span>, <span class="string">'LineWidth'</span>, 2); <span class="comment">% Orientation Switching</span>
+plot(ax, ysol2(:, 4), ysol2(:, 5), <span class="string">':k'</span>, <span class="string">'LineWidth'</span>, 2); <span class="comment">% Classical PNG</span>
+
+hold <span class="string">off</span>;
+legend(<span class="string">'Orientation Switching'</span>, <span class="string">'Classical PNG with N = 1.25'</span>, <span class="string">'Location'</span>, <span class="string">'best'</span>);
+xlabel(<span class="string">'X-axis distance in metres'</span>);
+ylabel(<span class="string">'Y-axis distance in metres'</span>);
+
+grid <span class="string">on</span>; grid <span class="string">minor</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_01.png" alt="">
+        <h2 id="4">1.2) Lateral Acceleration profile</h2>
+        <pre class="codeinput">figure; fig = gcf; fig.Name = <span class="string">'Am'</span>; fig.Color = <span class="string">'White'</span>; fig.WindowStyle = <span class="string">'normal'</span>; fig.WindowState = <span class="string">'maximized'</span>;
+ax = axes(fig);
+
+plot(ax, tsol1, Am1, tsol2, Am2);
+xlabel(<span class="string">'Time instant of engagement (sec)'</span>);
+ylabel(<span class="string">'Magnitude of Lateral Acceleration $(m/s^2)$'</span>);
+ylim([alrmin(Am1), alrmax(Am1)]);
+legend(<span class="string">'Orientation Switching'</span>, <span class="string">'Classical PNG with N = 1.25'</span>, <span class="string">'Location'</span>, <span class="string">'best'</span>);
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_02.png" alt="">
+        <h2 id="5">1.3) (Alpha_Mf - Alpha_M)/(Theta_f - Theta) profile</h2>
+        <pre class="codeinput">condition1 = (almf - ysol1(:, 3)) ./ (almf - ysol1(:, 2));
+
+fig = figure; fig.Name = <span class="string">'Am'</span>; fig.Color = <span class="string">'White'</span>; fig.WindowStyle = <span class="string">'normal'</span>; fig.WindowState = <span class="string">'maximized'</span>;
+ax5 = axes(fig);
+
+plot(ax5, tsol1, condition1, <span class="string">'-.b'</span>);
+xlabel(ax5, <span class="string">'Time instant of engagement (sec)'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_03.png" alt="">
+        <p>
+            <h1> Case 2 Simulation - Constant Speed Missile with multiple impact angles </h1>
+        </p>
+        <pre class="codeinput"><span class="comment">% Setup plot settings</span>
+set(groot, <span class="string">'DefaultFigureVisible'</span>, <span class="string">'off'</span>, <span class="string">'DefaultFigureWindowStyle'</span>, <span class="string">'normal'</span>, <span class="string">'DefaultFigureWindowState'</span>, <span class="string">'maximized'</span>);
+
+<span class="comment">% Plot windows ----------------------------</span>
+
+fig3 = figure; fig3.Name = <span class="string">'Trajectories'</span>; fig3.Color = <span class="string">'White'</span>; fig3.WindowStyle = <span class="string">'normal'</span>; fig3.WindowState = <span class="string">'maximized'</span>;
+ax3 = axes(fig3); hold(ax3, <span class="string">'on'</span>);
+xlabel(ax3, <span class="string">'X-axis distance in metres'</span>); ylabel(ax3, <span class="string">'Y-axis distance in metres'</span>);
+grid(ax3, <span class="string">'on'</span>); grid(ax3, <span class="string">'minor'</span>)
+ax3.XAxisLocation = <span class="string">'origin'</span>;
+ax3.YAxisLocation = <span class="string">'origin'</span>;
+
+<span class="comment">% *************************************************************************</span>
+
+fig4 = figure; fig4.Name = <span class="string">'Am'</span>; fig4.Color = <span class="string">'White'</span>; fig4.WindowStyle = <span class="string">'normal'</span>; fig4.WindowState = <span class="string">'maximized'</span>;
+ax4 = axes(fig4); hold(ax4, <span class="string">'on'</span>);
+xlabel(<span class="string">'Time instant of engagement (sec)'</span>);
+ylabel(<span class="string">'Magnitude of Lateral Acceleration $(m/s^2)$'</span>);
+ax4.XAxisLocation = <span class="string">'origin'</span>;
+ax4.YAxisLocation = <span class="string">'origin'</span>;
+
+<span class="comment">% *************************************************************************</span>
+
+<span class="keyword">for</span> almf = each(deg2rad([-60, -90, -120, -150, -180]))
+
+    <span class="comment">% Solve equations of motion using orientation switching guidance</span>
+    [tsol, ysol, evT, evS, seq] = ode45(@(t, y) p3state(t, y, Vm, alm0, almf, Th0), simTime, initCond, solverOptions);
+
+    Am = zeros(length(tsol), 1);
+    <span class="keyword">for</span> index = 1:length(tsol)
+        deriv = p3state(tsol(index), ysol(index, :), Vm, alm0, almf, Th0);
+        Am(index) = Vm * deriv(3);
+    <span class="keyword">end</span>
+
+
+
+    plot(ax3, ysol(:, 4), ysol(:, 5), <span class="string">'DisplayName'</span>, [<span class="string">'\alpha_{mf} = '</span>, num2str(rad2deg(almf)), <span class="string">''</span>], <span class="string">'LineWidth'</span>, 2); <span class="comment">% Orientation Switching</span>
+
+
+
+    plot(ax4, tsol, Am, <span class="string">'DisplayName'</span>, [<span class="string">'\alpha_{mf} = '</span>, num2str(rad2deg(almf))]);
+
+<span class="keyword">end</span>
+
+hold(ax3, <span class="string">'off'</span>); hold(ax4, <span class="string">'off'</span>);
+legend(ax3, <span class="string">'Location'</span>, <span class="string">'northwest'</span>); legend(ax4, <span class="string">'Location'</span>, <span class="string">'best'</span>);
+</pre>
+        <h2 id="7">Vehicle Trajectories with LOS Shots</h2>
+        <pre class="codeinput">fig3.Visible = <span class="string">'on'</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_04.png" alt="">
+        <h2 id="8">1.2) Lateral Acceleration profile</h2>
+        <pre class="codeinput">fig4.Visible = <span class="string">'on'</span>;
+snapnow;
+
+clear;
+</pre><img vspace="5" hspace="5" src="p3Solution_05.png" alt="">
+        <p>
+            <h1> Realistic Simulation of Problem 3</h1>p5solution.m
+        </p>
+        <p>
+            <h1> Case 1 Simulation - Real Missile with impact angle -120 degrees </h1>
+        </p>
+        <h2 id="11">Equations of Motion</h2>
+        <p>Solve non-linear M-T kinematics</p>
+        <pre class="codeinput">alm0 = deg2rad(30);  almf = deg2rad(-120);
+Vm0 = 300; <span class="comment">% m/s</span>
+R0 = 5000; Th0 = deg2rad(0);
+
+initCond = [R0; Th0; alm0; 0; 0; Vm0; R0 * cos(Th0); R0 * sin(Th0)];
+simTime = [0, 50];
+
+initCond2 = [R0; Th0; alm0; 0; 0; R0 * cos(Th0); R0 * sin(Th0)];
+solverOptions =  odeset(<span class="string">'Event'</span>, @terminate_intg, <span class="string">'AbsTol'</span>, 1.0e-8, <span class="string">'RelTol'</span>, 1.0e-6, <span class="string">'Refine'</span>, 5);
+<span class="comment">% *************************************************************************</span>
+
+
+<span class="comment">% Solve equations of motion using orientation switching guidance</span>
+[tsol1, ysol1, evT1, evS1, seq1] = ode45(@(t, y) p5state(t, y, almf), simTime, initCond, solverOptions);
+
+<span class="comment">% Solve equations of motion using classical PNG</span>
+[tsol2, ysol2, evT2, evS2, seq2] = ode45(@(t, y) p2state(t, y, 1.25, Vm0), simTime, initCond2, solverOptions);
+
+
+<span class="comment">% Parameter calculations</span>
+
+Am1 = zeros(length(tsol1), 1);
+<span class="keyword">for</span> index = 1:length(tsol1)
+    deriv = p5state(tsol1(index), ysol1(index, :), almf);
+    Am1(index) = ysol1(index, 6) * deriv(3);
+<span class="keyword">end</span>
+
+Am2 = zeros(length(tsol2), 1);
+<span class="keyword">for</span> index = 1:length(tsol2)
+    deriv = p2state(tsol2(index), ysol2(index, :), 1.25, Vm0);
+    Am2(index) = Vm0 * deriv(3);
+<span class="keyword">end</span>
+
+set(groot, <span class="string">'DefaultFigureVisible'</span>, <span class="string">'on'</span>);
+</pre>
+        <h2 id="12">Vehicle Trajectories with LOS Shots</h2>
+        <p>Missile Target Engagement Simulation</p>
+        <pre class="codeinput">figure; fig = gcf; fig.Name = <span class="string">'Trajectories'</span>; fig.Color = <span class="string">'White'</span>; fig.WindowStyle = <span class="string">'normal'</span>; fig.WindowState = <span class="string">'maximized'</span>;
+ax = axes(fig);
+hold <span class="string">on</span>;
+
+plot(ax, ysol1(:, 4), ysol1(:, 5), <span class="string">'--b'</span>, <span class="string">'LineWidth'</span>, 2); <span class="comment">% Orientation Switching</span>
+plot(ax, ysol2(:, 4), ysol2(:, 5), <span class="string">':k'</span>, <span class="string">'LineWidth'</span>, 2); <span class="comment">% Classical PNG</span>
+
+hold <span class="string">off</span>;
+legend(<span class="string">'Orientation Switching'</span>, <span class="string">'Classical PNG with N = 1.25'</span>, <span class="string">'Location'</span>, <span class="string">'best'</span>);
+xlabel(<span class="string">'X-axis distance in metres'</span>);
+ylabel(<span class="string">'Y-axis distance in metres'</span>);
+
+grid <span class="string">on</span>; grid <span class="string">minor</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_06.png" alt="">
+        <h2 id="13">1.2) Lateral Acceleration profile</h2>
+        <pre class="codeinput">figure; fig = gcf; fig.Name = <span class="string">'Am'</span>; fig.Color = <span class="string">'White'</span>; fig.WindowStyle = <span class="string">'normal'</span>; fig.WindowState = <span class="string">'maximized'</span>;
+ax= gca;
+
+plot(ax, tsol1, Am1, tsol2, Am2);
+xlabel(<span class="string">'Time instant of engagement (sec)'</span>);
+ylabel(<span class="string">'Magnitude of Lateral Acceleration $(m/s^2)$'</span>);
+ylim([alrmin(Am1), alrmax(Am1)]);
+legend(<span class="string">'Orientation Switching'</span>, <span class="string">'Classical PNG with N = 1.25'</span>, <span class="string">'Location'</span>, <span class="string">'best'</span>);
+ax.XAxisLocation = <span class="string">'origin'</span>;
+ax.YAxisLocation = <span class="string">'origin'</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_07.png" alt="">
+        <h2 id="14">1.3) (Alpha_Mf - Alpha_M)/(Theta_f - Theta) profile</h2>
+        <pre class="codeinput">condition1 = (almf - ysol1(:, 3)) ./ (almf - ysol1(:, 2));
+
+fig = figure; fig.Name = <span class="string">'flag'</span>; fig.Color = <span class="string">'White'</span>; fig.WindowStyle = <span class="string">'normal'</span>; fig.WindowState = <span class="string">'maximized'</span>;
+ax5 = axes(fig);
+
+plot(ax5, tsol1, condition1, <span class="string">'-.b'</span>);
+xlabel(ax5, <span class="string">'Time instant of engagement (sec)'</span>);
+ylabel(ax5, <span class="string">'$\frac{\alpha_{Mf} - \alpha_M(t)}{\theta_f - \theta(t)}$'</span>);
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_08.png" alt="">
+        <p>
+            <h1> Case 2 Simulation - Real Missile with multiple impact angles </h1>
+        </p>
+        <pre class="codeinput">set(groot, <span class="string">'DefaultFigureVisible'</span>, <span class="string">'off'</span>);
+
+
+<span class="comment">% Plot windows ----------------------------</span>
+
+fig1 = figure; fig1.Name = <span class="string">'Trajectories'</span>; fig1.Color = <span class="string">'White'</span>; fig1.WindowStyle = <span class="string">'normal'</span>; fig1.WindowState = <span class="string">'maximized'</span>;
+ax1 = axes(fig1); hold(ax1, <span class="string">'on'</span>);
+xlabel(ax1, <span class="string">'X-axis distance in metres'</span>); ylabel(ax1, <span class="string">'Y-axis distance in metres'</span>);
+grid(ax1, <span class="string">'on'</span>); grid(ax1, <span class="string">'minor'</span>)
+ax1.XAxisLocation = <span class="string">'origin'</span>;
+ax1.YAxisLocation = <span class="string">'origin'</span>;
+
+<span class="comment">% *************************************************************************</span>
+
+fig2 = figure; fig2.Name = <span class="string">'Am'</span>; fig2.Color = <span class="string">'White'</span>; fig2.WindowStyle = <span class="string">'normal'</span>; fig2.WindowState = <span class="string">'maximized'</span>;
+ax2 = axes(fig2); hold(ax2, <span class="string">'on'</span>);
+xlabel(<span class="string">'Time instant of engagement (sec)'</span>);
+ylabel(<span class="string">'Magnitude of Lateral Acceleration $(m/s^2)$'</span>);
+grid(ax2, <span class="string">'on'</span>); grid(ax2, <span class="string">'minor'</span>)
+ax2.XAxisLocation = <span class="string">'origin'</span>;
+ax2.YAxisLocation = <span class="string">'origin'</span>;
+
+<span class="comment">% *************************************************************************</span>
+
+fig3 = figure; fig3.Name = <span class="string">'Vm'</span>; fig3.Color = <span class="string">'White'</span>; fig3.WindowStyle = <span class="string">'normal'</span>; fig3.WindowState = <span class="string">'maximized'</span>;
+ax3 = axes(fig3); hold(ax3, <span class="string">'on'</span>);
+xlabel(<span class="string">'Time instant of engagement (sec)'</span>);
+ylabel(<span class="string">'Missile Velocity $(m/s)$'</span>);
+grid(ax3, <span class="string">'on'</span>); grid(ax3, <span class="string">'minor'</span>)
+ax3.XAxisLocation = <span class="string">'origin'</span>;
+ax3.YAxisLocation = <span class="string">'origin'</span>;
+
+
+<span class="keyword">for</span> almf = each(deg2rad([-60, -90, -120, -150, -180]))
+
+    <span class="comment">% Solve equations of motion using orientation switching guidance</span>
+    [tsol, ysol, evT, evS, seq] = ode45(@(t, y) p5state(t, y, almf), simTime, initCond, solverOptions);
+
+
+    <span class="comment">% Parameter calculations</span>
+
+    Am = zeros(length(tsol), 1);
+    <span class="keyword">for</span> index = 1:length(tsol)
+        deriv = p5state(tsol(index), ysol(index, :), almf);
+        Am(index) = ysol(index, 6) * deriv(3);
+    <span class="keyword">end</span>
+
+
+    plot(ax1, ysol(:, 4), ysol(:, 5), <span class="string">'DisplayName'</span>, [<span class="string">'\alpha_{mf} = '</span>, num2str(rad2deg(almf)), <span class="string">''</span>], <span class="string">'LineWidth'</span>, 2); <span class="comment">% Orientation Switching</span>
+
+
+    plot(ax2, tsol, Am, <span class="string">'DisplayName'</span>, [<span class="string">'\alpha_{mf} = '</span>, num2str(rad2deg(almf))]);
+
+
+    plot(ax3, tsol, ysol(:, 6), <span class="string">'DisplayName'</span>, [<span class="string">'\alpha_{mf} = '</span>, num2str(rad2deg(almf))]);
+
+<span class="keyword">end</span>
+
+hold(ax1, <span class="string">'off'</span>); hold(ax2, <span class="string">'off'</span>); hold(ax3, <span class="string">'off'</span>);
+legend(ax1, <span class="string">'Location'</span>, <span class="string">'northwest'</span>); legend(ax2, <span class="string">'Location'</span>, <span class="string">'best'</span>); legend(ax3, <span class="string">'Location'</span>, <span class="string">'best'</span>);
+</pre>
+        <h2 id="16">Vehicle Trajectories with LOS Shots</h2>
+        <pre class="codeinput">fig1.Visible = <span class="string">'on'</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_09.png" alt="">
+        <h2 id="17">1.2) Lateral Acceleration profile</h2>
+        <pre class="codeinput">fig2.Visible = <span class="string">'on'</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_10.png" alt="">
+        <h2 id="18">1.2) Missile Velocity profile</h2>
+        <pre class="codeinput">fig3.Visible = <span class="string">'on'</span>;
+snapnow;
+</pre><img vspace="5" hspace="5" src="p3Solution_11.png" alt="">
+        <h2 id="19">Clean Up</h2>
+        <pre class="codeinput">clear;
+set(groot, <span class="string">'DefaultFigureVisible'</span>, <span class="string">'on'</span>);
+</pre>
+        <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p>
+    </div>
+    <!--
+##### SOURCE BEGIN #####
+%% Assignment 3 Problem 3 and Problem 5 Part 1
+%  Constant Speed Missile Model - Simulations from Impact Angle Constrained Interception of Stationary Targets
+
+%%
+%
+% <html>
+% <h1> Case 1 Simulation - Constant Speed Missile with impact angle -120 degrees </h1>
+% </html>
+%
+
+
+%% Equations of Motion
+% Solve non-linear M-T kinematics
+
+
+alm0 = deg2rad(30); almf = deg2rad(-120);
+Vm = 300; % m/s
+R0 = 5000; Th0 = deg2rad(0);
+
+initCond = [R0; Th0; alm0; 0; 0; R0 * cos(Th0); R0 * sin(Th0)];
+simTime = [0, 50];
+solverOptions =  odeset('Event', @terminate_intg, 'AbsTol', 1.0e-8, 'RelTol', 1.0e-6, 'Refine', 5);
+
+% *************************************************************************
+
+
+% Solve equations of motion using orientation switching guidance
+[tsol1, ysol1, evT1, evS1, seq1] = ode45(@(t, y) p3state(t, y, Vm, alm0, almf, Th0), simTime, initCond, solverOptions);
+
+% Solve equations of motion using classical PNG
+[tsol2, ysol2, evT2, evS2, seq2] = ode45(@(t, y) p2state(t, y, 1.25, Vm), simTime, initCond, solverOptions);
+
+
+% Parameter calculations
+
+Am1 = zeros(length(tsol1), 1);
+for index = 1:length(tsol1)
+    deriv = p3state(tsol1(index), ysol1(index, :), Vm, alm0, almf, Th0);
+    Am1(index) = Vm * deriv(3);
+end
+
+Am2 = zeros(length(tsol2), 1);
+for index = 1:length(tsol2)
+    deriv = p2state(tsol2(index), ysol2(index, :), 1.25, Vm);
+    Am2(index) = Vm * deriv(3);
+end
+
+%% Vehicle Trajectories with LOS Shots
+% Missile Target Engagement Simulation
+
+figure; fig = gcf; fig.Name = 'Trajectories'; fig.Color = 'White'; fig.WindowStyle = 'normal'; fig.WindowState = 'maximized';
+ax = axes(fig);
+hold on;
+
+plot(ax, ysol1(:, 4), ysol1(:, 5), 'REPLACE_WITH_DASH_DASHb', 'LineWidth', 2); % Orientation Switching
+plot(ax, ysol2(:, 4), ysol2(:, 5), ':k', 'LineWidth', 2); % Classical PNG
+
+hold off;
+legend('Orientation Switching', 'Classical PNG with N = 1.25', 'Location', 'best');
+xlabel('X-axis distance in metres');
+ylabel('Y-axis distance in metres');
+
+grid on; grid minor;
+snapnow;
+
+%% 1.2) Lateral Acceleration profile
+
+figure; fig = gcf; fig.Name = 'Am'; fig.Color = 'White'; fig.WindowStyle = 'normal'; fig.WindowState = 'maximized';
+ax = axes(fig);
+
+plot(ax, tsol1, Am1, tsol2, Am2);
+xlabel('Time instant of engagement (sec)');
+ylabel('Magnitude of Lateral Acceleration $(m/s^2)$');
+ylim([alrmin(Am1), alrmax(Am1)]);
+legend('Orientation Switching', 'Classical PNG with N = 1.25', 'Location', 'best');
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+snapnow;
+
+%% 1.3) (Alpha_Mf - Alpha_M)/(Theta_f - Theta) profile
+
+condition1 = (almf - ysol1(:, 3)) ./ (almf - ysol1(:, 2));
+
+fig = figure; fig.Name = 'Am'; fig.Color = 'White'; fig.WindowStyle = 'normal'; fig.WindowState = 'maximized';
+ax5 = axes(fig);
+
+plot(ax5, tsol1, condition1, '-.b');
+xlabel(ax5, 'Time instant of engagement (sec)');
+snapnow;
+
+%%
+%
+% <html>
+% <h1> Case 2 Simulation - Constant Speed Missile with multiple impact angles </h1>
+% </html>
+%
+
+% Setup plot settings
+set(groot, 'DefaultFigureVisible', 'off', 'DefaultFigureWindowStyle', 'normal', 'DefaultFigureWindowState', 'maximized');
+
+% Plot windows REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+fig3 = figure; fig3.Name = 'Trajectories'; fig3.Color = 'White'; fig3.WindowStyle = 'normal'; fig3.WindowState = 'maximized';
+ax3 = axes(fig3); hold(ax3, 'on');
+xlabel(ax3, 'X-axis distance in metres'); ylabel(ax3, 'Y-axis distance in metres');
+grid(ax3, 'on'); grid(ax3, 'minor')
+ax3.XAxisLocation = 'origin';
+ax3.YAxisLocation = 'origin';
+
+% *************************************************************************
+
+fig4 = figure; fig4.Name = 'Am'; fig4.Color = 'White'; fig4.WindowStyle = 'normal'; fig4.WindowState = 'maximized';
+ax4 = axes(fig4); hold(ax4, 'on');
+xlabel('Time instant of engagement (sec)');
+ylabel('Magnitude of Lateral Acceleration $(m/s^2)$');
+ax4.XAxisLocation = 'origin';
+ax4.YAxisLocation = 'origin';
+
+% *************************************************************************
+
+for almf = each(deg2rad([-60, -90, -120, -150, -180]))
+
+    % Solve equations of motion using orientation switching guidance
+    [tsol, ysol, evT, evS, seq] = ode45(@(t, y) p3state(t, y, Vm, alm0, almf, Th0), simTime, initCond, solverOptions);
+
+    Am = zeros(length(tsol), 1);
+    for index = 1:length(tsol)
+        deriv = p3state(tsol(index), ysol(index, :), Vm, alm0, almf, Th0);
+        Am(index) = Vm * deriv(3);
+    end
+
+
+
+    plot(ax3, ysol(:, 4), ysol(:, 5), 'DisplayName', ['\alpha_{mf} = ', num2str(rad2deg(almf)), ''], 'LineWidth', 2); % Orientation Switching
+
+
+
+    plot(ax4, tsol, Am, 'DisplayName', ['\alpha_{mf} = ', num2str(rad2deg(almf))]);
+
+end
+
+hold(ax3, 'off'); hold(ax4, 'off');
+legend(ax3, 'Location', 'northwest'); legend(ax4, 'Location', 'best');
+
+
+%% Vehicle Trajectories with LOS Shots
+%
+
+fig3.Visible = 'on';
+snapnow;
+
+%% 1.2) Lateral Acceleration profile
+
+fig4.Visible = 'on';
+snapnow;
+
+clear;
+
+%%
+%
+% <html>
+% <h1> Realistic Simulation of Problem 3</h1>p5solution.m
+% </html>
+%
+
+%%
+%
+% <html>
+% <h1> Case 1 Simulation - Real Missile with impact angle -120 degrees </h1>
+% </html>
+%
+
+%% Equations of Motion
+% Solve non-linear M-T kinematics
+
+alm0 = deg2rad(30);  almf = deg2rad(-120);
+Vm0 = 300; % m/s
+R0 = 5000; Th0 = deg2rad(0);
+
+initCond = [R0; Th0; alm0; 0; 0; Vm0; R0 * cos(Th0); R0 * sin(Th0)];
+simTime = [0, 50];
+
+initCond2 = [R0; Th0; alm0; 0; 0; R0 * cos(Th0); R0 * sin(Th0)];
+solverOptions =  odeset('Event', @terminate_intg, 'AbsTol', 1.0e-8, 'RelTol', 1.0e-6, 'Refine', 5);
+% *************************************************************************
+
+
+% Solve equations of motion using orientation switching guidance
+[tsol1, ysol1, evT1, evS1, seq1] = ode45(@(t, y) p5state(t, y, almf), simTime, initCond, solverOptions);
+
+% Solve equations of motion using classical PNG
+[tsol2, ysol2, evT2, evS2, seq2] = ode45(@(t, y) p2state(t, y, 1.25, Vm0), simTime, initCond2, solverOptions);
+
+
+% Parameter calculations
+
+Am1 = zeros(length(tsol1), 1);
+for index = 1:length(tsol1)
+    deriv = p5state(tsol1(index), ysol1(index, :), almf);
+    Am1(index) = ysol1(index, 6) * deriv(3);
+end
+
+Am2 = zeros(length(tsol2), 1);
+for index = 1:length(tsol2)
+    deriv = p2state(tsol2(index), ysol2(index, :), 1.25, Vm0);
+    Am2(index) = Vm0 * deriv(3);
+end
+
+set(groot, 'DefaultFigureVisible', 'on');
+
+%% Vehicle Trajectories with LOS Shots
+% Missile Target Engagement Simulation
+
+figure; fig = gcf; fig.Name = 'Trajectories'; fig.Color = 'White'; fig.WindowStyle = 'normal'; fig.WindowState = 'maximized';
+ax = axes(fig);
+hold on;
+
+plot(ax, ysol1(:, 4), ysol1(:, 5), 'REPLACE_WITH_DASH_DASHb', 'LineWidth', 2); % Orientation Switching
+plot(ax, ysol2(:, 4), ysol2(:, 5), ':k', 'LineWidth', 2); % Classical PNG
+
+hold off;
+legend('Orientation Switching', 'Classical PNG with N = 1.25', 'Location', 'best');
+xlabel('X-axis distance in metres');
+ylabel('Y-axis distance in metres');
+
+grid on; grid minor;
+snapnow;
+
+%% 1.2) Lateral Acceleration profile
+
+figure; fig = gcf; fig.Name = 'Am'; fig.Color = 'White'; fig.WindowStyle = 'normal'; fig.WindowState = 'maximized';
+ax= gca;
+
+plot(ax, tsol1, Am1, tsol2, Am2);
+xlabel('Time instant of engagement (sec)');
+ylabel('Magnitude of Lateral Acceleration $(m/s^2)$');
+ylim([alrmin(Am1), alrmax(Am1)]);
+legend('Orientation Switching', 'Classical PNG with N = 1.25', 'Location', 'best');
+ax.XAxisLocation = 'origin';
+ax.YAxisLocation = 'origin';
+snapnow;
+
+
+%% 1.3) (Alpha_Mf - Alpha_M)/(Theta_f - Theta) profile
+
+condition1 = (almf - ysol1(:, 3)) ./ (almf - ysol1(:, 2));
+
+fig = figure; fig.Name = 'flag'; fig.Color = 'White'; fig.WindowStyle = 'normal'; fig.WindowState = 'maximized';
+ax5 = axes(fig);
+
+plot(ax5, tsol1, condition1, '-.b');
+xlabel(ax5, 'Time instant of engagement (sec)');
+ylabel(ax5, '$\frac{\alpha_{Mf} - \alpha_M(t)}{\theta_f - \theta(t)}$');
+snapnow;
+
+
+%%
+%
+% <html>
+% <h1> Case 2 Simulation - Real Missile with multiple impact angles </h1>
+% </html>
+%
+
+set(groot, 'DefaultFigureVisible', 'off');
+
+
+% Plot windows REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+
+fig1 = figure; fig1.Name = 'Trajectories'; fig1.Color = 'White'; fig1.WindowStyle = 'normal'; fig1.WindowState = 'maximized';
+ax1 = axes(fig1); hold(ax1, 'on');
+xlabel(ax1, 'X-axis distance in metres'); ylabel(ax1, 'Y-axis distance in metres');
+grid(ax1, 'on'); grid(ax1, 'minor')
+ax1.XAxisLocation = 'origin';
+ax1.YAxisLocation = 'origin';
+
+% *************************************************************************
+
+fig2 = figure; fig2.Name = 'Am'; fig2.Color = 'White'; fig2.WindowStyle = 'normal'; fig2.WindowState = 'maximized';
+ax2 = axes(fig2); hold(ax2, 'on');
+xlabel('Time instant of engagement (sec)');
+ylabel('Magnitude of Lateral Acceleration $(m/s^2)$');
+grid(ax2, 'on'); grid(ax2, 'minor')
+ax2.XAxisLocation = 'origin';
+ax2.YAxisLocation = 'origin';
+
+% *************************************************************************
+
+fig3 = figure; fig3.Name = 'Vm'; fig3.Color = 'White'; fig3.WindowStyle = 'normal'; fig3.WindowState = 'maximized';
+ax3 = axes(fig3); hold(ax3, 'on');
+xlabel('Time instant of engagement (sec)');
+ylabel('Missile Velocity $(m/s)$');
+grid(ax3, 'on'); grid(ax3, 'minor')
+ax3.XAxisLocation = 'origin';
+ax3.YAxisLocation = 'origin';
+
+
+for almf = each(deg2rad([-60, -90, -120, -150, -180]))
+
+    % Solve equations of motion using orientation switching guidance
+    [tsol, ysol, evT, evS, seq] = ode45(@(t, y) p5state(t, y, almf), simTime, initCond, solverOptions);
+
+
+    % Parameter calculations
+
+    Am = zeros(length(tsol), 1);
+    for index = 1:length(tsol)
+        deriv = p5state(tsol(index), ysol(index, :), almf);
+        Am(index) = ysol(index, 6) * deriv(3);
+    end
+
+
+    plot(ax1, ysol(:, 4), ysol(:, 5), 'DisplayName', ['\alpha_{mf} = ', num2str(rad2deg(almf)), ''], 'LineWidth', 2); % Orientation Switching
+
+
+    plot(ax2, tsol, Am, 'DisplayName', ['\alpha_{mf} = ', num2str(rad2deg(almf))]);
+
+
+    plot(ax3, tsol, ysol(:, 6), 'DisplayName', ['\alpha_{mf} = ', num2str(rad2deg(almf))]);
+
+end
+
+hold(ax1, 'off'); hold(ax2, 'off'); hold(ax3, 'off');
+legend(ax1, 'Location', 'northwest'); legend(ax2, 'Location', 'best'); legend(ax3, 'Location', 'best');
+
+%% Vehicle Trajectories with LOS Shots
+%
+
+fig1.Visible = 'on';
+snapnow;
+
+%% 1.2) Lateral Acceleration profile
+
+fig2.Visible = 'on';
+snapnow;
+
+%% 1.2) Missile Velocity profile
+
+fig3.Visible = 'on';
+snapnow;
+
+
+
+%% Clean Up
+
+clear;
+set(groot, 'DefaultFigureVisible', 'on');
+
+##### SOURCE END #####
+-->
+</body>
+
+</html>

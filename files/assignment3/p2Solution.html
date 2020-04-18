@@ -1,0 +1,487 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Assignment 3 Problem 2</title><meta name="generator" content="MATLAB 9.8"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-04-18"><meta name="DC.source" content="p2Solution.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Assignment 3 Problem 2</h1><!--introduction--><pre>Missile intercepting a stationary target with Pure Proportional Navigation.</pre><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Equations of Motion</a></li><li><a href="#5">Case 1: N = 1</a></li><li><a href="#6">Case 2: N = 2</a></li><li><a href="#7">Case 3: N = 3</a></li></ul></div><h2 id="1">Equations of Motion</h2><p><img src="p2Solution_eq14850734809178507426.png" alt="$$\dot{R} = - V_M \cdot cos(\alpha_M - \theta) $$"></p><p><img src="p2Solution_eq09237429040288310834.png" alt="$$ \dot{\theta} = \frac{-V_M \cdot sin(\alpha_M - \theta)}{R} $$"></p><p>
+<h1> Solutions of all cases and data generation. </h1>
+</p><pre class="codeinput"><span class="comment">% Setup plot settings</span>
+clear;
+set(groot, <span class="string">'DefaultFigureVisible'</span>, <span class="string">'off'</span>, <span class="string">'DefaultFigureWindowStyle'</span>, <span class="string">'normal'</span>, <span class="string">'DefaultFigureWindowState'</span>, <span class="string">'maximized'</span>);
+plots.gains = [1, 2, 3]; plots.comp = 3;
+
+plots.numOfPlots = numel(plots.gains) *  plots.comp;
+plots.fig = gobjects(plots.numOfPlots, 1);
+
+index = 1; runcase = 1;
+missdistance = cell(3, 1);
+impact_angles = cell(3, 1);
+
+
+<span class="comment">% Setup problem conditions</span>
+alM0 = deg2rad(60);
+Vm = 400; <span class="comment">% m/s</span>
+R0 = 5000; Th0 = deg2rad(0);
+
+initCond = [R0; Th0; alM0; 0; 0; R0 * cos(Th0); R0 * sin(Th0)];
+simTime = [0, 50];
+solverOptions =  odeset(<span class="string">'Event'</span>, @terminate_intgp2, <span class="string">'AbsTol'</span>, 1.0e-8, <span class="string">'RelTol'</span>, 1.0e-6, <span class="string">'Refine'</span>, 5);
+
+
+<span class="keyword">for</span> N = each(plots.gains)
+
+    <span class="comment">% 1.0) Solution of Equations of Motion</span>
+
+    [tsol, ysol, evT, evS, seq] = ode45(@(t, y) p2state(t, y, N, Vm), simTime, initCond, solverOptions);
+
+    <span class="comment">% Parameter calculations</span>
+    R = ysol(:, 1);
+    Theta = ysol(:, 2);
+    ThetaDeg = rad2deg(Theta);
+    AlphaM = ysol(:, 3);
+    ThetaDot = - Vm .* sin(AlphaM - Theta) ./ R;
+
+
+
+    <span class="comment">% 1.1) Vehicle Trajectories with LOS Shots</span>
+    plots.fig(index) = figure(<span class="string">'Name'</span>, <span class="string">'Trajectories'</span>, <span class="string">'Color'</span>, <span class="string">'White'</span>);
+
+    hold <span class="string">on</span>;
+
+    p1 = plot(ysol(:, 4), ysol(:, 5), <span class="string">'r'</span>, <span class="string">'LineWidth'</span>, 2); <span class="comment">% Missile Trajectory: Xm and Ym</span>
+    p2 = plot(ysol(:, 6), ysol(:, 7), <span class="string">'g'</span>, <span class="string">'LineWidth'</span>, 2); <span class="comment">% Target Trajectory: Xt and Yt</span>
+
+    <span class="comment">% LOS shots</span>
+    p3 = line([ysol(1, 4), ysol(1, 6)], [ysol(1, 5), ysol(1, 7)], <span class="string">'Color'</span>, <span class="string">'blue'</span>, <span class="string">'LineStyle'</span>, <span class="string">':'</span>, <span class="string">'Marker'</span>, <span class="string">'.'</span>,  <span class="string">'MarkerEdgeColor'</span>, <span class="string">'blue'</span>, <span class="string">'MarkerFaceColor'</span>, <span class="string">'none'</span>);
+    <span class="keyword">for</span> iter = 1:length(ysol(:, 3))
+        <span class="keyword">if</span>(mod(iter, 10) == 0)
+            line([ysol(iter, 4), ysol(iter, 6)], [ysol(iter, 5), ysol(iter, 7)],  <span class="string">'Color'</span>, <span class="string">'blue'</span>, <span class="string">'LineStyle'</span>, <span class="string">':'</span>,<span class="string">'Marker'</span>, <span class="string">'.'</span>, <span class="string">'MarkerEdgeColor'</span>, <span class="string">'blue'</span>, <span class="string">'MarkerFaceColor'</span>, <span class="string">'none'</span>);
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    hold <span class="string">off</span>;
+
+    xlabel(<span class="string">'X-axis distance in metres'</span>);
+    ylabel(<span class="string">'Y-axis distance in metres'</span>);
+    ylim([0, 1.1 * max(ysol(:, 5))]);
+    legend([p1, p2, p3], {<span class="string">'Missile Trajectory'</span>, <span class="string">'Target Trajectory'</span>, <span class="string">'Line-Of-Sight'</span>}, <span class="string">'Location'</span>, <span class="string">'northwest'</span>);
+    grid <span class="string">on</span>; grid <span class="string">minor</span>;
+
+
+    <span class="comment">% 1.2) Lateral Acceleration profile</span>
+
+    plots.fig(index + 1) = figure(<span class="string">'Name'</span>, <span class="string">'Am'</span>, <span class="string">'Color'</span>, <span class="string">'White'</span>);
+    axes(<span class="string">'Units'</span>, <span class="string">'normalized'</span>, <span class="string">'Position'</span>, [0.04 0.070 0.88 0.88]);
+
+    Am = N .* Vm .* ThetaDot; <span class="comment">% lateral acceleration</span>
+
+    plot(tsol(:), Am(:));
+    xlabel(<span class="string">'Time instant of engagement (sec)'</span>);
+    ylabel(<span class="string">'Magnitude of Lateral Acceleration $(m/s^2)$'</span>);
+
+
+    <span class="comment">% 1.3) Parameter Variations</span>
+
+    <span class="comment">% Plot results</span>
+    plots.fig(index + 2) = figure(<span class="string">'Name'</span>, <span class="string">'Results'</span>, <span class="string">'Color'</span>, <span class="string">'White'</span>);
+    axes(<span class="string">'Units'</span>, <span class="string">'normalized'</span>, <span class="string">'Position'</span>, [0.040 0.040 0.95 0.95]);
+
+    subplot(3, 2, 1);
+    plot(tsol, R);
+    xlabel(<span class="string">'Time in sec'</span>);
+    ylabel(<span class="string">'metres'</span>);
+    title(<span class="string">'LOS Separation R'</span>, <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    grid <span class="string">on</span>; grid <span class="string">minor</span>;
+
+    subplot(3, 2, 2);
+    plot(tsol, rad2deg(AlphaM));
+    xlabel(<span class="string">'Time in sec'</span>);
+    ylabel(<span class="string">'degrees'</span>);
+    title(<span class="string">'Missile Heading $\alpha_M$'</span>, <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    grid <span class="string">on</span>; grid <span class="string">minor</span>;
+
+    subplot(3, 2, 3);
+    plot(tsol, rad2deg(Theta));
+    xlabel(<span class="string">'Time in sec'</span>);
+    ylabel(<span class="string">'degrees'</span>);
+    title(<span class="string">'LOS Angle $\theta$'</span>, <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    grid <span class="string">on</span>; grid <span class="string">minor</span>;
+
+    subplot(3, 2, 4);
+    plot(tsol, rad2deg(ThetaDot));
+    xlabel(<span class="string">'Time in sec'</span>);
+    ylabel(<span class="string">'degrees/sec'</span>);
+    title(<span class="string">'LOS Anglular Rate $\dot{\theta}$'</span>, <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    grid <span class="string">on</span>; grid <span class="string">minor</span>;
+
+    subplot(3, 2, 5);
+    plot(tsol, rad2deg(AlphaM - Theta));
+    xlabel(<span class="string">'Time in sec'</span>);
+    ylabel(<span class="string">'degrees'</span>);
+    ytickformat(<span class="string">'%.1f'</span>)
+    title(<span class="string">'Look Angle/Heading Error $\sigma$'</span>, <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    grid <span class="string">on</span>; grid <span class="string">minor</span>;
+
+
+    <span class="comment">% 1.5) Miss Distance</span>
+
+    missdistance{runcase} = sprintf(<span class="string">'\n\tMiss Distance: %4.3f metres\n\n'</span>, min(R));
+
+    <span class="comment">% 1.6) Impact Angle</span>
+
+    angleMag = abs(rad2deg(Theta(end)));
+
+    <span class="keyword">if</span> min(R) &gt; 10
+        angleMag = NaN;
+    <span class="keyword">end</span>
+
+    impact_angles{runcase} = sprintf(<span class="string">'\n\tImpact Angle: %4.3f degrees\n\n'</span>, angleMag);
+
+    <span class="comment">% Increment plot index</span>
+    index = index + 3;
+    runcase = runcase + 1;
+<span class="keyword">end</span>
+</pre><p>
+<h1> Plots of all cases </h1>
+</p><h2 id="5">Case 1: N = 1</h2><pre class="codeinput">fprintf(missdistance{1});
+fprintf(impact_angles{1});
+
+index = 1;
+
+plots.fig(index).Visible = <span class="string">'on'</span>;
+plots.fig(index + 1).Visible = <span class="string">'on'</span>;
+plots.fig(index + 2).Visible = <span class="string">'on'</span>;
+snapnow;
+
+index = index + 3;
+</pre><pre class="codeoutput">
+	Miss Distance: 815.168 metres
+
+
+	Impact Angle:  NaN degrees
+
+</pre><img vspace="5" hspace="5" src="p2Solution_01.png" alt=""> <img vspace="5" hspace="5" src="p2Solution_02.png" alt=""> <img vspace="5" hspace="5" src="p2Solution_03.png" alt=""> <h2 id="6">Case 2: N = 2</h2><pre class="codeinput">fprintf(missdistance{2});
+fprintf(impact_angles{2});
+
+plots.fig(index).Visible = <span class="string">'on'</span>;
+plots.fig(index + 1).Visible = <span class="string">'on'</span>;
+plots.fig(index + 2).Visible = <span class="string">'on'</span>;
+snapnow;
+
+index = index + 3;
+</pre><pre class="codeoutput">
+	Miss Distance: 0.100 metres
+
+
+	Impact Angle: 59.999 degrees
+
+</pre><img vspace="5" hspace="5" src="p2Solution_04.png" alt=""> <img vspace="5" hspace="5" src="p2Solution_05.png" alt=""> <img vspace="5" hspace="5" src="p2Solution_06.png" alt=""> <h2 id="7">Case 3: N = 3</h2><pre class="codeinput">fprintf(missdistance{3});
+fprintf(impact_angles{3});
+
+plots.fig(index).Visible = <span class="string">'on'</span>;
+plots.fig(index + 1).Visible = <span class="string">'on'</span>;
+plots.fig(index + 2).Visible = <span class="string">'on'</span>;
+snapnow;
+
+index = index + 3;
+</pre><pre class="codeoutput">
+	Miss Distance: 0.100 metres
+
+
+	Impact Angle: 30.000 degrees
+
+</pre><img vspace="5" hspace="5" src="p2Solution_07.png" alt=""> <img vspace="5" hspace="5" src="p2Solution_08.png" alt=""> <img vspace="5" hspace="5" src="p2Solution_09.png" alt=""> <p>
+<h3> Perform Cleanup Tasks </h3>
+</p><pre class="codeinput">close <span class="string">all</span>;
+clear;
+set(groot, <span class="string">'DefaultFigureVisible'</span>, <span class="string">'on'</span>);
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Assignment 3 Problem 2
+%  Missile intercepting a stationary target with Pure Proportional Navigation.
+
+%% Equations of Motion
+%
+
+%%
+% 
+% $$\dot{R} = - V_M \cdot cos(\alpha_M - \theta) $$
+% 
+% $$ \dot{\theta} = \frac{-V_M \cdot sin(\alpha_M - \theta)}{R} $$
+% 
+
+
+%%
+% 
+% <html>
+% <h1> Solutions of all cases and data generation. </h1>
+% </html>
+% 
+
+% Setup plot settings
+clear;
+set(groot, 'DefaultFigureVisible', 'off', 'DefaultFigureWindowStyle', 'normal', 'DefaultFigureWindowState', 'maximized');
+plots.gains = [1, 2, 3]; plots.comp = 3;
+
+plots.numOfPlots = numel(plots.gains) *  plots.comp;
+plots.fig = gobjects(plots.numOfPlots, 1);
+
+index = 1; runcase = 1;
+missdistance = cell(3, 1);
+impact_angles = cell(3, 1);
+
+
+% Setup problem conditions
+alM0 = deg2rad(60);
+Vm = 400; % m/s
+R0 = 5000; Th0 = deg2rad(0);
+
+initCond = [R0; Th0; alM0; 0; 0; R0 * cos(Th0); R0 * sin(Th0)];
+simTime = [0, 50];
+solverOptions =  odeset('Event', @terminate_intgp2, 'AbsTol', 1.0e-8, 'RelTol', 1.0e-6, 'Refine', 5);
+
+
+for N = each(plots.gains)
+    
+    % 1.0) Solution of Equations of Motion
+    
+    [tsol, ysol, evT, evS, seq] = ode45(@(t, y) p2state(t, y, N, Vm), simTime, initCond, solverOptions);
+    
+    % Parameter calculations
+    R = ysol(:, 1);
+    Theta = ysol(:, 2);
+    ThetaDeg = rad2deg(Theta);
+    AlphaM = ysol(:, 3);
+    ThetaDot = - Vm .* sin(AlphaM - Theta) ./ R;
+    
+    
+    
+    % 1.1) Vehicle Trajectories with LOS Shots
+    plots.fig(index) = figure('Name', 'Trajectories', 'Color', 'White');
+    
+    hold on;
+    
+    p1 = plot(ysol(:, 4), ysol(:, 5), 'r', 'LineWidth', 2); % Missile Trajectory: Xm and Ym
+    p2 = plot(ysol(:, 6), ysol(:, 7), 'g', 'LineWidth', 2); % Target Trajectory: Xt and Yt
+    
+    % LOS shots
+    p3 = line([ysol(1, 4), ysol(1, 6)], [ysol(1, 5), ysol(1, 7)], 'Color', 'blue', 'LineStyle', ':', 'Marker', '.',  'MarkerEdgeColor', 'blue', 'MarkerFaceColor', 'none');
+    for iter = 1:length(ysol(:, 3))
+        if(mod(iter, 10) == 0)
+            line([ysol(iter, 4), ysol(iter, 6)], [ysol(iter, 5), ysol(iter, 7)],  'Color', 'blue', 'LineStyle', ':','Marker', '.', 'MarkerEdgeColor', 'blue', 'MarkerFaceColor', 'none');
+        end
+    end
+    
+    hold off;
+    
+    xlabel('X-axis distance in metres');
+    ylabel('Y-axis distance in metres');
+    ylim([0, 1.1 * max(ysol(:, 5))]);
+    legend([p1, p2, p3], {'Missile Trajectory', 'Target Trajectory', 'Line-Of-Sight'}, 'Location', 'northwest');
+    grid on; grid minor;
+    
+    
+    % 1.2) Lateral Acceleration profile
+    
+    plots.fig(index + 1) = figure('Name', 'Am', 'Color', 'White');
+    axes('Units', 'normalized', 'Position', [0.04 0.070 0.88 0.88]);
+    
+    Am = N .* Vm .* ThetaDot; % lateral acceleration
+    
+    plot(tsol(:), Am(:));
+    xlabel('Time instant of engagement (sec)');
+    ylabel('Magnitude of Lateral Acceleration $(m/s^2)$');
+    
+    
+    % 1.3) Parameter Variations
+    
+    % Plot results
+    plots.fig(index + 2) = figure('Name', 'Results', 'Color', 'White');
+    axes('Units', 'normalized', 'Position', [0.040 0.040 0.95 0.95]);
+    
+    subplot(3, 2, 1);
+    plot(tsol, R);
+    xlabel('Time in sec');
+    ylabel('metres');
+    title('LOS Separation R', 'Interpreter', 'latex');
+    grid on; grid minor;
+    
+    subplot(3, 2, 2);
+    plot(tsol, rad2deg(AlphaM));
+    xlabel('Time in sec');
+    ylabel('degrees');
+    title('Missile Heading $\alpha_M$', 'Interpreter', 'latex');
+    grid on; grid minor;
+    
+    subplot(3, 2, 3);
+    plot(tsol, rad2deg(Theta));
+    xlabel('Time in sec');
+    ylabel('degrees');
+    title('LOS Angle $\theta$', 'Interpreter', 'latex');
+    grid on; grid minor;
+    
+    subplot(3, 2, 4);
+    plot(tsol, rad2deg(ThetaDot));
+    xlabel('Time in sec');
+    ylabel('degrees/sec');
+    title('LOS Anglular Rate $\dot{\theta}$', 'Interpreter', 'latex');
+    grid on; grid minor;
+    
+    subplot(3, 2, 5);
+    plot(tsol, rad2deg(AlphaM - Theta));
+    xlabel('Time in sec');
+    ylabel('degrees');
+    ytickformat('%.1f')
+    title('Look Angle/Heading Error $\sigma$', 'Interpreter', 'latex');
+    grid on; grid minor;
+    
+    
+    % 1.5) Miss Distance
+    
+    missdistance{runcase} = sprintf('\n\tMiss Distance: %4.3f metres\n\n', min(R));
+    
+    % 1.6) Impact Angle
+    
+    angleMag = abs(rad2deg(Theta(end)));
+    
+    if min(R) > 10
+        angleMag = NaN;
+    end
+    
+    impact_angles{runcase} = sprintf('\n\tImpact Angle: %4.3f degrees\n\n', angleMag);
+    
+    % Increment plot index
+    index = index + 3;
+    runcase = runcase + 1;
+end
+
+
+
+%%
+% 
+% <html>
+% <h1> Plots of all cases </h1>
+% </html>
+% 
+
+%% Case 1: N = 1
+% 
+
+fprintf(missdistance{1});
+fprintf(impact_angles{1});
+
+index = 1;
+
+plots.fig(index).Visible = 'on';
+plots.fig(index + 1).Visible = 'on';
+plots.fig(index + 2).Visible = 'on';
+snapnow;
+
+index = index + 3;
+
+%% Case 2: N = 2
+% 
+
+fprintf(missdistance{2});
+fprintf(impact_angles{2});
+
+plots.fig(index).Visible = 'on';
+plots.fig(index + 1).Visible = 'on';
+plots.fig(index + 2).Visible = 'on';
+snapnow;
+
+index = index + 3;
+
+
+%% Case 3: N = 3
+% 
+
+fprintf(missdistance{3});
+fprintf(impact_angles{3});
+
+plots.fig(index).Visible = 'on';
+plots.fig(index + 1).Visible = 'on';
+plots.fig(index + 2).Visible = 'on';
+snapnow;
+
+index = index + 3;
+
+
+%%
+% 
+% <html>
+% <h3> Perform Cleanup Tasks </h3>
+% </html>
+% 
+
+
+close all;
+clear;
+set(groot, 'DefaultFigureVisible', 'on');
+
+##### SOURCE END #####
+--></body></html>
