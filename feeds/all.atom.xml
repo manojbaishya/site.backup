@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Duality Blog</title><link href="/" rel="alternate"></link><link href="/feeds/all.atom.xml" rel="self"></link><id>/</id><updated>2021-01-02T11:15:00+05:30</updated><entry><title>Least Squares Data Fitting</title><link href="/least-squares-data-fitting.html" rel="alternate"></link><published>2021-01-02T11:15:00+05:30</published><updated>2021-01-02T11:15:00+05:30</updated><author><name>Manoj Baishya</name></author><id>tag:None,2021-01-02:/least-squares-data-fitting.html</id><summary type="html">&lt;p class="first last"&gt;We will learn how to apply the least squares linear regression technique to problems in modelling relationships in data.&lt;/p&gt;
+</summary><content type="html">&lt;p&gt;The goal of Least Squares is to find a mathematical model, or an approximate model, of some relationship, given some observed data or measurements or sampled signals.&lt;/p&gt;
+&lt;object data="/data/wop50-09.svg" style="width: 600px; height: 450px;" type="image/svg+xml"&gt;
+Least Squares model of World Oil Production data from 1950 to 2009&lt;/object&gt;
+&lt;div class="section" id="formulation"&gt;
+&lt;h2&gt;Formulation&lt;/h2&gt;
+&lt;p&gt;Suppose we have an n-vector &lt;span class="math"&gt;\(x\)&lt;/span&gt;, and a scalar &lt;span class="math"&gt;\(y\)&lt;/span&gt;, and we believe that they are related, perhaps approximately, by some function &lt;span class="math"&gt;\(f : \mathbb{R}^n \rightarrow  \mathbb{R}\)&lt;/span&gt;:&lt;/p&gt;
+&lt;div class="math"&gt;
+\begin{equation*}
+y \approx f(x)
+\end{equation*}
+&lt;/div&gt;
+&lt;p&gt;The vector &lt;span class="math"&gt;\(x\)&lt;/span&gt; might represent a set of n feature values, and is called the &lt;em&gt;feature vector&lt;/em&gt; or the vector of &lt;em&gt;independent variables&lt;/em&gt;, depending on the context. The scalar &lt;span class="math"&gt;\(y\)&lt;/span&gt; represents some &lt;em&gt;outcome&lt;/em&gt; (also called &lt;em&gt;response variable&lt;/em&gt;) that we are interested in.&lt;/p&gt;
+&lt;/div&gt;
+&lt;script type='text/javascript'&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="linear-algebra"></category><category term="linear-algebra"></category><category term="statistics"></category><category term="data"></category></entry></feed>
