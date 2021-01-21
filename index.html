@@ -1,48 +1,109 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-        <meta charset="utf-8" />
-        <meta name="generator" content="Pelican" />
-        <title>Duality Blog</title>
-        <link rel="stylesheet" href="https://manojbaishya.github.io/theme/css/main.css" />
+<meta charset="utf-8"/>
+<meta content="Pelican" name="generator"/>
+<title>Duality Blog</title>
+<link href="https://manojbaishya.github.io/theme/css/main.css" rel="stylesheet"/>
 </head>
-
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="https://manojbaishya.github.io/">Duality Blog</a></h1>
-                <nav><ul>
-                    <li><a href="https://manojbaishya.github.io/pages/about.html">About</a></li>
-                    <li><a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-
-            <aside id="featured" class="body">
-                <article>
-                    <h1 class="entry-title"><a href="https://manojbaishya.github.io/least-squares-data-fitting.html">Least Squares Data Fitting</a></h1>
+<body class="home" id="index">
+<header class="body" id="banner">
+<h1><a href="https://manojbaishya.github.io/">Duality Blog</a></h1>
+<nav><ul>
+<li><a href="https://manojbaishya.github.io/pages/about.html">About</a></li>
+<li><a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a></li>
+</ul></nav>
+</header><!-- /#banner -->
+<aside class="body" id="featured">
+<article>
+<h1 class="entry-title"><a href="https://manojbaishya.github.io/conjugate-gradient.html">Conjugate Gradient Methods</a></h1>
 <footer class="post-info">
-        <abbr class="published" title="2021-01-02T11:15:00+05:30">
-                Published: Sat 02 January 2021
+<abbr class="published" title="2021-01-21T12:39:00+05:30">
+                Published: Thu 21 January 2021
         </abbr>
-
-        <address class="vcard author">
+<address class="vcard author">
                 By                         <a class="url fn" href="https://manojbaishya.github.io/author/manoj-baishya.html">Manoj Baishya</a>
-        </address>
+</address>
 <p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
-<p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/statistics.html">statistics</a> <a href="https://manojbaishya.github.io/tag/data.html">data</a> </p>
-</footer><!-- /.post-info --><p>The goal of Least Squares is to find a mathematical model, or an approximate model, of some relationship, given some observed data or measurements or sampled signals.</p>
-<object data="https://manojbaishya.github.io/data/wop50-09.svg" style="width: 600px; height: 450px;" type="image/svg+xml">
-Least Squares model of World Oil Production data from 1950 to 2009</object>
-<div class="section" id="formulation">
-<h2>Formulation</h2>
-<p>Suppose we have an n-vector <span class="math">\(x\)</span>, and a scalar <span class="math">\(y\)</span>, and we believe that they are related, perhaps approximately, by some function <span class="math">\(f : \mathbb{R}^n \rightarrow  \mathbb{R}\)</span>:</p>
+<p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/optimisation.html">optimisation</a> </p>
+</footer><!-- /.post-info --><div class="section" id="quadratic-forms-and-linear-systems">
+<h2>Quadratic Forms and Linear Systems</h2>
+<p>Many important quantities arising in engineering are mathematically modelled as Quadratic Forms. Output noise power in Signal Processing, Kinetic and Potential Energy functions in Mechanical Engineering, Covariance Models of Random Variable Linear Dependence and Principal Component Analysis in Statistics, etc. are some of the frequently occurring applications of Quadratic Forms, illustrating their ubiquity and importance.</p>
+<p>A Quadratic Form <span class="math">\(f(x)\)</span> on <span class="math">\(\mathbb{R}^n\)</span> is a function</p>
 <div class="math">
-\begin{equation*}
-y \approx f(x)
-\end{equation*}
+\begin{align*}
+f : \mathbb{R}^n \rightarrow \mathbb{R} \text{ such that} \\
+f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T H \mathbf{x}  + \mathbf{c}^T x \\
+\mathbf{c}, \mathbf{x} \in \mathbb{R}^n, H \in \mathbb{R}^{ n \times n} \text{ for simplicity} \\
+H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} \neq 0, \mathbf{x} \in \mathbb{R}^{\, n}
+\end{align*}
 </div>
-<p>The vector <span class="math">\(x\)</span> might represent a set of n feature values, and is called the <em>feature vector</em> or the vector of <em>independent variables</em>, depending on the context. The scalar <span class="math">\(y\)</span> represents some <em>outcome</em> (also called <em>response variable</em>) that we are interested in.</p>
+<p>The graph of a positive-definite convex quadratic form is a hyperparaboloid in <span class="math">\(\mathbb{R}^{n + 1}\)</span> dimensions.</p>
+<object data="https://manojbaishya.github.io/data/qform.svg" type="image/svg+xml">
+</object>
+<object data="https://manojbaishya.github.io/data/qform_contour.svg" type="image/svg+xml">
+</object>
+<p>Frequently, in many applications, we are interested in minimizing the quadratic form <span class="math">\(f(x)\)</span>, for example, minimising the energy function of a mechanical system so that it is in a stable state.</p>
+<p>Suppose that, we have at our hands, a quadratic form obtained by mathematically modelling some quantity of interest and we wish to minimize it. At the minimum point  <span class="math">\(\mathbf{x}^*\)</span> (henceforth referred to as the minimizer), the gradient <span class="math">\(\nabla : \mathbb{R}^n \rightarrow \mathbb{R}\)</span> of a function <span class="math">\(f(x)\)</span> is always zero by first order optimality condition. Hence,</p>
+<div class="math">
+\begin{align*}
+\nabla f(\mathbf{x}) = \frac{1}{2} \left[ H + H^T \right] \mathbf{x} + \mathbf{c} \\
+\nabla f(\mathbf{x}) = H \mathbf{x} + \mathbf{c} \text{ since } H = H^T \\
+\end{align*}
 </div>
-<script type='text/javascript'>if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+<p>At <span class="math">\(\mathbf{x}^*\)</span>, <span class="math">\(\nabla f(\mathbf{x}^*) = 0 \implies H \mathbf{x}^* + \mathbf{c} = 0 \text{ or } H \mathbf{x}^* = -\mathbf{c}\)</span></p>
+<p>Thus, finding the minimum of the quadratic form <span class="math">\(f(\mathbf{x})\)</span> is equivalent to solving the linear system <span class="math">\(H \mathbf{x}^* = -\mathbf{c}\)</span> for the unknown <span class="math">\(\mathbf{x}^*\)</span>.</p>
+<p>Again, suppose that we have at our hands a one-dimensional two-point boundary value problem (BVP), for example, the governing equations of flow of heat in a thin conducting rod with a source (<span class="math">\(t\)</span> is the continuous 1D spatial domain, <span class="math">\(x\)</span> is the temperature, <span class="math">\(g(t)\)</span> is the heat source):</p>
+<div class="math">
+\begin{align*}
+\frac{d^2 x}{dt^2} = g(t) \\
+\end{align*}
+</div>
+<img alt="" class="align-center" src="https://manojbaishya.github.io/data/heat.png" style="width: 500px;"/>
+<p>If we discretise the domain and convert the above differential equation to a finite difference equation, we obtain a linear system <span class="math">\(H \mathbf{x} = - \mathbf{c}\)</span>, where the temperatures <span class="math">\(\mathbf{x}\)</span> can be a very high dimensional vector due to the underlying problem being continuous. The <span class="math">\(H\)</span> represents the second-order derivative operator <span class="math">\(\frac{d^2 x}{dt^2}\)</span> and <span class="math">\(- \mathbf{c}\)</span> the heat source in the discretised domain <span class="math">\(\mathbf{R}^n\)</span>.</p>
+<p>Since the BVP is continuous, the discretisation <span class="math">\(x\)</span> is made high-dimensional to capture its fidelity; therefore the matrix <span class="math">\(H \in \mathbb{R}^{n \times n}\)</span> is <strong>very large</strong>. More importantly, due to the structure and regularity of the 2<sup>nd</sup> order finite difference operator, we make the following qualifiers: the matrix <span class="math">\(H\)</span> is <strong>sparse</strong>, <strong>symmetric</strong> and <strong>positive definite</strong>. Solving such a large linear system with a direct matrix factorisation method is prohibitively expensive (of the order of <span class="math">\(\mathcal{O}(\frac{2}{3} n^3)\)</span>). Hence, a better alternative is to solve the system iteratively and reach a solution in <span class="math">\(r &lt;&lt; n\)</span> steps that is close enough to the actual solution, which will cost us much less than a direct method.</p>
+<p>One idea to solve the linear system <span class="math">\(H \mathbf{x} = - \mathbf{c}\)</span> is to convert it to its dual quadratic form and use an iterative procedure, namely an optimisation process on the objective function.</p>
+<div class="math">
+\begin{align*}
+H \mathbf{x} = - \mathbf{c} \\
+\Leftrightarrow \min_{x \in \mathbb{R}^n} \: f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T H \mathbf{x}  + \mathbf{c}^T x
+\end{align*}
+</div>
+<p>At the minimum of <span class="math">\(f(\mathbf{x})\)</span>, we would have found the solution to our original linear system.</p>
+<p>We can summarise this section by making the following statement [Proof A1 in Appendix]:</p>
+<object class="align-center" data="https://manojbaishya.github.io/data/eqv1.svg" style="width: 800px;" type="image/svg+xml">
+</object>
+</div>
+<div class="section" id="line-search-techniques">
+<h2>Line Search Techniques</h2>
+<p>Now that we have our objective function, namely the quadratic form <span class="math">\(f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T H \mathbf{x}  + \mathbf{c}^T x\)</span>, our task is to minimise it.</p>
+<p>Before we begin, let us introduce some definitions:</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Error at the i-th iterate: <span class="math">\(\mathbf{e}_i = \mathbf{x}_i - \mathbf{x}^*\)</span></li>
+<li>Residual at the i-th iterate: <span class="math">\(\mathbf{r}_i = H \mathbf{x}_i + \mathbf{c}\)</span></li>
+<li>Gradient at the i-th iterate: <span class="math">\(\nabla f(\mathbf{x}_i) = H \mathbf{x}_i + \mathbf{c}\)</span></li>
+</ol>
+</blockquote>
+<dl class="docutils">
+<dt>We notice that:</dt>
+<dd><ol class="first last arabic simple">
+<li><span class="math">\(\mathbf{r}_i = H \mathbf{x}_i + \mathbf{c} = H \mathbf{x}_i - H \mathbf{x}^* = H (\mathbf{x}_i - \mathbf{x}^*) = H \mathbf{e}_i\)</span>, that is, the residual is simply the error mapped from the domain to the range of <span class="math">\(H\)</span>.</li>
+<li>The Residual of the Linear System is equal to the Gradient of the Convex Quadratic Objective Function.</li>
+<li>Also, since <span class="math">\(\mathbf{x}^*\)</span> is unknown, <span class="math">\(\mathbf{e}_i\)</span> are unknown at every step, but the residuals are <em>always known</em>. So whenever we want to use the error, we can simply work with the residual in the Range of <span class="math">\(H\)</span>.</li>
+</ol>
+</dd>
+</dl>
+<p>Now comes the core philosophy of Line Search: given our objective function <span class="math">\(f(\mathbf{x})\)</span>, we start with an initial guess <span class="math">\(\mathbf{x}_0\)</span>, and iterate our way downhill <span class="math">\(f(\mathbf{x})\)</span> to reach <span class="math">\(\mathbf{x}^*\)</span>. At any i-th iterate, we are at the point <span class="math">\(\mathbf{x}_i\)</span>, and to travel to our next point <span class="math">\(\mathbf{x}_{i + 1}\)</span>, we must choose a direction of descent <span class="math">\(\mathbf{p}_i\)</span>, and then move a step length <span class="math">\(\alpha_i\)</span> the right amount so that along this direction, <span class="math">\(f(\mathbf{x}_{i + 1}) = \phi(\alpha_i)\)</span> is minimum. Mathematically,</p>
+<div class="math">
+\begin{align*}
+\mathbf{x}_{i + 1} = \mathbf{x}_i + \alpha_i \mathbf{p}_i \\
+\alpha_i = \underset{x_{i + 1}}{\mathrm{argmin}} \: f(\mathbf{x}_{i + 1}) = \underset{\alpha_{i}}{\mathrm{argmin}} \: f(\mathbf{x}_i + \alpha_i \mathbf{p}_i) = \underset{\alpha_{i}}{\mathrm{argmin}} \: \phi(\alpha_i)
+\end{align*}
+</div>
+</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
         linebreak = "false";
@@ -103,35 +164,55 @@ y \approx f(x)
     (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
-</script>                </article>
-            </aside><!-- /#featured -->
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="https://getpelican.com/">Pelican</a></li>
-                            <li><a href="https://www.python.org/">Python.org</a></li>
-                            <li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
-
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
+</script> </article>
+</aside><!-- /#featured -->
+<section class="body" id="content">
+<h1>Other articles</h1>
+<hr/>
+<ol class="hfeed" id="posts-list">
+<li><article class="hentry">
+<header>
+<h1><a href="https://manojbaishya.github.io/least-squares-data-fitting.html" rel="bookmark" title="Permalink to Least Squares Data Fitting">Least Squares Data Fitting</a></h1>
+</header>
+<div class="entry-content">
+<footer class="post-info">
+<abbr class="published" title="2021-01-02T11:15:00+05:30">
+                Published: Sat 02 January 2021
+        </abbr>
+<address class="vcard author">
+                By                         <a class="url fn" href="https://manojbaishya.github.io/author/manoj-baishya.html">Manoj Baishya</a>
+</address>
+<p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
+<p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/statistics.html">statistics</a> <a href="https://manojbaishya.github.io/tag/data.html">data</a> </p>
+</footer><!-- /.post-info --> <p class="first last">We will learn how to apply the least squares linear regression technique to problems in modelling relationships in data.</p>
+<a class="readmore" href="https://manojbaishya.github.io/least-squares-data-fitting.html">read more</a>
+</div><!-- /.entry-content -->
+</article></li>
+</ol><!-- /#posts-list -->
+</section><!-- /#content -->
+<section class="body" id="extras">
+<div class="blogroll">
+<h2>links</h2>
+<ul>
+<li><a href="https://getpelican.com/">Pelican</a></li>
+<li><a href="https://www.python.org/">Python.org</a></li>
+<li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+<li><a href="#">You can modify those links in your config file</a></li>
+</ul>
+</div><!-- /.blogroll -->
+<div class="social">
+<h2>social</h2>
+<ul>
+<li><a href="#">You can add links in your config file</a></li>
+<li><a href="#">Another social link</a></li>
+</ul>
+</div><!-- /.social -->
+</section><!-- /#extras -->
+<footer class="body" id="contentinfo">
+<address class="vcard body" id="about">
                 Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
                 </address><!-- /#about -->
-
-                <p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+<p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+</footer><!-- /#contentinfo -->
 </body>
 </html>
