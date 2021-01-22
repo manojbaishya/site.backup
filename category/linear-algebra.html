@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="Pelican" name="generator"/>
+<title>Duality Blog - linear-algebra</title>
+<link href="https://manojbaishya.github.io/theme/css/main.css" rel="stylesheet"/>
+</head>
+<body class="home" id="index">
+<header class="body" id="banner">
+<h1><a href="https://manojbaishya.github.io/">Duality Blog</a></h1>
+<nav><ul>
+<li><a href="https://manojbaishya.github.io/pages/about.html">About</a></li>
+<li><a href="https://manojbaishya.github.io/category/articles.html">articles</a></li>
+<li class="active"><a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a></li>
+</ul></nav>
+</header><!-- /#banner -->
+<aside class="body" id="featured">
+<article>
+<h1 class="entry-title"><a href="https://manojbaishya.github.io/conjugate-gradient.html">Conjugate Gradient Methods</a></h1>
+<footer class="post-info">
+<abbr class="published" title="2021-01-21T12:39:00+05:30">
+                Published: Thu 21 January 2021
+        </abbr>
+<address class="vcard author">
+                By                         <a class="url fn" href="https://manojbaishya.github.io/author/manoj-baishya.html">Manoj Baishya</a>
+</address>
+<p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
+<p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/optimisation.html">optimisation</a> </p>
+</footer><!-- /.post-info --><div class="section" id="quadratic-forms-and-linear-systems">
+<h2>Quadratic Forms and Linear Systems</h2>
+<p>Many important quantities arising in engineering are mathematically modelled as Quadratic Forms. Output noise power in Signal Processing, Kinetic and Potential Energy functions in Mechanical Engineering, Covariance Models of Random Variable Linear Dependence and Principal Component Analysis in Statistics, etc. are some of the frequently occurring applications of Quadratic Forms, illustrating their ubiquity and importance.</p>
+<p>A Quadratic Form <span class="math">\(f(x)\)</span> on <span class="math">\(\mathbb{R}^n\)</span> is a function <span class="math">\(f : \mathbb{R}^n \rightarrow \mathbb{R}\)</span> such that:</p>
+<div class="math">
+\begin{align*}
+f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T H \mathbf{x}  + \mathbf{c}^T x \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{c}, \mathbf{x} \in \mathbb{R}^n, H \in \mathbb{R}^{ n \times n} \text{ for simplicity} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} \neq 0, \mathbf{x} \in \mathbb{R}^{\, n} \\
+\end{align*}
+</div>
+<p>The graph of a positive-definite convex quadratic form is a hyperparaboloid in <span class="math">\(\mathbb{R}^{n + 1}\)</span> dimensions.</p>
+<object data="qform.svg" type="image/svg+xml">
+</object>
+<object data="qform_contour.svg" type="image/svg+xml">
+</object>
+<p>Frequently, in many applications, we are interested in minimizing the quadratic form <span class="math">\(f(x)\)</span>, for example, minimising the energy function of a mechanical system so that it is in a stable state.</p>
+<p>Suppose that, we have at our hands, a quadratic form obtained by mathematically modelling some quantity of interest and we wish to minimize it. At the minimum point  <span class="math">\(\mathbf{x}^*\)</span> (henceforth referred to as the minimizer), the gradient <span class="math">\(\nabla : \mathbb{R}^n \rightarrow \mathbb{R}\)</span> of a function <span class="math">\(f(x)\)</span> is always zero by first order optimality condition. Hence,</p>
+<div class="math">
+\begin{align*}
+\nabla f(\mathbf{x}) = \frac{1}{2} \left[ H + H^T \right] \mathbf{x} + \mathbf{c} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\nabla f(\mathbf{x}) = H \mathbf{x} + \mathbf{c} \text{ since } H = H^T \\
+\end{align*}
+</div>
+<p>At <span class="math">\(\mathbf{x}^*\)</span>, <span class="math">\(\nabla f(\mathbf{x}^*) = 0 \implies H \mathbf{x}^* + \mathbf{c} = 0 \text{ or } H \mathbf{x}^* = -\mathbf{c}\)</span>.</p>
+<p>Thus, finding the minimum of the quadratic form <span class="math">\(f(\mathbf{x})\)</span> is equivalent to solving the linear system <span class="math">\(H \mathbf{x}^* = -\mathbf{c}\)</span> for the unknown <span class="math">\(\mathbf{x}^*\)</span>.</p>
+<p>Again, suppose that we have at our hands a one-dimensional two-point boundary value problem (BVP), for example, the governing equations of flow of heat in a thin conducting rod with a source (<span class="math">\(t\)</span> is the continuous 1D spatial domain, <span class="math">\(x\)</span> is the temperature, <span class="math">\(g(t)\)</span> is the heat source):</p>
+<div class="math">
+\begin{align*}
+\frac{d^2 x}{dt^2} = g(t) \\
+\end{align*}
+</div>
+<h1 align="center">
+<img src="heat.png" width="500"/>
+</h1><p>If we discretise the domain and convert the above differential equation to a finite difference equation, we obtain a linear system <span class="math">\(H \mathbf{x} = - \mathbf{c}\)</span>, where the temperatures <span class="math">\(\mathbf{x}\)</span> can be a very high dimensional vector due to the underlying problem being continuous. The <span class="math">\(H\)</span> represents the second-order derivative operator <span class="math">\(\frac{d^2 x}{dt^2}\)</span> and <span class="math">\(- \mathbf{c}\)</span> the heat source in the discretised domain <span class="math">\(\mathbf{R}^n\)</span>.</p>
+<p>Since the BVP is continuous, the discretisation <span class="math">\(x\)</span> is made high-dimensional to capture its fidelity; therefore the matrix <span class="math">\(H \in \mathbb{R}^{n \times n}\)</span> is <strong>very large</strong>. More importantly, due to the structure and regularity of the 2<sup>nd</sup> order finite difference operator, we can make the following qualifiers: the matrix <span class="math">\(H\)</span> is <strong>sparse</strong>, <strong>symmetric</strong> and <strong>positive definite</strong>. Solving such a large linear system with a direct matrix factorisation method is prohibitively expensive (of the order of <span class="math">\(\mathcal{O}(\frac{2}{3} n^3)\)</span>). Hence, a better alternative is to solve the system iteratively and reach a solution in <span class="math">\(r &lt;&lt; n\)</span> steps that is close enough to the actual solution, which will cost us much less than a direct method.</p>
+<p>One idea to solve the linear system <span class="math">\(H \mathbf{x} = - \mathbf{c}\)</span> is to use a stationary method, such as Jacobi or Gauss-Seidel. However, there is no guarantee of convergence, even for positive definite matrices.</p>
+<p>A better approach is to utilize the observation made earlier: convert the linear system to its dual quadratic form and apply an iterative optimisation process on the objective function!</p>
+<div class="math">
+\begin{align*}
+H \mathbf{x} = - \mathbf{c} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\Leftrightarrow \underset{\mathbf{x} \in \mathbb{R}^n}{\mathrm{min}} \: f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T H \mathbf{x}  + \mathbf{c}^T x \\
+\end{align*}
+</div>
+<p>At the minimum of <span class="math">\(f(\mathbf{x})\)</span>, we would have found the solution to our original linear system.</p>
+<p>We can summarise this section by making the following statement [See PCG Appendix C1 for proof]:</p>
+<h1 align="center">
+<img src="eqv1.svg" width="800"/>
+</h1></div>
+<div class="section" id="line-search-techniques">
+<h2>Line Search Techniques</h2>
+<p>Now that we have our objective function, namely the quadratic form <span class="math">\(f : \mathbb{R}^n \rightarrow \mathbb{R}\)</span>, our goal is to minimise it. We formalise our unconstrained optimisation problem <span class="math">\(\text{(P)}\)</span> as:</p>
+<div class="math">
+\begin{align*}
+\text{(P)} \quad \underset{\mathbf{x} \in \mathbb{R}^n}{\mathrm{min}} \: f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T H \mathbf{x}  + \mathbf{c}^T x \\
+\end{align*}
+</div>
+<dl class="docutils">
+<dt>Before we begin, let us introduce some definitions:</dt>
+<dd><ol class="first last arabic simple">
+<li><strong>Error at the i-th iterate</strong>: <span class="math">\(\mathbf{e}_i = \mathbf{x}_i - \mathbf{x}^*\)</span></li>
+<li><strong>Residual at the i-th iterate</strong>: <span class="math">\(\mathbf{r}_i = H \mathbf{x}_i + \mathbf{c}\)</span>, from linear system perspective.</li>
+<li><strong>Gradient at the i-th iterate</strong>: <span class="math">\(\nabla f(\mathbf{x}_i) = H \mathbf{x}_i + \mathbf{c}\)</span>, from objective function perspective.</li>
+</ol>
+</dd>
+<dt>We notice that:</dt>
+<dd><ol class="first last arabic simple">
+<li><span class="math">\(\mathbf{r}_i = H \mathbf{x}_i + \mathbf{c} = H \mathbf{x}_i - H \mathbf{x}^* = H (\mathbf{x}_i - \mathbf{x}^*) = H \mathbf{e}_i\)</span>, that is, the residual is simply the error mapped from the domain to the range of <span class="math">\(H\)</span>.</li>
+<li>The Residual of the Linear System is equal to the Gradient of the Objective Function. Throughout the article, whenever we mention residual, we also mention gradient to reinforce this fact.</li>
+<li>Since <span class="math">\(\mathbf{x}^*\)</span> is unknown, <span class="math">\(\mathbf{e}_i\)</span> is unknown at every step, but the residuals <span class="math">\(\mathbf{r}_i\)</span> are <em>always known</em>. So whenever we want to use the error, we can simply work with the residual in the rangespace of <span class="math">\(H\)</span>.</li>
+</ol>
+</dd>
+</dl>
+<p>Now comes the core philosophy of Line Search: given our objective function <span class="math">\(f(\mathbf{x})\)</span>, we start with an initial guess <span class="math">\(\mathbf{x}_0\)</span>, and iterate our way downhill <span class="math">\(f(\mathbf{x})\)</span> to reach <span class="math">\(\mathbf{x}^*\)</span>. At any i-th iterate, we are at the point <span class="math">\(\mathbf{x}_i\)</span>, and to travel to our next point <span class="math">\(\mathbf{x}_{i + 1}\)</span>, we must choose a direction of descent <span class="math">\(\mathbf{p}_i\)</span>, and then move a step length <span class="math">\(\alpha_i\)</span> the right amount so that along this direction, <span class="math">\(f(\mathbf{x}_{i + 1}) = \phi(\alpha_i)\)</span> is minimum. Mathematically,</p>
+<div class="math">
+\begin{align*}
+\mathbf{x}_{i + 1} = \mathbf{x}_i + \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\alpha_i = \underset{x_{i + 1}}{\mathrm{argmin}} \: f(\mathbf{x}_{i + 1}) = \underset{\alpha_{i}}{\mathrm{argmin}} \: f(\mathbf{x}_i + \alpha_i \mathbf{p}_i) = \underset{\alpha_{i}}{\mathrm{argmin}} \: \phi(\alpha_i) \\
+\end{align*}
+</div>
+<p>One approach is to use the Steepest Descent (SD) technique to compute and move along a direction <span class="math">\(\mathbf{p}_i\)</span> towards vanishing gradient:</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i = - \nabla f(\mathbf{x}_i) = -  \mathbf{r}_i \\
+\end{align*}
+</div>
+<p>SD moves along (or opposite to be precise) the residual/gradient vector at each iterate. One fact we state without proof [see PCG pg. 6; can be derived from 1D calculus] is that the residual/gradient at the current iterate <strong>i</strong> is always orthogonal to the previous residual/gradient at <strong>i - 1</strong>.</p>
+<h1 align="center">
+<img src="sd.png" width="600"/>
+</h1><p>As can be seen from the above picture, this is unfortunate, because we repeat directions in multiple steps a lot, and the number of steps needed to converge to the minimum point <span class="math">\(\mathbf{x}^*\)</span> is extraordinarily large. This could have been avoided if, after taking a new direction each time, we had travelled just the right amount of length in that direction so that in our future march downhill, we never need to step in that direction again.</p>
+<p>This raises an important question: If we picked a direction and took the RIGHT step length along it to avoid repeating it, in how many steps will be reach the minimizer <span class="math">\(\mathbf{x}^*\)</span>?</p>
+<p>The answer is: n steps! (the dimension of the vectorspace). To see why it is so, we need to wait for some more explanations.</p>
+<p>Let us the explore the above idea a bit further in the following sections.</p>
+</div>
+<div class="section" id="coordinate-descent-method">
+<h2>Coordinate Descent Method</h2>
+<p>To demonstrate the idea of n-directions, let us solve two problems and analyse their solutions. As a first attempt, we will pick the coordinate axes (i.e. the canonical basis) as the directions of descent.</p>
+<div class="section" id="problem-1">
+<h3>Problem 1</h3>
+<div class="math">
+\begin{align*}
+\underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = 4 x_1^2 + x_2^2 = \frac{1}{2} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}^T \begin{bmatrix} 8 &amp; 0\\ 0 &amp; 2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \end{bmatrix}^T \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \\
+\end{align*}
+</div>
+<p>The minimum point is at <span class="math">\(\mathbf{x}^* = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)</span>.</p>
+<p>Let us select our initial guess as <span class="math">\(\mathbf{x}_0 = \begin{bmatrix} -1 \\ -1 \end{bmatrix}\)</span>. Our first direction of motion is <span class="math">\(\mathbf{p}_0 = \mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\)</span>. Therefore, <span class="math">\(\mathbf{x}_1 =  \mathbf{x}_0  +  \alpha_0 \mathbf{p}_0 = \begin{bmatrix} -1 \\ -1 \end{bmatrix} +  \alpha_0 \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} -1 + \alpha_0 \\ -1 \end{bmatrix}\)</span> and <span class="math">\(\phi(\alpha_0) = f(\mathbf{x}_1) = 4 (-1 + \alpha_0)^2 + (-1)^2\)</span>. Taking the derivative of <span class="math">\(\phi(\alpha_0)\)</span> with respect to <span class="math">\(\alpha_0\)</span>, setting it to zero and solving the equation, we obtain <span class="math">\(\alpha_0 = 1\)</span>. Therefore, <span class="math">\(\mathbf{x}_1 = \begin{bmatrix} 0 \\ -1 \end{bmatrix}\)</span>. Repeating this process for the next direction <span class="math">\(\mathbf{p}_1 = \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\)</span>, we obtain <span class="math">\(\mathbf{x}_2 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)</span>, which is indeed our minimum <span class="math">\(\mathbf{x}^*\)</span>. We reached our destination in two steps! (= dimension of our decision space <span class="math">\(\mathbb{R}^2\)</span>)</p>
+<p>The contours of the function and our iteration path are as displayed below:</p>
+<h1 align="center">
+<img src="p1_solved.svg" width="1200"/>
+</h1></div>
+<div class="section" id="problem-2">
+<h3>Problem 2</h3>
+<div class="math">
+\begin{align*}
+\underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = 4 x_1^2 + x_2^2 - 2 x_1 x_2 = \frac{1}{2} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}^T \begin{bmatrix} 8 &amp; -2 \\ -2 &amp; 2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \end{bmatrix}^T \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \\
+\end{align*}
+</div>
+<p>The minimum point is again at <span class="math">\(\mathbf{x}^* = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)</span>.</p>
+<p>We repeat the same process as outlined in Problem 1, starting from  <span class="math">\(\mathbf{x}_0 = \begin{bmatrix} -1 \\ -1 \end{bmatrix}\)</span>, and picking <span class="math">\(\mathbf{e}_1\)</span> and then <span class="math">\(\mathbf{e}_2\)</span> as search directions. However, this time, we obtain the iterates as <span class="math">\(\mathbf{x}_1 = \begin{bmatrix} \frac{-1}{4} \\ -1 \end{bmatrix}\)</span>, and <span class="math">\(\mathbf{x}_2 = \begin{bmatrix} \frac{-1}{4} \\ \frac{-1}{4} \end{bmatrix}\)</span>. Notice that, we haven't reached our minimizer in two steps.</p>
+<h1 align="center">
+<img src="p2_solved.svg" width="1200"/>
+</h1><p>Let us spend sometime looking over what we have done so far and why our coordinate axes approach failed in the second problem. Notice that, in Problem 1, the Hessian Matrix (ie the second derivative of a multivariate scalar function) of the Quadratic Form is diagonal, and hence our coordinate axes are aligned with its eigenvectors. Not only that, we know that for a symmetric matrix, the eigenvectors are always orthogonal, that is, <span class="math">\(\mathbf{v}_i^T \mathbf{v}_j = \left\{     \begin{array}{ll} \text{ non-zero }  &amp; \mbox{if } i = j \\  0 &amp; \mbox{if } i \neq j   \end{array} \right. \: \forall \: i, j \: \in \: [1 \dots n]\)</span>.</p>
+<p>We can write the minimizer as <span class="math">\(\mathbf{x}^* = \mathbf{x}_0 + \alpha_0 \mathbf{p}_0 + \alpha_1 \mathbf{p}_1 = \mathbf{x}_0 + \alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2\)</span>. Substitute in <span class="math">\(\mathbf{x}^*\)</span> in the objective function and we will get:</p>
+<div class="math">
+\begin{align*}
+\underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} (\mathbf{x}_0 + \alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2)^T \begin{bmatrix} 8 &amp; 0\\ 0 &amp; 2 \end{bmatrix} (\mathbf{x}_0 + \alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2) \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} (\mathbf{x}_0 + \alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2)^T H (\mathbf{x}_0 + \alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2) \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} (\mathbf{x}_0 + \alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2)^T (H\mathbf{x}_0 + \alpha_0 H \mathbf{v}_1 + \alpha_1 H \mathbf{v}_2) \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} \mathbf{x}_0^T (H\mathbf{x}_0 + \alpha_0 \lambda_1 \mathbf{v}_1 + \alpha_1 \lambda_2 \mathbf{v}_2) + \frac{1}{2} (\alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2)^T H\mathbf{x}_0 + \frac{1}{2} (\alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2)^T (\alpha_0 H \mathbf{v}_1 + \alpha_1 H\mathbf{v}_2) \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} \mathbf{x}_0^T H\mathbf{x}_0 +  \frac{1}{2} \alpha_0 \lambda_1 \mathbf{x}_0^T \mathbf{v}_1 + \frac{1}{2} \alpha_1 \lambda_2 \mathbf{x}_0^T \mathbf{v}_2 + \frac{1}{2} \alpha_0 \mathbf{v}_1^T H \mathbf{x}_0 + \frac{1}{2} \alpha_1 \mathbf{v}_2^T H \mathbf{x}_0 + \left[ \frac{1}{2} \alpha_0^2 \mathbf{v}_1^T H \mathbf{v}_1 + \frac{1}{2} \alpha_0 \alpha_1 \mathbf{v}_1^T H \mathbf{v}_2 + \frac{1}{2} \alpha_1 \alpha_0 \mathbf{v}_2^T H \mathbf{v}_1 + \frac{1}{2} \alpha_1^2 \mathbf{v}_2^T H \mathbf{v}_2 \right] \\
+\end{align*}
+</div>
+<p>Let us pause for a moment here. The above equation looks very complicated, by we have to remember that <span class="math">\(\mathbf{v}_1\)</span> and <span class="math">\(\mathbf{v}_2\)</span> are eigenvectors of <span class="math">\(H\)</span>. Hence, the terms containing <span class="math">\(\mathbf{v}_1^T H \mathbf{v}_2\)</span> and <span class="math">\(\mathbf{v}_2^T H \mathbf{v}_1\)</span> become, <span class="math">\(\mathbf{v}_1^T H \mathbf{v}_2 = \mathbf{v}_1^T \lambda_2 \mathbf{v}_2 = \lambda_2 \mathbf{v}_1^T \mathbf{v}_2 = 0\)</span> and <span class="math">\(\mathbf{v}_2^T H \mathbf{v}_1 = \mathbf{v}_2^T \lambda_1 \mathbf{v}_1 = \lambda_1 \mathbf{v}_2^T \mathbf{v}_1 = 0\)</span>, due to the orthogonality of the eigenvectors. Hence, after some simplifications, we get,</p>
+<div class="math">
+\begin{align*}
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} \mathbf{x}_0^T H\mathbf{x}_0 +  \alpha_0 \lambda_1 \mathbf{x}_0^T \mathbf{v}_1 + \alpha_1 \lambda_2 \mathbf{x}_0^T \mathbf{v}_2 + \frac{1}{2} (\alpha_0^2 \lambda_1 \mathbf{v}_1^T \mathbf{v}_1 + \alpha_1^2 \lambda_2 \mathbf{v}_2^T \mathbf{v}_2) \\
+\end{align*}
+</div>
+<p>In the derivation above, the products <span class="math">\(\mathbf{v}_i^T H \mathbf{v}_j\)</span> became 0 whenever <span class="math">\(i \neq j\)</span>, but survived otherwise if <span class="math">\(i = j\)</span>. There are no mixed terms containing both directions <span class="math">\(\mathbf{v}_1\)</span> and <span class="math">\(\mathbf{v}_2\)</span> together, only in isolation, and we know that we have reached the minimiser using this technique.</p>
+<p>We will do the same exercise for Problem 2. However, since the coordinate axes are not aligned with the eigenvectors of <span class="math">\(H\)</span> because it is not diagonal, we cannot do the <span class="math">\(\mathbf{p}_i = \mathbf{v}_{i + 1}\)</span> substitutions here. Therefore, (skipping some steps),</p>
+<div class="math">
+\begin{align*}
+\underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = \frac{1}{2} (\mathbf{x}_0 + \alpha_0 \mathbf{p}_0 + \alpha_1 \mathbf{p}_1)^T \begin{bmatrix} 8 &amp; -2\\ -2 &amp; 2 \end{bmatrix} (\mathbf{x}_0 + \alpha_0 \mathbf{p}_0 + \alpha_1 \mathbf{p}_1) \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = \frac{1}{2} \mathbf{x}_0^T H\mathbf{x}_0 +  \frac{1}{2} \alpha_0 \mathbf{x}_0^T H \mathbf{p}_0 + \frac{1}{2} \alpha_1 \mathbf{x}_0^T H \mathbf{p}_1 + \frac{1}{2} \alpha_0 \mathbf{p}_0^T H \mathbf{x}_0 + \frac{1}{2} \alpha_1 \mathbf{p}_1^T H \mathbf{x}_0 + \left[ \frac{1}{2} \alpha_0^2 \mathbf{p}_0^T H \mathbf{p}_0 + \frac{1}{2} \alpha_0 \alpha_1 \mathbf{p}_0^T H \mathbf{p}_1 + \frac{1}{2} \alpha_1 \alpha_0 \mathbf{p}_1^T H \mathbf{p}_0 + \frac{1}{2} \alpha_1^2 \mathbf{p}_1^T H \mathbf{p}_1 \right] \\
+\end{align*}
+</div>
+<p>Again, let us compare this expression with that of Problem 1. The terms outside brackets are exactly the same for both problems. So, should not we reach the minimiser in this case also? If we look inside the sum inside the brackets, it is observed that the cross terms <span class="math">\(\mathbf{p}_i^T H \mathbf{p}_j \: \forall \: i \neq j\)</span> are still present. This is <em>the only difference</em> between the two problems, and we have witnessed that one led to the solution, the other did not.</p>
+<p>This leads us to a good start. We can take the eigenvectors of the Hessian <span class="math">\(H\)</span> (SPD matrices always have a full set of n eigenvectors) and move along those directions, and we are guaranteed to reach the minimiser in n steps. BUT! Calculating eigenvectors of a matrix is very expensive. Using direct matrix factorisation sounds much better than this approach!</p>
+<p>We also cannot use the residuals as search directions, as that will take us back to the Steepest Descent, and moreover they will not be linearly independent due to repetitions.</p>
+<p>So what we will do instead is, we will build a set of <strong>n</strong> linear independent set of directions <span class="math">\(\mathbf{p}_i\)</span>, and impose the desirable property observed earlier from the eigenvectors that <span class="math">\(\mathbf{p}_i^T H \mathbf{p}_j = \left\{     \begin{array}{ll} \text{ non-zero }  &amp; \mbox{if } i = j \\  0 &amp; \mbox{if } i \neq j   \end{array} \right. \: \forall \: i, j \: \in \: [1 \dots n]\)</span>. What we hope to achieve is the same effect we observed in Problem 1: no mixed direction terms in the objective function at the minimiser, with guaranteed convergence in n-steps.</p>
+<p>This is the precisely the definition of Conjugate Directions! The idea is very simple, instead of clueless wandering in search of our destination by only using local gradient information, we intelligently exploit the nature of our problem to fix all our search directions in one shot. After <strong>n</strong> searches, we are done and can go home.</p>
+<p>Before we move ahead, let us spend a little more time on Problem 1. Observe that, when moving from iterate <span class="math">\(\mathbf{x}_0\)</span> to <span class="math">\(\mathbf{x}_1\)</span>, the error <span class="math">\(\mathbf{e}_1 = \mathbf{x}_1 - \mathbf{x}^*\)</span> is orthogonal to the the direction <span class="math">\(\mathbf{p}_0\)</span>. This is another desirable property we will use in n-direction approach. However, we don't know <span class="math">\(\mathbf{x}^*\)</span>, so we don't know <span class="math">\(\mathbf{e}_{i + 1}\)</span>, and as noted in the previous section, we will instead make the residual/gradient <span class="math">\(\mathbf{r}_{i + 1} = H \mathbf{e}_{i + 1}\)</span> orthogonal to the the previous search directions <span class="math">\(\mathbf{p}_i\)</span>.</p>
+</div>
+</div>
+<div class="section" id="descent-along-conjugate-directions-a-powerful-line-search-method">
+<h2>Descent along Conjugate Directions: A Powerful Line Search Method</h2>
+<p>Two vectors, <span class="math">\(\mathbf{p}_i\)</span> and <span class="math">\(\mathbf{p}_j\)</span> are said to be <em>H-conjugate</em> with respect to some symmetric, positive definite matrix <span class="math">\(H\)</span>, if they satisfy,</p>
+<blockquote>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i^T H \mathbf{p}_j = \left\{     \begin{array}{ll} \text{ non-zero }  &amp; \mbox{if } i = j \\  0 &amp; \mbox{if } i \neq j   \end{array} \right. \: \forall \: i, j \: \in \: [1 \dots n] \\
+\end{align*}
+</div>
+</blockquote>
+<p>From the discussion in the previous section, we outline our goals and issues for the rest of the article as follows:</p>
+<ol class="arabic simple">
+<li>Find a set of <strong>n</strong> linearly independent set of <em>H-conjugate</em> directions <span class="math">\(\mathbf{p}_i\)</span>.</li>
+<li>Establish relationships between residuals/gradients, search directions and the vectorspace of our solution <span class="math">\(\mathbf{x}^*\)</span>.</li>
+<li>Use the above two rules to calculate the step lengths <span class="math">\(\alpha_i\)</span> along <span class="math">\(\mathbf{p}_i\)</span>.</li>
+</ol>
+<p>To repeat, we are solving the unconstrained optimisation problem:</p>
+<div class="math">
+\begin{align*}
+\text{(P)} \quad \underset{\mathbf{x} \in \mathbb{R}^n}{\mathrm{min}} \: f(\mathbf{x}) = \frac{1}{2} \mathbf{x}^T H \mathbf{x}  + \mathbf{c}^T x \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{c}, \mathbf{x} \in \mathbb{R}^n, H \in \mathbb{R}^{ n \times n} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} \neq 0, \mathbf{x} \in \mathbb{R}^{\, n} \\
+\end{align*}
+</div>
+<p>The minimiser of our problem <span class="math">\(\text{(P)}\)</span> can be stated as:</p>
+<div class="math">
+\begin{align*}
+\mathbf{x}^* = \mathbf{x}_0 + \sum_{i = 0}^{n - 1} \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<p>Our one-line iterative procedure is:</p>
+<div class="math">
+\begin{align*}
+\mathbf{x}_{i + 1} = \mathbf{x}_i + \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<p>Now we will slowly build up our procedure, step by step.</p>
+<p>Recall that we want to make residual/gradient at the next iterate <span class="math">\(i + 1\)</span> orthogonal to our direction at the current iterate <span class="math">\(i\)</span>.</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i^T \mathbf{r}_{i + 1} = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_i^T H \mathbf{e}_{i + 1} = 0 \\
+\end{align*}
+</div>
+<p>Note that the error at the next iterate is H-conjugate to the previous direction. We will have more to say about this later.</p>
+<p>Using our definitions, we have:</p>
+<div class="math">
+\begin{align*}
+\mathbf{x}_{i + 1} = \mathbf{x}_i + \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{x}_{i + 1} - \mathbf{x}^* = \mathbf{x}_i  - \mathbf{x}^* + \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{e}_{i + 1} = \mathbf{e}_i + \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<p>Substituting in the previous equation, we get:</p>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_i^T H \mathbf{e}_{i + 1} = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_i^T H (\mathbf{e}_i + \alpha_i \mathbf{p}_i) = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_i^T H \mathbf{e}_i + \alpha_i \mathbf{p}_i^T H \mathbf{p}_i = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_i^T \mathbf{r}_i + \alpha_i \mathbf{p}_i^T H \mathbf{p}_i = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \alpha_i = - \frac{\mathbf{p}_i^T \mathbf{r}_i}{\mathbf{p}_i^T H \mathbf{p}_i}, \text{ where } \mathbf{r}_i = \nabla f(\mathbf{x}_i) = H \mathbf{x}_i + \mathbf{c} \\
+\end{align*}
+</div>
+<p>All of the terms in the right hand side of the above expression are known at the current iterate. This gives us our step length
+<span class="math">\(\alpha_i\)</span>, our goal #3!</p>
+<p>Okay, we admit that it was arbitrary. Why should us wanting to orthogonalise the next residual to the current search direction give us a credible answer for the step length? So, let us try something else: given that we are standing at <span class="math">\(\mathbf{x}_i\)</span>, we want to minimise our objective <span class="math">\(f(\mathbf{x})\)</span> at <span class="math">\(\mathbf{x}_{i + 1} = \mathbf{x}_i + \alpha_i \mathbf{p}_i\)</span> over the direction <span class="math">\(\mathbf{p}_i\)</span> (assume it is somehow already calculated). So, we can write:</p>
+<div class="math">
+\begin{align*}
+\underset{\mathbf{x}_{i + 1} \in \mathbb{R}^n}{\mathrm{min}} \: f(\mathbf{x}_{i + 1}) =  \underset{\alpha_i \in \mathbb{R}}{\mathrm{min}} \: \phi(\alpha_i) = \frac{1}{2} (\mathbf{x}_i + \alpha_i \mathbf{p}_i)^T H (\mathbf{x}_i + \alpha_i \mathbf{p}_i)  + \mathbf{c}^T (\mathbf{x}_i + \alpha_i \mathbf{p}_i) \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \underset{\alpha_i \in \mathbb{R}}{\mathrm{min}} \: \phi(\alpha_i) = \frac{1}{2} \mathbf{x}_i^T H \mathbf{x}_i + \frac{1}{2} \alpha_i^2 \mathbf{p}_i^T H \mathbf{p}_i + \alpha_i \mathbf{p}_i^T H \mathbf{x}_i + \mathbf{c}^T \mathbf{x}_i + \alpha_i \mathbf{c}^T \mathbf{p}_i \\
+\end{align*}
+</div>
+<p>Now comes our calculus attack: we will differentiate <span class="math">\(\phi(\alpha_i)\)</span> with respect to <span class="math">\(\phi(\alpha_i)\)</span> and set the derivative to zero to find the directional minimum (Why? Because we know <span class="math">\(\mathbf{x}_i\)</span>, we assumed that we already know <span class="math">\(\mathbf{p}_i\)</span>, and we just need to find the minimum along this direction)</p>
+<div class="math">
+\begin{align*}
+\nabla_{\alpha_i} \phi(\alpha_i) = \frac{\partial \phi}{\partial \alpha_i} = \alpha_i \mathbf{p}_i^T H \mathbf{p}_i + \mathbf{p}_i^T H \mathbf{x}_i + \mathbf{c}^T \mathbf{p}_i \rightarrow 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \alpha_i \mathbf{p}_i^T H \mathbf{p}_i + \mathbf{p}_i^T H \mathbf{x}_i +  \mathbf{p}_i^T \mathbf{c} = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \alpha_i \mathbf{p}_i^T H \mathbf{p}_i + \mathbf{p}_i^T (H \mathbf{x}_i + \mathbf{c}) = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \alpha_i = - \frac{\mathbf{p}_i^T (H \mathbf{x}_i + \mathbf{c})}{\mathbf{p}_i^T H \mathbf{p}_i} \\
+\end{align*}
+</div>
+<p>which is nothing but (see definitions in Section II):</p>
+<div class="math">
+\begin{align*}
+\implies \alpha_i = - \frac{\mathbf{p}_i^T \mathbf{r}_i}{\mathbf{p}_i^T H \mathbf{p}_i} \text{ !} \\
+\end{align*}
+</div>
+<p>We have now arrived at the same step length as when we arbitrarily forced the next residual to be perpendicular to the current direction. Now, we know better: this step length actually minimises our objective along the current direction, and the former fact just comes about as a corollary! Further, we note that <span class="math">\(\mathbf{r}_{i + 1} \perp \mathbf{p}_i \implies \mathbf{p}_i^T \mathbf{r}_{i + 1} = \mathbf{p}_i^T H \mathbf{e}_{i + 1} = 0\)</span>, that is, direction - residual orthogonality implies direction - error H-conjugacy. In fact, we will make the following handwaving argument: since the error at the next iterate is always H-conjugate to the current search direction, the current search direction is H-conjugate to all the previous search directions, and we don't ever step into a previously encountered direction again in the future, the next error is evermore H-conjugate to all the previous search directions by recursion. Which implies the residual is orthogonal to all the previous search directions! The rigorous proof of this statement is contained in the Expanding Subspace Minimization Theorem, which is presented in the next section.</p>
+<p>Before we march ahead, let us establish a relationship between the residuals. We shall use this later in proving some theoretical guarantees. Using our error relationship, premultiply both sides of the equation by <span class="math">\(H\)</span>:</p>
+<div class="math">
+\begin{align*}
+\mathbf{e}_{i + 1} = \mathbf{e}_i + \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies H \mathbf{e}_{i + 1} = H \mathbf{e}_i + \alpha_i H \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_{i + 1} = \mathbf{r}_i + \alpha_i H \mathbf{p}_i \\
+\end{align*}
+</div>
+<p>Next, we will try to find the directions <span class="math">\(\mathbf{p}_i\)</span>. Let us pick, from our available knowledge, n linearly independent vectors <span class="math">\(\{ \mathbf{u}_0, \mathbf{u}_1, \dots, \mathbf{u}_{n - 1} \}\)</span>. The easiest choice we can make is the coordinate axes, <span class="math">\(\{ \mathbf{e}_1, \mathbf{e}_2, \dots, \mathbf{e}_n \}\)</span>. To construct <span class="math">\(\mathbf{p}_i\)</span>, we will take each direction <span class="math">\(\mathbf{u}_i\)</span> and peel off any components that are not H-conjugate to the entire set of previous <span class="math">\(i - 1\)</span> <span class="math">\(\mathbf{p}\)</span> vectors. To kickstart the process, set <span class="math">\(\mathbf{p}_0 = \mathbf{u}_0 = \mathbf{e}_1\)</span> and for all <span class="math">\(i &gt; 1\)</span>, iterate as:</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i = \mathbf{u}_i + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k, \: \beta_{ik} \text{ defined for } i &gt; k \\
+\end{align*}
+</div>
+<p>To calculate the <span class="math">\(\beta_{ik}\)</span> factors, we exploit the H-conjugacy property of <span class="math">\(\mathbf{p}_i\)</span> directions. Transpose above equation and post-multiply with <span class="math">\(H \mathbf{p}_j, j \in [0, \dots, i - 1]\)</span>:</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i^T H \mathbf{p}_j = \mathbf{u}_i^T H \mathbf{p}_j + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k^T H \mathbf{p}_j \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies 0 = \mathbf{u}_i^T H \mathbf{p}_j + \beta_{ij} \mathbf{p}_j^T H \mathbf{p}_j \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \beta_{ij} = - \frac{\mathbf{u}_i^T H \mathbf{p}_j}{\mathbf{p}_j^T H \mathbf{p}_j} \\
+\end{align*}
+</div>
+<p>Unfortunately, this means that to calculate each <span class="math">\(\mathbf{p}_i\)</span> upto the n-th direction, all the previous <span class="math">\(H \mathbf{p}_j, j \in [0, \dots, i - 1]\)</span> directions must be kept in storage. This is not very efficient. In fact, the total cost of generating all the search directions is <span class="math">\(\mathcal{O}(n^3)\)</span>), making direct factorisation look appealing! This brings us to the topic of our next section: <strong>Conjugate Gradients</strong> (or <strong>Conjugate(d) Gradients</strong> / <strong>Conjugate(d) Residuals</strong>), a very efficient method of constructing Conjugate Directions.</p>
+<p>But wait! Did we not mention before, this conjugate directions process will guarantee convergence in n-steps? Or will it, really? It sounds quite arbitrary. Are we full of ourselves? Why should it happen at all? Let's attack this notion with a mathematical analysis!</p>
+<p><em>We will try to do this</em>: first we will assume that the process indeed converges in n-steps, which implies, the initial error term <span class="math">\(\mathbf{e}_0\)</span> is made up of n-vectors oriented along these directions <span class="math">\(\mathbf{p}_i\)</span>. Then, we shall use the H-conjugacy properties of the directions. If we find that, <span class="math">\(\mathbf{e}_n\)</span>, that is error after n-steps, is not zero, our big claim is grossly incorrect, and we will terribly fall from grace. However, if <span class="math">\(\mathbf{e}_0\)</span> is indeed zero, we would have proven our n-step convergence assumption on stone and are right on target!</p>
+<p>Without much ado, let's formulate the math:</p>
+<div class="math">
+\begin{align*}
+\mathbf{e}_0 = \sum_{j = 0}^{n - 1} \: \delta_j \mathbf{p}_j \\
+\end{align*}
+</div>
+<p>Premultiplying <span class="math">\(\mathbf{p}_k^T H\)</span> and exploiting H-conjugacy, <span class="math">\(\mathbf{p}_k^T H \mathbf{p}_j = 0 \: \forall \: k \neq j\)</span> :</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_k^T H \mathbf{e}_0 = \sum_{j = 0}^{n - 1} \: \delta_j \mathbf{p}_k^T H \mathbf{p}_j \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_k^T H \mathbf{e}_0 =  \delta_k \mathbf{p}_k^T H \mathbf{p}_k \\
+\end{align*}
+</div>
+<p>Using the fact that <span class="math">\(\sum_{i = 0}^{k - 1} \: \alpha_i \mathbf{p}_k^T H \mathbf{p}_i = 0\)</span>,</p>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_k^T H \mathbf{e}_0 + \sum_{i = 0}^{k - 1} \: \alpha_i \mathbf{p}_k^T H \mathbf{p}_i =  \delta_k \mathbf{p}_k^T H \mathbf{p}_k \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_k^T H (\mathbf{e}_0 + \sum_{i = 0}^{k - 1} \: \alpha_i \mathbf{p}_i) =  \delta_k \mathbf{p}_k^T H \mathbf{p}_k \\
+\end{align*}
+</div>
+<p>We also know that, <span class="math">\(\mathbf{e}_{i + 1} = \mathbf{e}_i + \alpha_i \mathbf{p}_i\)</span> or <span class="math">\(\mathbf{e}_k = \mathbf{e}_{k - 1} + \alpha_{k - 1} \mathbf{p}_{k - 1}\)</span>. Recursively expanding this formula into a summation, we get, <span class="math">\(\mathbf{e}_k = \mathbf{e}_{k - 1} + \alpha_{k - 1} \mathbf{p}_{k - 1} = \mathbf{e}_0 + \sum_{i = 0}^{k - 1} \: \alpha_i \mathbf{p}_i\)</span>. Substituting this into the above expression:</p>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_k^T H \mathbf{e}_k =  \delta_k \mathbf{p}_k^T H \mathbf{p}_k \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \delta_k = \frac{\mathbf{p}_k^T \mathbf{r}_k}{\mathbf{p}_k^T H \mathbf{p}_k} \\
+\end{align*}
+</div>
+<p>This means:</p>
+<div class="math">
+\begin{align*}
+\delta_k = - \alpha_k \text{ ! } \\
+\end{align*}
+</div>
+<p>Moving ahead,</p>
+<div class="math">
+\begin{align*}
+\mathbf{e}_k = \mathbf{e}_0 + \sum_{i = 0}^{k - 1} \: \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{e}_k = \sum_{j = 0}^{n - 1} \: \delta_j \mathbf{p}_j - \sum_{i = 0}^{k - 1} \: \delta_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{e}_k = \sum_{j = 0}^{k - 1} \: \delta_j \mathbf{p}_j + \sum_{l = k}^{n - 1} \: \delta_l \mathbf{p}_l - \sum_{i = 0}^{k - 1} \: \delta_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{e}_k = \sum_{l = k}^{n - 1} \: \delta_l \mathbf{p}_l \\
+\end{align*}
+</div>
+<p>Substituting <span class="math">\(k = n\)</span>,</p>
+<div class="math">
+\begin{align*}
+\mathbf{e}_n = \sum_{l = n}^{n - 1} \: \delta_l \mathbf{p}_l = 0 \\
+\end{align*}
+</div>
+<p>because we do not have any directions beyond the (n - 1)-th iterate.</p>
+<p>Therefore, the error at the n-th step is really zero, and we have arrived at this conclusion by just using the H-conjugacy property! Thus, we can safely state that this Conjugate Directions method indeed converges in n-steps, as we have been advertising. (Disclaimer: The problem has to be convex quadratic positive-definite!)</p>
+<p>Okay, now we can move forward to the next sections in confidence and peace of mind.</p>
+</div>
+<div class="section" id="conjugate-gradients-a-method-of-conjugate-directions">
+<h2>Conjugate Gradients: A Method of Conjugate Directions</h2>
+<p>We saw how travelling downhill along the conjugate directions helps in arriving at the solution in n-steps.</p>
+</div>
+<div class="section" id="some-proofs">
+<h2>Some Proofs</h2>
+<p>The Expanding Subspace Minimisation Theorem proves two things: the next iterate <span class="math">\(\mathbf{x}_i\)</span> minimizes our objective <span class="math">\(f(\mathbf{x})\)</span> over the entire subspace <span class="math">\(\mathbf{x}_0 + \underset{k}{\mathrm{span}}\{ \mathbf{p}_k \}_0^{i - 1}\)</span>; and the next residual <span class="math">\(\mathbf{r}_i\)</span> is orthogonal to all the previous search directions <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span>, that is, <span class="math">\(\mathbf{r}_i^T \mathbf{p}_k = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!]\)</span> . Let us denote this subspace as <span class="math">\(\mathcal{D}_i = \{ \mathbf{p}_k \}_0^{i - 1}\)</span>. In other words, the residual <span class="math">\(\mathbf{r}_i\)</span> is orthogonal to the entire subspace <span class="math">\(\mathcal{D}_i\)</span>, and therefore, any vector contained in <span class="math">\(\mathcal{D}_i\)</span> will be orthogonal to <span class="math">\(\mathbf{r}_i\)</span>!</p>
+<h1 align="center">
+<img src="osubs.svg" width="800"/>
+</h1><p>Here we attempt to analyse a few more fundamental issues. Since we have mentioned in the previous section that the directions <span class="math">\(\mathbf{p}\)</span> are built from the linearly independent set of vectors <span class="math">\(\mathbf{u}\)</span>, that is,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i = \mathbf{u}_i + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k \\
+\end{align*}
+</div>
+<p>..it implies that the space spanned by <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span> is the same as the space spanned by <span class="math">\(\{ \mathbf{u}_k \}_0^{i - 1}\)</span> by linearity. That is, <span class="math">\(\mathcal{D}_i = \{ \mathbf{u}_k \}_0^{i - 1}\)</span>. This means, the residuals are also orthogonal to all the source <span class="math">\(\{ \mathbf{u}_k \}_0^{i - 1}\)</span> vectors! Mathematically, by first transposing above the equation,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i^T = \mathbf{u}_i^T + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k^T \\
+\end{align*}
+</div>
+<p>Let <span class="math">\(i &lt; j\)</span> or <span class="math">\(i \in [\![ 0, j - 1 ]\!]\)</span>. Then,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i^T \mathbf{r}_j = \mathbf{u}_i^T \mathbf{r}_j + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k^T \mathbf{r}_j \\
+\end{align*}
+</div>
+<p>Using subspace minimization theorem,</p>
+<div class="math">
+\begin{align*}
+0 = \mathbf{u}_i^T \mathbf{r}_j + 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_j^T \mathbf{u}_i = 0 \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
+\end{align*}
+</div>
+<p>Hence, we see why it is true. Further, let us develop one more statement:</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i^T \mathbf{r}_i = \mathbf{u}_i^T \mathbf{r}_i + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k^T \mathbf{r}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_i^T \mathbf{r}_i = \mathbf{u}_i^T \mathbf{r}_i \\
+\end{align*}
+</div>
+<p>Now, comes the core idea of <strong>Conjugate Gradient</strong>: Instead of using the coordinate axes <span class="math">\(\{ \mathbf{e}_1, \mathbf{e}_2, \dots, \mathbf{e}_n \}\)</span> as the source vectors <span class="math">\(\{ \mathbf{u}_0, \mathbf{u}_1, \dots, \mathbf{u}_{n - 1} \}\)</span> for the conjugated-construction of our search directions <span class="math">\(\mathbf{p}_i\)</span>, we will instead use the residuals/gradients <span class="math">\(\{ \mathbf{r}_0, \mathbf{r}_1, \dots, \mathbf{r}_{n - 1} \}\)</span> as the source vectors! That is, <span class="math">\(\mathbf{u}_i = \mathbf{r}_i\)</span>. This is precisely the reason why we have emphasized on the term, <strong>Conjugate(d) Gradients</strong>. Because the gradients/residuals are themselves not H-conjugate, but the n-directions we need are constructed out of them. We will also see how this choice leads to the efficiency and some more desirable attributes of the CG algorithm. Since <span class="math">\(\mathbf{p}_0 = \mathbf{u}_0 = \mathbf{r}_0 = \nabla f(\mathbf{x}_0)\)</span>, the first direction of the Conjugate Gradient process is also the direction of Steepest Descent.</p>
+<p>We stated before that,</p>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_j^T \mathbf{u}_i = 0 \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
+\end{align*}
+</div>
+<p>Replace <span class="math">\(\mathbf{u}_i = \mathbf{r}_i\)</span> in the above and we shall get,</p>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_j^T \mathbf{r}_i = 0  \text{ ! } \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
+\end{align*}
+</div>
+<p>Another powerful observation! We have seen before, <span class="math">\(\mathbf{r}_i = \mathbf{r}_{i - 1} + \alpha_{i - 1} H \mathbf{p}_{i - 1}\)</span>, therefore,</p>
+</div>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script> </article>
+</aside><!-- /#featured -->
+<section class="body" id="content">
+<h1>Other articles</h1>
+<hr/>
+<ol class="hfeed" id="posts-list">
+<li><article class="hentry">
+<header>
+<h1><a href="https://manojbaishya.github.io/least-squares-data-fitting.html" rel="bookmark" title="Permalink to Least Squares Data Fitting">Least Squares Data Fitting</a></h1>
+</header>
+<div class="entry-content">
+<footer class="post-info">
+<abbr class="published" title="2021-01-02T11:15:00+05:30">
+                Published: Sat 02 January 2021
+        </abbr>
+<address class="vcard author">
+                By                         <a class="url fn" href="https://manojbaishya.github.io/author/manoj-baishya.html">Manoj Baishya</a>
+</address>
+<p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
+<p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/statistics.html">statistics</a> <a href="https://manojbaishya.github.io/tag/data.html">data</a> </p>
+</footer><!-- /.post-info --> <p class="first last">We will learn how to apply the least squares linear regression technique to problems in modelling relationships in data.</p>
+<a class="readmore" href="https://manojbaishya.github.io/least-squares-data-fitting.html">read more</a>
+</div><!-- /.entry-content -->
+</article></li>
+</ol><!-- /#posts-list -->
+</section><!-- /#content -->
+<section class="body" id="extras">
+<div class="blogroll">
+<h2>links</h2>
+<ul>
+<li><a href="https://getpelican.com/">Pelican</a></li>
+<li><a href="https://www.python.org/">Python.org</a></li>
+<li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+<li><a href="#">You can modify those links in your config file</a></li>
+</ul>
+</div><!-- /.blogroll -->
+<div class="social">
+<h2>social</h2>
+<ul>
+<li><a href="#">You can add links in your config file</a></li>
+<li><a href="#">Another social link</a></li>
+</ul>
+</div><!-- /.social -->
+</section><!-- /#extras -->
+<footer class="body" id="contentinfo">
+<address class="vcard body" id="about">
+                Proudly powered by <a href="https://getpelican.com/">Pelican</a>, which takes great advantage of <a href="https://www.python.org/">Python</a>.
+                </address><!-- /#about -->
+<p>The theme is by <a href="https://www.smashingmagazine.com/2009/08/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+</footer><!-- /#contentinfo -->
+</body>
+</html>
