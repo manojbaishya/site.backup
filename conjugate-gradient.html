@@ -23,8 +23,8 @@
 </header>
 <div class="entry-content">
 <footer class="post-info">
-<abbr class="published" title="2021-01-21T12:39:00+05:30">
-                Published: Thu 21 January 2021
+<abbr class="published" title="2021-01-23T12:30:00+05:30">
+                Published: Sat 23 January 2021
         </abbr>
 <address class="vcard author">
                 By                         <a class="url fn" href="https://manojbaishya.github.io/author/rahul-john-roy-piyush-mohapatra-manoj-baishya.html">Rahul John Roy, Piyush Mohapatra, Manoj Baishya</a>
@@ -916,7 +916,7 @@ f(\mathbf{x}) = \frac{1}{2}\mathbf{x}^T H \mathbf{x} + c^T \mathbf{x} \\
 <ol class="arabic simple">
 <li>Given, <span class="math">\(\mathbf{x}_0\)</span>.</li>
 <li>Set <span class="math">\(\mathbf{r}_0 \leftarrow H \mathbf{x}_0 + \mathbf{c}\)</span>, <span class="math">\(\mathbf{p}_0 \leftarrow - \mathbf{r}_0\)</span> and <span class="math">\(i \leftarrow 0\)</span>.</li>
-<li><strong>while</strong> <span class="math">\(\mathbf{r}_i \neq 0\)</span>, do:</li>
+<li><strong>while</strong> <span class="math">\(\lVert \mathbf{r}_i \rVert_2 \neq 0\)</span>, do:</li>
 <li><em>Step Length</em>:</li>
 </ol>
 <div class="math">
@@ -1006,6 +1006,118 @@ M^{-1} H \mathbf{x} = -M^{-1} \mathbf{c} \\
 </div>
 <p>We need: <span class="math">\(\mathcal{K}(M^{-1}H) \ll \mathcal{K}(H)\)</span> or the eigenvalues of <span class="math">\(M^{-1}H\)</span> are clustered together, thereby ensuring faster convergence to the actual solution in <span class="math">\(r\)</span> steps, if there are <span class="math">\(r\)</span> clusters.</p>
 <p>Most of the standard solver packages use pre-conditioning for faster convergence.</p>
+</div>
+<div class="section" id="naive-code-implementation">
+<h2>Naive Code Implementation</h2>
+<p>The following class implements the reference Conjugate Gradient algorithm without preconditioning, for educational purposes only. Do not use it on your actual code!</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">class</span> <span class="nc">quadratic_form</span><span class="p">:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Solve a linear system Hx = -c using a quadratic formulation.</span>
+<span class="sd">    Uses the Conjugate Gradient method.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">H</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">rhs_sign</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        __init__: initialise the CG class.</span>
+
+<span class="sd">        Input data = H, x, c.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        H : np.ndarray</span>
+<span class="sd">            System Matrix.</span>
+<span class="sd">        c : np.ndarray</span>
+<span class="sd">            rhs</span>
+<span class="sd">        rhs_sign : np.int64</span>
+<span class="sd">            Sign of rhs. If system is Hx = c, set rhs_sign = 1, else if Hx = - c, set rhs_sign = -1.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">=</span> <span class="n">H</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">c</span> <span class="o">=</span> <span class="n">c</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">res_sgn</span> <span class="o">=</span> <span class="o">-</span><span class="n">rhs_sign</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">=</span> <span class="n">H</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="k">def</span> <span class="nf">cgmin</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">maxiter</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span> <span class="n">tol</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span> <span class="o">=</span> <span class="mf">1.0e-8</span><span class="p">,</span> <span class="n">debug</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        cgmin: Minimize positive definite quadratic form with conjugate gradient method.</span>
+
+<span class="sd">        This routine uses the un-preconditioned efficient version of CG.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x0 : np.ndarray</span>
+<span class="sd">            Initial Guess Vector</span>
+
+<span class="sd">        maxiter : np.int64</span>
+<span class="sd">            Maximum number of allowed iterations</span>
+
+<span class="sd">        tol: np.float64</span>
+<span class="sd">            Tolerance</span>
+
+<span class="sd">        debug : bool</span>
+<span class="sd">            Print iteration steps</span>
+<span class="sd">        """</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x0</span>  <span class="c1"># initial guess</span>
+        <span class="n">r</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">@</span> <span class="n">x0</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">res_sgn</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">c</span>  <span class="c1"># initial residual</span>
+        <span class="n">p</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span>  <span class="c1"># initial direction</span>
+        <span class="n">i</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">rtr</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">r</span>
+        <span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">maxiter</span><span class="p">:</span>
+            <span class="n">Hpi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">H</span> <span class="o">@</span> <span class="n">p</span>
+            <span class="n">alpha</span> <span class="o">=</span> <span class="n">rtr</span> <span class="o">/</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Hpi</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">p</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">Hpi</span>
+            <span class="n">rnr</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">r</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">tol</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">beta</span> <span class="o">=</span> <span class="n">rnr</span> <span class="o">/</span> <span class="n">rtr</span>
+            <span class="n">rtr</span> <span class="o">=</span> <span class="n">rnr</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">p</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"x is </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> at iteration #</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">maxiter</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Max Iterations reached. Terminating procedure..."</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Error norm attained: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Solution reached in </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> iterations."</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Final Error Norm at solution: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+<p>The following sample code uses the above class to solve a symmetric positive-definite linear system:</p>
+<div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">500</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="n">qform</span> <span class="o">=</span> <span class="n">quadratic_form</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">qform</span><span class="o">.</span><span class="n">cgmin</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Solution is :"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="available-software">
+<h2>Available Software</h2>
+<p>A high-quality, expert-developed Python implementation of the Conjugate Gradient method is available in the Scipy library as the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.cg.html">scipy.sparse.linalg.cg</a> function. See the documentation for more details.</p>
+<p>Well engineered, high performance C language implementations of Conjugate Gradient are available in the Intel Math Kernel Library. The following links contain more information:</p>
+<blockquote>
+<ol class="arabic simple">
+<li><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/sparse-solver-routines/iterative-sparse-solvers-based-on-reverse-communication-interface-rci-iss.html#iterative-sparse-solvers-based-on-reverse-communication-interface-rci-iss_TBL8-4">Iterative Sparse Solvers based on Reverse Communication Interface</a></li>
+<li><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/sparse-solver-routines/iterative-sparse-solvers-based-on-reverse-communication-interface-rci-iss/cg-interface-description.html">CG Interface Description</a></li>
+<li><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/sparse-solver-routines/iterative-sparse-solvers-based-on-reverse-communication-interface-rci-iss/rci-iss-routines/dcg-init.html#dcg-init">dcg_init</a></li>
+<li><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/sparse-solver-routines/iterative-sparse-solvers-based-on-reverse-communication-interface-rci-iss/rci-iss-routines/dcg-check.html#dcg-check">dcg_check</a></li>
+<li><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/sparse-solver-routines/iterative-sparse-solvers-based-on-reverse-communication-interface-rci-iss/rci-iss-routines/dcg.html#dcg">dcg</a></li>
+<li><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/sparse-solver-routines/iterative-sparse-solvers-based-on-reverse-communication-interface-rci-iss/rci-iss-routines/dcg-get.html#dcg-get">dcg_get</a></li>
+<li><a class="reference external" href="https://software.intel.com/content/www/us/en/develop/documentation/onemkl-developer-reference-c/top/sparse-solver-routines/preconditioners-based-on-incomplete-lu-factorization-technique.html#preconditioners-based-on-incomplete-lu-factorization-technique">Preconditioners based on Incomplete LU Factorization Technique</a></li>
+</ol>
+</blockquote>
 </div>
 <div class="section" id="non-linear-cg">
 <h2>Non-Linear CG</h2>
