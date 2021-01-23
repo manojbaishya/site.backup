@@ -11,8 +11,6 @@
 <header class="body" id="banner">
 <h1><a href="https://manojbaishya.github.io/">Duality Blog</a></h1>
 <nav><ul>
-<li><a href="https://manojbaishya.github.io/pages/about.html">About</a></li>
-<li><a href="https://manojbaishya.github.io/category/articles.html">articles</a></li>
 <li><a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a></li>
 </ul></nav>
 </header><!-- /#banner -->
@@ -24,7 +22,7 @@
                 Published: Thu 21 January 2021
         </abbr>
 <address class="vcard author">
-                By                         <a class="url fn" href="https://manojbaishya.github.io/author/manoj-baishya.html">Manoj Baishya</a>
+                By                         <a class="url fn" href="https://manojbaishya.github.io/author/rahul-john-roy-piyush-mohapatra-manoj-baishya.html">Rahul John Roy, Piyush Mohapatra, Manoj Baishya</a>
 </address>
 <p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
 <p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/optimisation.html">optimisation</a> </p>
@@ -111,7 +109,7 @@ H \mathbf{x} = - \mathbf{c} \\
 </dd>
 <dt>We notice that:</dt>
 <dd><ol class="first last arabic simple">
-<li><span class="math">\(\mathbf{r}_i = H \mathbf{x}_i + \mathbf{c} = H \mathbf{x}_i - H \mathbf{x}^* = H (\mathbf{x}_i - \mathbf{x}^*) = H \mathbf{e}_i\)</span>, that is, the residual is simply the error mapped from the domain to the range of <span class="math">\(H\)</span>.</li>
+<li><span class="math">\(\mathbf{r}_i = H \mathbf{x}_i + \mathbf{c} = H \mathbf{x}_i - H \mathbf{x}^* = H (\mathbf{x}_i - \mathbf{x}^*) = H \mathbf{e}_i\)</span>, that is, the residual is simply the error mapped from the domain of <span class="math">\(H\)</span> to the range of <span class="math">\(H\)</span>.</li>
 <li>The Residual of the Linear System is equal to the Gradient of the Objective Function. Throughout the article, whenever we mention residual, we also mention gradient to reinforce this fact.</li>
 <li>Since <span class="math">\(\mathbf{x}^*\)</span> is unknown, <span class="math">\(\mathbf{e}_i\)</span> is unknown at every step, but the residuals <span class="math">\(\mathbf{r}_i\)</span> are <em>always known</em>. So whenever we want to use the error, we can simply work with the residual in the rangespace of <span class="math">\(H\)</span>.</li>
 </ol>
@@ -193,7 +191,8 @@ H \mathbf{x} = - \mathbf{c} \\
 </div>
 <div class="math">
 \begin{align*}
-\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} \mathbf{x}_0^T H\mathbf{x}_0 +  \frac{1}{2} \alpha_0 \lambda_1 \mathbf{x}_0^T \mathbf{v}_1 + \frac{1}{2} \alpha_1 \lambda_2 \mathbf{x}_0^T \mathbf{v}_2 + \frac{1}{2} \alpha_0 \mathbf{v}_1^T H \mathbf{x}_0 + \frac{1}{2} \alpha_1 \mathbf{v}_2^T H \mathbf{x}_0 + \left[ \frac{1}{2} \alpha_0^2 \mathbf{v}_1^T H \mathbf{v}_1 + \frac{1}{2} \alpha_0 \alpha_1 \mathbf{v}_1^T H \mathbf{v}_2 + \frac{1}{2} \alpha_1 \alpha_0 \mathbf{v}_2^T H \mathbf{v}_1 + \frac{1}{2} \alpha_1^2 \mathbf{v}_2^T H \mathbf{v}_2 \right] \\
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}^*) = \frac{1}{2} \mathbf{x}_0^T H\mathbf{x}_0 +  \frac{1}{2} \alpha_0 \lambda_1 \mathbf{x}_0^T \mathbf{v}_1 + \frac{1}{2} \alpha_1 \lambda_2 \mathbf{x}_0^T \mathbf{v}_2 + \frac{1}{2} \alpha_0 \mathbf{v}_1^T H \mathbf{x}_0 + \frac{1}{2} \alpha_1 \mathbf{v}_2^T H \mathbf{x}_0 + \\
+\left[ \frac{1}{2} \alpha_0^2 \mathbf{v}_1^T H \mathbf{v}_1 + \frac{1}{2} \alpha_0 \alpha_1 \mathbf{v}_1^T H \mathbf{v}_2 + \frac{1}{2} \alpha_1 \alpha_0 \mathbf{v}_2^T H \mathbf{v}_1 + \frac{1}{2} \alpha_1^2 \mathbf{v}_2^T H \mathbf{v}_2 \right] \\
 \end{align*}
 </div>
 <p>Let us pause for a moment here. The above equation looks very complicated, by we have to remember that <span class="math">\(\mathbf{v}_1\)</span> and <span class="math">\(\mathbf{v}_2\)</span> are eigenvectors of <span class="math">\(H\)</span>. Hence, the terms containing <span class="math">\(\mathbf{v}_1^T H \mathbf{v}_2\)</span> and <span class="math">\(\mathbf{v}_2^T H \mathbf{v}_1\)</span> become, <span class="math">\(\mathbf{v}_1^T H \mathbf{v}_2 = \mathbf{v}_1^T \lambda_2 \mathbf{v}_2 = \lambda_2 \mathbf{v}_1^T \mathbf{v}_2 = 0\)</span> and <span class="math">\(\mathbf{v}_2^T H \mathbf{v}_1 = \mathbf{v}_2^T \lambda_1 \mathbf{v}_1 = \lambda_1 \mathbf{v}_2^T \mathbf{v}_1 = 0\)</span>, due to the orthogonality of the eigenvectors. Hence, after some simplifications, we get,</p>
@@ -211,7 +210,8 @@ H \mathbf{x} = - \mathbf{c} \\
 </div>
 <div class="math">
 \begin{align*}
-\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = \frac{1}{2} \mathbf{x}_0^T H\mathbf{x}_0 +  \frac{1}{2} \alpha_0 \mathbf{x}_0^T H \mathbf{p}_0 + \frac{1}{2} \alpha_1 \mathbf{x}_0^T H \mathbf{p}_1 + \frac{1}{2} \alpha_0 \mathbf{p}_0^T H \mathbf{x}_0 + \frac{1}{2} \alpha_1 \mathbf{p}_1^T H \mathbf{x}_0 + \left[ \frac{1}{2} \alpha_0^2 \mathbf{p}_0^T H \mathbf{p}_0 + \frac{1}{2} \alpha_0 \alpha_1 \mathbf{p}_0^T H \mathbf{p}_1 + \frac{1}{2} \alpha_1 \alpha_0 \mathbf{p}_1^T H \mathbf{p}_0 + \frac{1}{2} \alpha_1^2 \mathbf{p}_1^T H \mathbf{p}_1 \right] \\
+\implies \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = \frac{1}{2} \mathbf{x}_0^T H\mathbf{x}_0 +  \frac{1}{2} \alpha_0 \mathbf{x}_0^T H \mathbf{p}_0 + \frac{1}{2} \alpha_1 \mathbf{x}_0^T H \mathbf{p}_1 + \frac{1}{2} \alpha_0 \mathbf{p}_0^T H \mathbf{x}_0 + \frac{1}{2} \alpha_1 \mathbf{p}_1^T H \mathbf{x}_0 + \\
+\left[ \frac{1}{2} \alpha_0^2 \mathbf{p}_0^T H \mathbf{p}_0 + \frac{1}{2} \alpha_0 \alpha_1 \mathbf{p}_0^T H \mathbf{p}_1 + \frac{1}{2} \alpha_1 \alpha_0 \mathbf{p}_1^T H \mathbf{p}_0 + \frac{1}{2} \alpha_1^2 \mathbf{p}_1^T H \mathbf{p}_1 \right] \\
 \end{align*}
 </div>
 <p>Again, let us compare this expression with that of Problem 1. The terms outside brackets are exactly the same for both problems. So, should not we reach the minimiser in this case also? If we look inside the sum inside the brackets, it is observed that the cross terms <span class="math">\(\mathbf{p}_i^T H \mathbf{p}_j \: \forall \: i \neq j\)</span> are still present. This is <em>the only difference</em> between the two problems, and we have witnessed that one led to the solution, the other did not.</p>
@@ -378,7 +378,7 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 \implies \mathbf{r}_{i + 1} = \mathbf{r}_i + \alpha_i H \mathbf{p}_i \\
 \end{align*}
 </div>
-<p>Next, we will try to find the directions <span class="math">\(\mathbf{p}_i\)</span>. Let us pick, from our available knowledge, n linearly independent vectors <span class="math">\(\{ \mathbf{u}_0, \mathbf{u}_1, \dots, \mathbf{u}_{n - 1} \}\)</span>. The easiest choice we can make is the coordinate axes, <span class="math">\(\{ \mathbf{e}_1, \mathbf{e}_2, \dots, \mathbf{e}_n \}\)</span>. To construct <span class="math">\(\mathbf{p}_i\)</span>, we will take each direction <span class="math">\(\mathbf{u}_i\)</span> and peel off any components that are not H-conjugate to the entire set of previous <span class="math">\(i - 1\)</span> <span class="math">\(\mathbf{p}\)</span> vectors. To kickstart the process, set <span class="math">\(\mathbf{p}_0 = \mathbf{u}_0 = \mathbf{e}_1\)</span> and for all <span class="math">\(i &gt; 1\)</span>, iterate as:</p>
+<p>Next, we will try to find the directions <span class="math">\(\mathbf{p}_i\)</span>. Let us pick, from our available knowledge, n linearly independent vectors <span class="math">\(\{ \mathbf{u}_0, \mathbf{u}_1, \dots, \mathbf{u}_{n - 1} \}\)</span>, which we will call as the <strong>generator vectors</strong>. The easiest choice we can make is the coordinate axes, <span class="math">\(\{ \mathbf{e}_1, \mathbf{e}_2, \dots, \mathbf{e}_n \}\)</span>. To construct <span class="math">\(\mathbf{p}_i\)</span>, we will take each generator <span class="math">\(\mathbf{u}_i\)</span> and peel off any components that are not H-conjugate to the entire set of previous <span class="math">\(i - 1\)</span> <span class="math">\(\mathbf{p}\)</span> vectors. To kickstart the process, set <span class="math">\(\mathbf{p}_0 = \mathbf{u}_0 = \mathbf{e}_1\)</span> and for all <span class="math">\(i &gt; 1\)</span>, iterate as:</p>
 <div class="math">
 \begin{align*}
 \mathbf{p}_i = \mathbf{u}_i + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k, \: \beta_{ik} \text{ defined for } i &gt; k \\
@@ -479,22 +479,152 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 <p>Therefore, the error at the n-th step is really zero, and we have arrived at this conclusion by just using the H-conjugacy property! Thus, we can safely state that this Conjugate Directions method indeed converges in n-steps, as we have been advertising. (Disclaimer: The problem has to be convex quadratic positive-definite!)</p>
 <p>Okay, now we can move forward to the next sections in confidence and peace of mind.</p>
 </div>
-<div class="section" id="conjugate-gradients-a-method-of-conjugate-directions">
-<h2>Conjugate Gradients: A Method of Conjugate Directions</h2>
-<p>We saw how travelling downhill along the conjugate directions helps in arriving at the solution in n-steps.</p>
+<div class="section" id="some-proofs-on-our-road-to-enlightenment">
+<h2>Some Proofs on our Road to Enlightenment</h2>
+<div class="section" id="expanding-subspace-minimization-esm-theorem">
+<h3>Expanding Subspace Minimization (ESM) Theorem</h3>
+<p>Let <span class="math">\(\mathbf{x}_0 \in \mathbb{R}^n\)</span>. Given a set of H-conjugate <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span> directions, and <span class="math">\(\mathbf{x}_k = \mathbf{x}_{k} = \mathbf{x}_{k-1} + \alpha_{k - 1} \mathbf{p}_{k-1}\)</span>, the Expanding Subspace Minimization theorem states that,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_k^T \mathbf{p}_i = 0 \: \forall \: i \in [\![ 0, k - 1 ]\!] \\
+\end{align*}
 </div>
-<div class="section" id="some-proofs">
-<h2>Some Proofs</h2>
-<p>The Expanding Subspace Minimisation Theorem proves two things: the next iterate <span class="math">\(\mathbf{x}_i\)</span> minimizes our objective <span class="math">\(f(\mathbf{x})\)</span> over the entire subspace <span class="math">\(\mathbf{x}_0 + \underset{k}{\mathrm{span}}\{ \mathbf{p}_k \}_0^{i - 1}\)</span>; and the next residual <span class="math">\(\mathbf{r}_i\)</span> is orthogonal to all the previous search directions <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span>, that is, <span class="math">\(\mathbf{r}_i^T \mathbf{p}_k = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!]\)</span> . Let us denote this subspace as <span class="math">\(\mathcal{D}_i = \{ \mathbf{p}_k \}_0^{i - 1}\)</span>. In other words, the residual <span class="math">\(\mathbf{r}_i\)</span> is orthogonal to the entire subspace <span class="math">\(\mathcal{D}_i\)</span>, and therefore, any vector contained in <span class="math">\(\mathcal{D}_i\)</span> will be orthogonal to <span class="math">\(\mathbf{r}_i\)</span>!</p>
+<p>and <span class="math">\(\mathbf{x}_k\)</span> is the minimizer of:</p>
+<div class="math">
+\begin{align*}
+f(\mathbf{x}) = \frac{1}{2}\mathbf{x}^T H \mathbf{x} + c^T \mathbf{x} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\text{over the set } \{\mathbf{x} \mid \mathbf{x} = \mathbf{x}_0 + \mathrm{span}\{\mathbf{p}_0, \mathbf{p}_1,...\mathbf{p}_{k-1}\}\} \\
+\end{align*}
+</div>
+<p>The new residual <span class="math">\(\mathbf{r}_k\)</span> is orthogonal to all the search directions used in the previous iterations (provided that the search directions are H-conjugate}.</p>
+<div class="section" id="proof">
+<h4>Proof:</h4>
+<p>We will show that <span class="math">\(\tilde{\mathbf{x}} = \mathbf{x}_0 + \sigma_0^*\mathbf{p}_0 + \dots + \sigma_{k-1}^*\mathbf{p}_{k-1}\)</span> minimizes <span class="math">\(f(\mathbf{x})\)</span> over <span class="math">\(\{\mathbf{x} \mid \mathbf{x} = \mathbf{x}_0 + \mathrm{span}\{\mathbf{p}_0, \mathbf{p}_1,...\mathbf{p}_{k-1}\}\}\)</span>, if and only if <span class="math">\(\mathbf{r}(\tilde{\mathbf{x}})^T \mathbf{p}_i = 0, \: i = 0,...., k - 1\)</span>.</p>
+<p>Let,</p>
+<div class="math">
+\begin{align*}
+h(\sigma) = f(\mathbf{x}_0 + \sigma_0^*\mathbf{p}_0 + \dots + \sigma_{k-1}^*\mathbf{p}_{k-1}) \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\sigma = (\sigma_0, \sigma_1, ..., \sigma_{k-1})^T \\
+\end{align*}
+</div>
+<p><span class="math">\(h(\sigma)\)</span> is a strict convex quadratic. Therefore, at the unique minimiser <span class="math">\(\sigma^*\)</span>,</p>
+<div class="math">
+\begin{align*}
+\frac{\partial h (\sigma^*)}{\partial \sigma_i} = 0 \\
+\end{align*}
+</div>
+<p>By Chain Rule,</p>
+<div class="math">
+\begin{align*}
+\frac{\partial h (\sigma^*)}{\partial \tilde{\mathbf{x}}} \frac{\partial \tilde{\mathbf{x}}}{\partial \sigma_i} = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\nabla f(\mathbf{x}_0 + \sigma_0^*\mathbf{p}_0 + \dots + \sigma_{k-1}^*\mathbf{p}_{k-1})^T \mathbf{p}_i = 0, \: i = 0,...,k-1 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\nabla f(\tilde{\mathbf{x}})^T \mathbf{p}_i = 0 \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{r}(\tilde{\mathbf{x}})^T \mathbf{p}_i = 0, \: i = 0,..., k-1 \\
+\end{align*}
+</div>
+<p>Hence, from the above, we can conclude that <span class="math">\(\tilde{\mathbf{x}}\)</span> minimizes <span class="math">\(f(\mathbf{x})\)</span> over <span class="math">\(\{\mathbf{x},  \mathbf{x} = \mathbf{x}_0 + \mathrm{span}\{\mathbf{p}_0, \mathbf{p}_1,...\mathbf{p}_{k-1}\}\}\)</span>, by the result that <span class="math">\(\mathbf{r}(\tilde{\mathbf{x}})^T \mathbf{p}_i = 0, \: i = 0,...., k - 1\)</span>.</p>
+<p>Now, we will use induction to show that <span class="math">\(\mathbf{x}_k\)</span> satisfies <span class="math">\(\mathbf{r}(\tilde{\mathbf{x}})^T \mathbf{p}_i = 0\)</span>, and therefore, <span class="math">\(\mathbf{x}_k = \tilde{\mathbf{x}}\)</span>.</p>
+<p>For <span class="math">\(k = 1\)</span>, <span class="math">\(\mathbf{x}_1 = \mathbf{x}_0 + \alpha_0 \mathbf{p}_0\)</span> minimizes <span class="math">\(f(\mathbf{x})\)</span> along <span class="math">\(\mathbf{p}_0\)</span> which implies <span class="math">\(\mathbf{r}_1^T \mathbf{p}_0 = 0\)</span>.</p>
+<p>Let our induction hypothesis hold true for <span class="math">\(\mathbf{r}_{k-1}\)</span>, that is, <span class="math">\(\mathbf{r}_{k-1}^T \mathbf{p}_i = 0, \: \forall \: i = 0, \dots , k-2\)</span>. We will prove the orthogonality relationships for <span class="math">\(\mathbf{r}_{k}\)</span>. We know that,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{k} = \mathbf{r}_{k - 1} + \alpha_{k - 1} H \mathbf{p}_{k - 1} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_{k-1}^T \mathbf{r}_{k} = \mathbf{p}_{k-1}^T \mathbf{r}_{k - 1} +  \alpha_{k - 1} \mathbf{p}_{k - 1}^T H \mathbf{p}_{k - 1} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_{k}^T \mathbf{p}_{k-1}  = 0 \text{ after substituting the value of } \alpha_{k - 1} = - \frac{\mathbf{p}_{k - 1}^T \mathbf{r}_{k - 1}}{\mathbf{p}_{k - 1}^T H \mathbf{p}_{k - 1}} \\
+\end{align*}
+</div>
+<p>For the rest of the vectors <span class="math">\(\mathbf{p}_i, \: i = 0, \dots, k - 2\)</span>,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{k} = \mathbf{r}_{k - 1} + \alpha_{k - 1} H \mathbf{p}_{k - 1} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{p}_{i}^T \mathbf{r}_{k} = \mathbf{p}_{i}^T \mathbf{r}_{k - 1} +  \alpha_{k - 1} \mathbf{p}_{i}^T H \mathbf{p}_{k - 1} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_{k}^T \mathbf{p}_{i} = \mathbf{r}_{k - 1}^T \mathbf{p}_{i} +  \alpha_{k - 1} \mathbf{p}_{k - 1} H \mathbf{p}_{i}^T \\
+\end{align*}
+</div>
+<p>The first term on the Right Hand Side vanishes due to our induction hypothesis. The second term vanishes due to the H-conjugacy of the <span class="math">\(\mathbf{p}_{i}\)</span> vectors. Therefore,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{k}^T \mathbf{p}_{i} = 0 \: \forall \: i \in  [\![ 0, k - 2 ]\!] \\
+\end{align*}
+</div>
+<p>Combining both of the above results, we get,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{k}^T \mathbf{p}_{i} = 0 \: \forall \: i \in  [\![ 0, k - 1 ]\!] \\
+\end{align*}
+</div>
+<p>and therefore, <span class="math">\(\mathbf{x}_k\)</span> is the minimizer of:</p>
+<div class="math">
+\begin{align*}
+f(\mathbf{x}) = \frac{1}{2}\mathbf{x}^T H \mathbf{x} + c^T \mathbf{x} \\
+\end{align*}
+</div>
+<p>over <span class="math">\(\{\mathbf{x} \mid \mathbf{x} = \mathbf{x}_0 + \mathrm{span}\{\mathbf{p}_0, \mathbf{p}_1,...\mathbf{p}_{k-1}\}\}\)</span>. Hence, proved.</p>
+</div>
+</div>
+<div class="section" id="connection-to-krylov-subspaces">
+<h3>Connection to Krylov Subspaces</h3>
+<p>The Expanding Subspace Minimisation (ESM) Theorem proves two things: the next iterate <span class="math">\(\mathbf{x}_i\)</span> minimizes our objective <span class="math">\(f(\mathbf{x})\)</span> over the entire subspace <span class="math">\(\mathbf{x}_0 + \underset{k}{\mathrm{span}}\{ \mathbf{p}_k \}_0^{i - 1}\)</span>; and the next residual <span class="math">\(\mathbf{r}_i\)</span> is orthogonal to all the previous search directions <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span>, that is,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_i^T \mathbf{p}_k = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!] \\
+\end{align*}
+</div>
+<p>Let us denote this subspace as <span class="math">\(\mathcal{D}_i = \{ \mathbf{p}_k \}_0^{i - 1}\)</span>.</p>
+<p>In other words, the residual <span class="math">\(\mathbf{r}_i\)</span> is orthogonal to the entire subspace <span class="math">\(\mathcal{D}_i\)</span>, and therefore, any vector contained in <span class="math">\(\mathcal{D}_i\)</span> will be orthogonal to <span class="math">\(\mathbf{r}_i\)</span>!</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_i \perp \mathcal{D}_i \\
+\end{align*}
+</div>
+<p>The image below demonstrates this fact for <span class="math">\(\mathcal{D}_2\)</span>.</p>
 <h1 align="center">
 <img src="osubs.svg" width="800"/>
-</h1><p>Here we attempt to analyse a few more fundamental issues. Since we have mentioned in the previous section that the directions <span class="math">\(\mathbf{p}\)</span> are built from the linearly independent set of vectors <span class="math">\(\mathbf{u}\)</span>, that is,</p>
+</h1><p>Here we attempt to analyse a few more fundamental issues.</p>
+<p>In plain English, what the first part of the ESM theorem is saying is that given a starting point <span class="math">\(\mathbf{x}_0\)</span>, we keep on enlarging the <em>expanding-subspace</em> <span class="math">\(\mathcal{D}_i\)</span> by one dimension in each step, and we evermore keep getting closer to the solution after gaining that extra degree of freedom of movement in that step. As soon as <span class="math">\(\mathcal{D}_i\)</span> becomes <span class="math">\(\mathbb{R}^n\)</span>, the error gets driven to zero and we have reached our destination!</p>
+<p>Since we have mentioned in the previous section that the directions <span class="math">\(\mathbf{p}\)</span> are built from the linearly independent set of vectors <span class="math">\(\mathbf{u}\)</span>, that is,</p>
 <div class="math">
 \begin{align*}
 \mathbf{p}_i = \mathbf{u}_i + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k \\
 \end{align*}
 </div>
-<p>..it implies that the space spanned by <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span> is the same as the space spanned by <span class="math">\(\{ \mathbf{u}_k \}_0^{i - 1}\)</span> by linearity. That is, <span class="math">\(\mathcal{D}_i = \{ \mathbf{u}_k \}_0^{i - 1}\)</span>. This means, the residuals are also orthogonal to all the source <span class="math">\(\{ \mathbf{u}_k \}_0^{i - 1}\)</span> vectors! Mathematically, by first transposing above the equation,</p>
+<p>..it implies that the space spanned by <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span> is the same as the space spanned by <span class="math">\(\{ \mathbf{u}_k \}_0^{i - 1}\)</span> by linearity. That is, <span class="math">\(\mathcal{D}_i = \{ \mathbf{u}_k \}_0^{i - 1}\)</span>. Since, <span class="math">\(\mathbf{r}_i \perp \mathcal{D}_i\)</span>, this means, the next residual <span class="math">\(\mathbf{r}_i\)</span> is also orthogonal to all the previous and current generator <span class="math">\(\{ \mathbf{u}_k \}_0^{i - 1}\)</span> vectors lying in the space <span class="math">\(\mathcal{D}_i\)</span>! Mathematically, by first transposing the above equation,</p>
 <div class="math">
 \begin{align*}
 \mathbf{p}_i^T = \mathbf{u}_i^T + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k^T \\
@@ -517,7 +647,35 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 \implies \mathbf{r}_j^T \mathbf{u}_i = 0 \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
 \end{align*}
 </div>
-<p>Hence, we see why it is true. Further, let us develop one more statement:</p>
+<p>Hence, we see why it is true.</p>
+<p>Now, comes the core idea of <strong>Conjugate Gradient</strong>: Instead of using the coordinate axes <span class="math">\(\{ \mathbf{e}_1, \mathbf{e}_2, \dots, \mathbf{e}_n \}\)</span> as the generator vectors <span class="math">\(\{ \mathbf{u}_0, \mathbf{u}_1, \dots, \mathbf{u}_{n - 1} \}\)</span> for the conjugated-construction of our search directions <span class="math">\(\mathbf{p}_i\)</span>, we will instead use the negative residuals/gradients <span class="math">\(\{ - \mathbf{r}_0, - \mathbf{r}_1, \dots, - \mathbf{r}_{n - 1} \}\)</span> as the generator vectors! That is, <span class="math">\(\mathbf{u}_i = - \mathbf{r}_i\)</span>. This is precisely the reason why we have emphasized on the term, <strong>Conjugate(d) Gradients</strong>. Because the residuals/gradients are themselves not H-conjugate, but the <em>n</em> H-conjugate directions that we need for our algorithm are constructed out of them.</p>
+<p>While this choice seems arbitrary, we will also see how this choice leads to the efficiency and some more desirable attributes of the CG algorithm. Since <span class="math">\(\mathbf{p}_0 = \mathbf{u}_0 = -\mathbf{r}_0 = -\nabla f(\mathbf{x}_0)\)</span>, the first direction of the Conjugate Gradient process is also the direction of Steepest Descent.</p>
+<p>We stated before that,</p>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_j^T \mathbf{u}_i = 0 \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
+\end{align*}
+</div>
+<p>Replace <span class="math">\(\mathbf{u}_i = -\mathbf{r}_i\)</span> in the above and we shall get,</p>
+<div class="math">
+\begin{align*}
+\implies - \mathbf{r}_j^T \mathbf{r}_i = 0 \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
+\end{align*}
+</div>
+<p>(Dropping the negative sign, and replacing the indices <span class="math">\(i\)</span> by <span class="math">\(k\)</span> and <span class="math">\(j\)</span> by <span class="math">\(i\)</span> with no difference)</p>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_i^T \mathbf{r}_k = 0  \: \forall \: k \in [\![ 0, i - 1 ]\!] \\
+\end{align*}
+</div>
+<p>Which means the next residual/gradient is orthogonal to all the previous residuals/gradients. Since <span class="math">\(\mathbf{u}_i\)</span> (generator) vectors <strong>have to be linearly independent</strong> for generating our directions, by selecting <span class="math">\(\mathbf{u}_i = -\mathbf{r}_i\)</span> we are not doing any mistake since the mutual orthogonality of <span class="math">\(\mathbf{r}_i \: \forall \: i \in [\![ 0, n - 1 ]\!]\)</span> guarantees their linear independence. Contrast this with Steepest Descent, where a lot of residuals/gradients were repeated directions and hence not linearly independent.</p>
+<p>Therefore, the space spanned by directions <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span> is equal to the space spanned by the residuals <span class="math">\(\{ \mathbf{r}_k \}_0^{i - 1}\)</span> (since <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1} = \{ \mathbf{u}_k \}_0^{i - 1}\)</span>).</p>
+<div class="math">
+\begin{align*}
+\mathcal{D}_i = \underset{k}{\mathrm{span}}\{ \mathbf{p}_k \}_0^{i - 1} = \underset{k}{\mathrm{span}}\{ \mathbf{u}_k \}_0^{i - 1} = \underset{k}{\mathrm{span}}\{ \mathbf{r}_k \}_0^{i - 1} \\
+\end{align*}
+</div>
+<p>Further, let us develop one more statement:</p>
 <div class="math">
 \begin{align*}
 \mathbf{p}_i^T \mathbf{r}_i = \mathbf{u}_i^T \mathbf{r}_i + \sum_{k = 0}^{i - 1} \beta_{ik} \mathbf{p}_k^T \mathbf{r}_i \\
@@ -525,23 +683,350 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 </div>
 <div class="math">
 \begin{align*}
-\implies \mathbf{p}_i^T \mathbf{r}_i = \mathbf{u}_i^T \mathbf{r}_i \\
+\implies \mathbf{p}_i^T \mathbf{r}_i = \mathbf{u}_i^T \mathbf{r}_i = - \mathbf{r}_i^T \mathbf{r}_i \\
 \end{align*}
 </div>
-<p>Now, comes the core idea of <strong>Conjugate Gradient</strong>: Instead of using the coordinate axes <span class="math">\(\{ \mathbf{e}_1, \mathbf{e}_2, \dots, \mathbf{e}_n \}\)</span> as the source vectors <span class="math">\(\{ \mathbf{u}_0, \mathbf{u}_1, \dots, \mathbf{u}_{n - 1} \}\)</span> for the conjugated-construction of our search directions <span class="math">\(\mathbf{p}_i\)</span>, we will instead use the residuals/gradients <span class="math">\(\{ \mathbf{r}_0, \mathbf{r}_1, \dots, \mathbf{r}_{n - 1} \}\)</span> as the source vectors! That is, <span class="math">\(\mathbf{u}_i = \mathbf{r}_i\)</span>. This is precisely the reason why we have emphasized on the term, <strong>Conjugate(d) Gradients</strong>. Because the gradients/residuals are themselves not H-conjugate, but the n-directions we need are constructed out of them. We will also see how this choice leads to the efficiency and some more desirable attributes of the CG algorithm. Since <span class="math">\(\mathbf{p}_0 = \mathbf{u}_0 = \mathbf{r}_0 = \nabla f(\mathbf{x}_0)\)</span>, the first direction of the Conjugate Gradient process is also the direction of Steepest Descent.</p>
-<p>We stated before that,</p>
+<p>We know that,</p>
 <div class="math">
 \begin{align*}
-\implies \mathbf{r}_j^T \mathbf{u}_i = 0 \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
+\mathbf{r}_i = \mathbf{r}_{i - 1} + \alpha_{i - 1} H \mathbf{p}_{i - 1} \\
 \end{align*}
 </div>
-<p>Replace <span class="math">\(\mathbf{u}_i = \mathbf{r}_i\)</span> in the above and we shall get,</p>
+<p>Since, <span class="math">\(\mathbf{r}_i\)</span> lies outside <span class="math">\(\mathcal{D}_i\)</span> from the subspace identity, and <span class="math">\(\mathbf{r}_{i - 1} \in \mathcal{D}_i\)</span>, therefore, the <span class="math">\(H \mathbf{p}_{i - 1}\)</span> vector has to lie outside the space spanned by <span class="math">\(\mathcal{D}_i\)</span>. From this, we can write: <span class="math">\(\mathbf{p}_{i - 1} \in \mathcal{D}_i \implies H \mathbf{p}_{i - 1} \in H \mathcal{D}_i\)</span>. Therefore, each subspace <span class="math">\(\mathcal{D}_{i + 1} = \underset{k}{\mathrm{span}}\{ \{ \mathbf{r}_k \}_0^{i - 1},  \mathbf{r}_i \}\)</span> is constructed from the union of <span class="math">\(\mathcal{D}_i\)</span> and <span class="math">\(H \mathcal{D}_i\)</span>.</p>
+<p>Starting from the first subspace,</p>
 <div class="math">
 \begin{align*}
-\implies \mathbf{r}_j^T \mathbf{r}_i = 0  \text{ ! } \: \forall \: i \in [\![ 0, j - 1 ]\!] \\
+\mathcal{D}_1 = \text{span}\{ \mathbf{p}_0 \} \\
 \end{align*}
 </div>
-<p>Another powerful observation! We have seen before, <span class="math">\(\mathbf{r}_i = \mathbf{r}_{i - 1} + \alpha_{i - 1} H \mathbf{p}_{i - 1}\)</span>, therefore,</p>
+<p>The second subspace is,</p>
+<div class="math">
+\begin{align*}
+\mathcal{D}_2 = \text{span}\{ \mathbf{p}_0 \} + H \text{span}\{ \mathbf{p}_0 \} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathcal{D}_2 = \text{span}\{ \mathbf{p}_0, H \mathbf{p}_0 \} \\
+\end{align*}
+</div>
+<p>The third subspace is,</p>
+<div class="math">
+\begin{align*}
+\mathcal{D}_3 = \text{span}\{ \mathbf{p}_0, H \mathbf{p}_0 \} + H \text{span}\{ \mathbf{p}_0, H \mathbf{p}_0 \} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathcal{D}_3 = \text{span}\{ \mathbf{p}_0, H \mathbf{p}_0, H (H \mathbf{p}_0) \} \\
+\end{align*}
+</div>
+<p>and therefore, by recursion, the i-th subspace is,</p>
+<div class="math">
+\begin{align*}
+\mathcal{D}_i = \text{span}\{ \mathbf{p}_0, H \mathbf{p}_0, H (H \mathbf{p}_0), H (H (H \mathbf{p}_0)), \dots, H^{i - 1} \mathbf{p}_0\} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathcal{D}_i = \text{span}\{ \mathbf{p}_0, H \mathbf{p}_0, H^2 \mathbf{p}_0, H^3 \mathbf{p}_0, \dots, H^{i - 1} \mathbf{p}_0\} \\
+\end{align*}
+</div>
+<p>Since, <span class="math">\(\mathcal{D}_i = \underset{k}{\mathrm{span}}\{ \mathbf{p}_k \}_0^{i - 1} = \underset{k}{\mathrm{span}}\{ \mathbf{r}_k \}_0^{i - 1}\)</span> by our generator choice, by the same arguments,</p>
+<div class="math">
+\begin{align*}
+\implies \mathcal{D}_i = \text{span}\{ \mathbf{r}_0, H \mathbf{r}_0, H^2 \mathbf{r}_0, H^3 \mathbf{r}_0, \dots, H^{i - 1} \mathbf{r}_0\} \\
+\end{align*}
+</div>
+<p>This subspace has a special name: <strong>Krylov Subspace</strong>, denoted by <span class="math">\(\mathcal{K}_i\)</span>. This particular subspace, which we constructed out of choosing the generator vectors <span class="math">\(\mathbf{u}_i\)</span> as the residuals/gradients <span class="math">\(\mathbf{r}_i\)</span>, is in fact the <strong>core property</strong> that makes our Conjugate Gradient method a highly efficient one. So why is that? If we look carefully, we can observe that the Krylov Subspace <span class="math">\(\mathcal{D}_{i + 1}\)</span> is the union of <span class="math">\(\mathcal{D}_i\)</span> and <span class="math">\(H \mathcal{D}_i\)</span> by construction. Since <span class="math">\(\mathbf{r}_{i + 1} \perp \mathcal{D}_{i + 1}\)</span> as proven by the ESM Theorem, we can write,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1} \perp \mathcal{D}_{i + 1} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1} \perp \left( \mathcal{D}_i \bigcup H \mathcal{D}_i \right) \\
+\end{align*}
+</div>
+<p>resulting in,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1} \perp \mathcal{D}_i \\
+\end{align*}
+</div>
+<p>and,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1} \perp H \mathcal{D}_i \\
+\end{align*}
+</div>
+<p>which is a funny result. Simplifying the above expression with <span class="math">\(\mathcal{D}_i = \underset{k}{\mathrm{span}}\{ \mathbf{p}_k \}_0^{i - 1} = \mathrm{span}\{ \mathbf{p}_0, \mathbf{p}_1, \mathbf{p}_2, \dots, \mathbf{p}_{i - 1} \}\)</span>,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1} \perp H \mathrm{span}\{ \mathbf{p}_0, \mathbf{p}_1, \mathbf{p}_2, \dots, \mathbf{p}_{i - 1} \} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1} \perp \mathrm{span}\{ H \mathbf{p}_0, H \mathbf{p}_1, H \mathbf{p}_2, \dots, H \mathbf{p}_{i - 1} \} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1}^T H \mathbf{p}_k = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!] \\
+\end{align*}
+</div>
+<p>What this is saying is that <span class="math">\(\mathbf{r}_{i + 1}\)</span> is H-conjugate to all the previous search directions except <span class="math">\(\mathbf{p}_i\)</span> (<span class="math">\(\mathbf{r}_{i + 1}\)</span> is also orthogonal to all the previous search directions as shown above, which is the reason this fact seems funny). Recall that we said in the previous section, to construct a new direction <span class="math">\(\mathbf{p}_{i + 1}\)</span>, we want to take a linearly independent generator <span class="math">\(\mathbf{u}_{i + 1}\)</span> and peel off any of its components that are not H-conjugate to the set of directions <span class="math">\(\{ \mathbf{p}_k \}_0^i\)</span>.</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1} = \mathbf{u}_{i + 1} + \sum_{k = 0}^{i} \beta_{(i + 1),k} \mathbf{p}_k \\
+\end{align*}
+</div>
+<p>Since our generator directions are the residuals/gradients, replace <span class="math">\(\mathbf{u}_{i + 1} = - \mathbf{r}_{i + 1}\)</span>,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1} = - \mathbf{r}_{i + 1} + \sum_{k = 0}^{i} \beta_{(i + 1),k} \mathbf{p}_k \\
+\end{align*}
+</div>
+<p>BUT! We just proved that <span class="math">\(\mathbf{r}_{i + 1}^T H \mathbf{p}_k = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!]\)</span>! It means there are no components in the vector <span class="math">\(\mathbf{r}_{i + 1}\)</span> that are not H-conjugate to the set of directions <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span>, and therefore we do not have to bother about removing such components from <span class="math">\(\mathbf{r}_{i + 1}\)</span> as we have eliminated their presence! The only direction with which <span class="math">\(\mathbf{r}_{i + 1}\)</span> is not H-conjugate is <span class="math">\(\mathbf{p}_i\)</span>. This greatly simplifies our job: we will simply retain the <span class="math">\(\mathbf{p}_i\)</span> term and drop all other terms (as they are unnecessary):</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1} = - \mathbf{r}_{i + 1} + \beta_{(i + 1),i} \mathbf{p}_i \\
+\end{align*}
+</div>
+<p>Now we simply replace <span class="math">\(\beta_{(i + 1),i} = \beta_{i + 1}\)</span> and voila! Out comes our final form of a new H-conjugate direction:</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1} = - \mathbf{r}_{i + 1} + \beta_{i + 1} \mathbf{p}_i \\
+\end{align*}
+</div>
+<p>To calculate <span class="math">\(\beta_{i + 1}\)</span>, transpose the above equation and post-multiply by <span class="math">\(H \mathbf{p}_i\)</span>,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1}^T H \mathbf{p}_i = - \mathbf{r}_{i + 1}^T H \mathbf{p}_i + \beta_{i + 1} \mathbf{p}_i^T H \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \beta_{i + 1} = \frac{\mathbf{r}_{i + 1}^T H \mathbf{p}_i}{\mathbf{p}_i^T H \mathbf{p}_i} \\
+\end{align*}
+</div>
+<p>Using <span class="math">\(\mathbf{r}_{i + 1} = \mathbf{r}_{i} + \alpha_{i} H \mathbf{p}_{i}\)</span>,</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1}^T \mathbf{r}_{i + 1} = \mathbf{r}_{i + 1}^T \mathbf{r}_{i} + \alpha_{i} \mathbf{r}_{i + 1}^T H \mathbf{p}_{i} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_{i + 1}^T \mathbf{r}_{i + 1} = \alpha_{i} \mathbf{r}_{i + 1}^T H \mathbf{p}_{i} \\
+\end{align*}
+</div>
+<p>And,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i}^T \mathbf{r}_{i + 1} = \mathbf{p}_{i}^T \mathbf{r}_{i} + \alpha_{i} \mathbf{p}_{i}^T H \mathbf{p}_{i} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies 0 = - \mathbf{r}_{i}^T \mathbf{r}_{i} + \alpha_{i} \mathbf{p}_{i}^T H \mathbf{p}_{i} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \mathbf{r}_{i}^T \mathbf{r}_{i} = \alpha_{i} \mathbf{p}_{i}^T H \mathbf{p}_{i} \\
+\end{align*}
+</div>
+<p>Substitute in the expression for <span class="math">\(\beta_{i + 1}\)</span>,</p>
+<div class="math">
+\begin{align*}
+\beta_{i + 1} = \frac{\alpha_{i} \mathbf{r}_{i + 1}^T H \mathbf{p}_i}{\alpha_{i} \mathbf{p}_i^T H \mathbf{p}_i} \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\implies \beta_{i + 1} = \frac{\mathbf{r}_{i + 1}^T \mathbf{r}_{i + 1}}{\mathbf{r}_{i}^T \mathbf{r}_{i}} \\
+\end{align*}
+</div>
+<p>Now we are onto something! We neither need to store all directions in memory nor need them to calculate each new direction. This discovery firmly made the CG algorithm one of the mainstays of modern scientific computing.</p>
+<p>As as final step, let us prove one more important thing: that the direction <span class="math">\(\mathbf{p}_{i + 1}\)</span> generated by just <span class="math">\(\mathbf{r}_{i + 1}\)</span> and <span class="math">\(\mathbf{p}_i\)</span> at the i-th step is indeed H-conjugate to the entire set <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span> not considered in the formula. Assume that the set upto to the i-th iterate is already H-conjugate.</p>
+<p>First, we transpose the following equation:</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1} = - \mathbf{r}_{i + 1} + \beta_{i + 1} \mathbf{p}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1}^T = - \mathbf{r}_{i + 1}^T + \beta_{i + 1} \mathbf{p}_i^T \\
+\end{align*}
+</div>
+<p>Post-multiply with <span class="math">\(H \mathbf{p}_{k}\)</span>, <span class="math">\(k \in [\![ 0, i - 1 ]\!]\)</span>,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1}^T H \mathbf{p}_{k} = - \mathbf{r}_{i + 1}^T H \mathbf{p}_{k} + \beta_{i + 1} \mathbf{p}_i^T H \mathbf{p}_{k} \\
+\end{align*}
+</div>
+<p>Using <span class="math">\(\mathbf{r}_{i + 1}^T H \mathbf{p}_k = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!]\)</span> and the fact that the set <span class="math">\(\{ \mathbf{p}_k \}_0^{i}\)</span> is H-conjugate, both the right hand terms vanish. Therefore,</p>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1}^T H \mathbf{p}_{k} = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!] \\
+\end{align*}
+</div>
+<p>Hence, proved.</p>
+<p>What we have done so far achieves both goal #2 and goal #1. Before presenting the Conjugate Gradient algorithm in the next section, let us summarise the most important facts from this section:</p>
+<div class="math">
+\begin{align*}
+\mathbf{r}_i^T \mathbf{p}_k = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!] \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{r}_i^T \mathbf{r}_k = 0  \: \forall \: k \in [\![ 0, i - 1 ]\!] \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i}^T H \mathbf{p}_{k} = 0 \: \forall \: k \in [\![ 0, i - 1 ]\!] \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathbf{p}_i^T \mathbf{r}_i = \mathbf{u}_i^T \mathbf{r}_i = - \mathbf{r}_i^T \mathbf{r}_i \\
+\end{align*}
+</div>
+<div class="math">
+\begin{align*}
+\mathcal{D}_i = \mathcal{K}_i = \mathrm{span}\{ \mathbf{r}_0, \mathbf{r}_1, \mathbf{r}_2, \dots, \mathbf{r}_{i - 1} \} = \mathrm{span}\{ \mathbf{p}_0, \mathbf{p}_1, \mathbf{p}_2, \dots, \mathbf{p}_{i - 1} \} = \text{span}\{ \mathbf{r}_0, H \mathbf{r}_0, H^2 \mathbf{r}_0, H^3 \mathbf{r}_0, \dots, H^{i - 1} \mathbf{r}_0\} \\
+\end{align*}
+</div>
+</div>
+</div>
+<div class="section" id="conjugate-gradients-a-method-of-conjugate-directions">
+<h2>Conjugate Gradients: A Method of Conjugate Directions</h2>
+<p>All of our machinery is in place now. We collect the necessary facts in an iterative loop; the simplicity and terseness of the algorithm completely belies the conceptual buildup we went through in the previous sections. So, without any further ado, let's present the Conjugate Gradient algorithm in one piece now.</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Given, <span class="math">\(\mathbf{x}_0\)</span>.</li>
+<li>Set <span class="math">\(\mathbf{r}_0 \leftarrow H \mathbf{x}_0 + \mathbf{c}\)</span>, <span class="math">\(\mathbf{p}_0 \leftarrow - \mathbf{r}_0\)</span> and <span class="math">\(i \leftarrow 0\)</span>.</li>
+<li><strong>while</strong> <span class="math">\(\mathbf{r}_i \neq 0\)</span>, do:</li>
+<li><em>Step Length</em>:</li>
+</ol>
+<div class="math">
+\begin{align*}
+\alpha_i = \frac{\mathbf{r}_i^T \mathbf{r}_i}{\mathbf{p}_i^T H \mathbf{p}_i} \\
+\end{align*}
+</div>
+<ol class="arabic simple" start="5">
+<li><em>Next Iterate</em>:</li>
+</ol>
+<div class="math">
+\begin{align*}
+\mathbf{x}_{i + 1} = \mathbf{x}_i + \alpha_i \mathbf{p}_i \\
+\end{align*}
+</div>
+<ol class="arabic simple" start="6">
+<li><em>Next Residual</em>:</li>
+</ol>
+<div class="math">
+\begin{align*}
+\mathbf{r}_{i + 1} = \mathbf{r}_i + \alpha_i H \mathbf{p}_i \\
+\end{align*}
+</div>
+<ol class="arabic simple" start="7">
+<li><em>Direction Update Factor</em>:</li>
+</ol>
+<div class="math">
+\begin{align*}
+\beta_{i + 1} = \frac{\mathbf{r}_{i + 1}^T \mathbf{r}_{i + 1}}{\mathbf{r}_{i}^T \mathbf{r}_{i}} \\
+\end{align*}
+</div>
+<ol class="arabic simple" start="8">
+<li><em>Next Direction</em>:</li>
+</ol>
+<div class="math">
+\begin{align*}
+\mathbf{p}_{i + 1} = - \mathbf{r}_{i + 1} + \beta_{i + 1} \mathbf{p}_i \\
+\end{align*}
+</div>
+<ol class="arabic simple" start="9">
+<li><em>Loop Counter Update</em>:</li>
+</ol>
+<div class="math">
+\begin{align*}
+i \leftarrow i + 1 \\
+\end{align*}
+</div>
+<ol class="arabic simple" start="10">
+<li><strong>end while</strong></li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="computational-complexity">
+<h2>Computational Complexity:</h2>
+<p>The dominant costs of the above algorithm is in the Matrix-Vector multiplication step: <span class="math">\(H \mathbf{p}_i\)</span>.</p>
+<p>For a dense matrix <span class="math">\(H\)</span>, the Matrix-Vector multiplication costs, with <span class="math">\(H \rightarrow n \times n\)</span> and <span class="math">\(\mathbf{p}_i \rightarrow n \times 1\)</span>, <span class="math">\(\mathcal{O}(n^2)\)</span>.</p>
+<p>For a sparse matrix <span class="math">\(H\)</span>, Matrix-Vector multiplication costs, <span class="math">\(\mathcal{O}(m)\)</span>, where <span class="math">\(m\)</span> is the non-zero elements in <span class="math">\(H\)</span>.</p>
+<p>If we want the initial residual <span class="math">\(H \mathbf{r}_0\)</span> to decrease by a factor <span class="math">\(\epsilon\)</span>, say:</p>
+<p><span class="math">\(\| \mathbf{r}_k\| \leq \epsilon \| \mathbf{r}_0 \|\)</span>, where <span class="math">\(\mathbf{r}_k\)</span> and <span class="math">\(\mathbf{r}_0\)</span> are the residuals in the <span class="math">\(k^{th}\)</span> and the <span class="math">\(0^{th}\)</span> iterations, then the <em>Number of Iterations</em>, <span class="math">\(n_{iter}\)</span> required for the following algorithms are:</p>
+<p>Steepest Descent: <span class="math">\(n_{iter} \leq \frac{1}{2}\mathcal{K}\ln{\frac{1}{\epsilon}}\)</span>.</p>
+<p>Conjugate Gradient <span class="math">\(n_{iter} \leq \frac{1}{2}\sqrt{\mathcal{K}}\ln{\frac{2}{\epsilon}}\)</span>.</p>
+<p>where,</p>
+<p><span class="math">\(\mathcal{K}\)</span> is the condition number of <span class="math">\(H\)</span>.</p>
+<p>If we have a <span class="math">\(d\)</span>-dimensional domain, to solve the boundary value problem, the condition number <span class="math">\(\mathcal{K}\)</span> of the matrix, obtained by discretizing the second order ellyptic boundary value problem, is of the order <span class="math">\(\mathcal{O}(n^\frac{2}{d})\)</span>, and the number of non-zero entries is of <span class="math">\(\mathcal{O}(n)\)</span>.</p>
+<p>The Time Complexities for the two methods in this problem are as:</p>
+<p>Steepest Descent: <span class="math">\(\mathcal{O}(m\mathcal{K})\)</span></p>
+<p>Conjugate Gradient:  <span class="math">\(\mathcal{O}(m\sqrt{\mathcal{K}})\)</span></p>
+<p>For a 2D problem and <span class="math">\(m\)</span> <span class="math">\(\epsilon\)</span> <span class="math">\(\mathcal{O}(n)\)</span>, we have the following:</p>
+<p>S.D: Time complexity: <span class="math">\(\mathcal{O}(n^2)\)</span></p>
+<p>C.G: Time complexity: <span class="math">\(\mathcal{O}(n^\frac{3}{2})\)</span></p>
+<p>Both methods have a space complexity of <span class="math">\(\mathcal{O}(m)\)</span>.</p>
+</div>
+<div class="section" id="convergence-of-cg">
+<h2>Convergence of CG:</h2>
+<p>In exact arithmetic, the conjugate gradient method will terminate at the solution in at most <span class="math">\(n\)</span> iterations. When the distribution of the eigenvalues of <span class="math">\(H\)</span> has certain favorable features, the algorithm will identify the solution in many fewer than <span class="math">\(n\)</span> iterations.</p>
+<p>If <span class="math">\(H\)</span> has only <span class="math">\(r\)</span> distinct eigenvalues, then the CG iteration will terminate at the solution in at most <span class="math">\(r\)</span> iterations.</p>
+<p>It is generally true that if the eigenvalues occur in <span class="math">\(r\)</span> distinct clusters, the CG iterates will approximately solve the problem in about <span class="math">\(r\)</span> steps.</p>
+</div>
+<div class="section" id="pre-conditioned-cg">
+<h2>Pre conditioned CG:</h2>
+<p>When the condition number <span class="math">\(\mathcal{K}\)</span> of <span class="math">\(H\)</span> is really high, then we run into issues. We introduce a technique called as pre-conditioning.</p>
+<p>Here we transform the problem <span class="math">\(Hx = -c\)</span> with the inverse of <span class="math">\(M\)</span> where <span class="math">\(M\)</span> is an SPD and invertible matrix, chosen by the user depending on the problem at hand:</p>
+<div class="math">
+\begin{align*}
+M^{-1} H \mathbf{x} = -M^{-1} \mathbf{c} \\
+\end{align*}
+</div>
+<p>We need: <span class="math">\(\mathcal{K}(M^{-1}H) \ll \mathcal{K}(H)\)</span> or the eigenvalues of <span class="math">\(M^{-1}H\)</span> are clustered together, thereby ensuring faster convergence to the actual solution in <span class="math">\(r\)</span> steps, if there are <span class="math">\(r\)</span> clusters.</p>
+<p>Most of the standard solver packages use pre-conditioning for faster convergence.</p>
+</div>
+<div class="section" id="non-linear-cg">
+<h2>Non-Linear CG</h2>
+<p>If our objective function is not convex quadratic as we were dealing with till now, we will have to adapt our current way to fit it into a non-linear functions.</p>
+<p>We were solving exactly for <span class="math">\(\alpha_k\)</span> till now, but in the nonlinear case, we have to use the Backtracking line-search scheme to calculate <span class="math">\(\alpha\)</span>.</p>
+<p>Instead of the residual <span class="math">\(r_k\)</span>, we will use <span class="math">\(\nabla f_k\)</span>, the gradient of the objective function at the current iterate.</p>
+<p><span class="math">\(\beta_{k+1}\)</span> has to be recalculated in terms of <span class="math">\(\nabla f_k\)</span> and the new search direction <span class="math">\(p_k\)</span>.</p>
+<p><span class="math">\(\beta_{k}\)</span> can be calculated by the following update equations:</p>
+<p>Fletcher - Reeves Method</p>
+<div class="math">
+\begin{align*}
+\beta_{FR}^k = \frac{\nabla f_k^T \nabla f_k}{\nabla f_{k-1}^T \nabla f_{k-1}} \\
+\end{align*}
+</div>
+<p>Polak Ribere Method:</p>
+<div class="math">
+\begin{align*}
+\beta_{PR}^k = \frac{\nabla f_k^T (\nabla f_k - \nabla f_{k-1})}{\nabla f_{k-1}^T \nabla f_{k-1}} \\
+\end{align*}
+</div>
+<p>Hestenes-Steifel Method:</p>
+<div class="math">
+\begin{align*}
+\beta_{HS}^k = \frac{\nabla f_k^T (\nabla f_k - \nabla f_{k-1})}{(\nabla f_k - \nabla f_{k-1})^T p_{k-1}}\\
+\end{align*}
+</div>
 </div>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
@@ -606,47 +1091,7 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 }
 </script> </article>
 </aside><!-- /#featured -->
-<section class="body" id="content">
-<h1>Other articles</h1>
-<hr/>
-<ol class="hfeed" id="posts-list">
-<li><article class="hentry">
-<header>
-<h1><a href="https://manojbaishya.github.io/least-squares-data-fitting.html" rel="bookmark" title="Permalink to Least Squares Data Fitting">Least Squares Data Fitting</a></h1>
-</header>
-<div class="entry-content">
-<footer class="post-info">
-<abbr class="published" title="2021-01-02T11:15:00+05:30">
-                Published: Sat 02 January 2021
-        </abbr>
-<address class="vcard author">
-                By                         <a class="url fn" href="https://manojbaishya.github.io/author/manoj-baishya.html">Manoj Baishya</a>
-</address>
-<p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
-<p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/statistics.html">statistics</a> <a href="https://manojbaishya.github.io/tag/data.html">data</a> </p>
-</footer><!-- /.post-info --> <p class="first last">We will learn how to apply the least squares linear regression technique to problems in modelling relationships in data.</p>
-<a class="readmore" href="https://manojbaishya.github.io/least-squares-data-fitting.html">read more</a>
-</div><!-- /.entry-content -->
-</article></li>
-</ol><!-- /#posts-list -->
-</section><!-- /#content -->
 <section class="body" id="extras">
-<div class="blogroll">
-<h2>links</h2>
-<ul>
-<li><a href="https://getpelican.com/">Pelican</a></li>
-<li><a href="https://www.python.org/">Python.org</a></li>
-<li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
-<li><a href="#">You can modify those links in your config file</a></li>
-</ul>
-</div><!-- /.blogroll -->
-<div class="social">
-<h2>social</h2>
-<ul>
-<li><a href="#">You can add links in your config file</a></li>
-<li><a href="#">Another social link</a></li>
-</ul>
-</div><!-- /.social -->
 </section><!-- /#extras -->
 <footer class="body" id="contentinfo">
 <address class="vcard body" id="about">
