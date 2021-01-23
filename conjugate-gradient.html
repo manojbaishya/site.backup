@@ -27,12 +27,12 @@
                 Published: Sat 23 January 2021
         </abbr>
 <address class="vcard author">
-                By                         <a class="url fn" href="https://manojbaishya.github.io/author/rahul-john-roy-piyush-mohapatra-manoj-baishya.html">Rahul John Roy, Piyush Mohapatra, Manoj Baishya</a>
+                By                         <a class="url fn" href="https://www.linkedin.com/in/rahuljohnroy">Rahul John Roy</a>, <a class="url fn" href="https://www.linkedin.com/in/piyush-mohapatra-306a0a117">Piyush Mohapatra</a>, <a class="url fn" href="https://www.linkedin.com/in/manojbaishya">Manoj Baishya</a>
 </address>
 <p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
 <p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/optimisation.html">optimisation</a> </p>
 </footer><!-- /.post-info --> <div class="section" id="quadratic-forms-and-linear-systems">
-<h2>Quadratic Forms and Linear Systems</h2>
+<h1>Quadratic Forms and Linear Systems</h1>
 <p>Many important quantities arising in engineering are mathematically modelled as Quadratic Forms. Output noise power in Signal Processing, Kinetic and Potential Energy functions in Mechanical Engineering, Covariance Models of Random Variable Linear Dependence and Principal Component Analysis in Statistics, etc. are some of the frequently occurring applications of Quadratic Forms, illustrating their ubiquity and importance.</p>
 <p>A Quadratic Form <span class="math">\(f(x)\)</span> on <span class="math">\(\mathbb{R}^n\)</span> is a function <span class="math">\(f : \mathbb{R}^n \rightarrow \mathbb{R}\)</span> such that:</p>
 <div class="math">
@@ -97,7 +97,7 @@ H \mathbf{x} = - \mathbf{c} \\
 <img src="https://manojbaishya.github.io/images/eqv1.svg" width="700"/>
 </h1></div>
 <div class="section" id="line-search-techniques">
-<h2>Line Search Techniques</h2>
+<h1>Line Search Techniques</h1>
 <p>Now that we have our objective function, namely the quadratic form <span class="math">\(f : \mathbb{R}^n \rightarrow \mathbb{R}\)</span>, our goal is to minimise it. We formalise our unconstrained optimisation problem <span class="math">\(\text{(P)}\)</span> as:</p>
 <div class="math">
 \begin{align*}
@@ -146,10 +146,10 @@ H \mathbf{x} = - \mathbf{c} \\
 <p>Let us the explore the above idea a bit further in the following sections.</p>
 </div>
 <div class="section" id="coordinate-descent-method">
-<h2>Coordinate Descent Method</h2>
+<h1>Coordinate Descent Method</h1>
 <p>To demonstrate the idea of n-directions, let us solve two problems and analyse their solutions. As a first attempt, we will pick the coordinate axes (i.e. the canonical basis) as the directions of descent.</p>
 <div class="section" id="problem-1">
-<h3>Problem 1</h3>
+<h2>Problem 1</h2>
 <div class="math">
 \begin{align*}
 \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = 4 x_1^2 + x_2^2 = \frac{1}{2} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}^T \begin{bmatrix} 8 &amp; 0\\ 0 &amp; 2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \end{bmatrix}^T \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \\
@@ -162,7 +162,7 @@ H \mathbf{x} = - \mathbf{c} \\
 <img src="https://manojbaishya.github.io/images/p1_solved.svg" width="700"/>
 </h1></div>
 <div class="section" id="problem-2">
-<h3>Problem 2</h3>
+<h2>Problem 2</h2>
 <div class="math">
 \begin{align*}
 \underset{x \in \mathbb{R}^2}{\mathrm{min}} \: f(\mathbf{x}) = 4 x_1^2 + x_2^2 - 2 x_1 x_2 = \frac{1}{2} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}^T \begin{bmatrix} 8 &amp; -2 \\ -2 &amp; 2 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \end{bmatrix}^T \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \\
@@ -229,7 +229,7 @@ H \mathbf{x} = - \mathbf{c} \\
 </div>
 </div>
 <div class="section" id="descent-along-conjugate-directions-a-powerful-line-search-method">
-<h2>Descent along Conjugate Directions: A Powerful Line Search Method</h2>
+<h1>Descent along Conjugate Directions: A Powerful Line Search Method</h1>
 <p>Two vectors, <span class="math">\(\mathbf{p}_i\)</span> and <span class="math">\(\mathbf{p}_j\)</span> are said to be <em>H-conjugate</em> with respect to some symmetric, positive definite matrix <span class="math">\(H\)</span>, if they satisfy,</p>
 <blockquote>
 <div class="math">
@@ -486,9 +486,9 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 <p>Okay, now we can move forward to the next sections in confidence and peace of mind.</p>
 </div>
 <div class="section" id="some-proofs-on-our-road-to-enlightenment">
-<h2>Some Proofs on our Road to Enlightenment</h2>
+<h1>Some Proofs on our Road to Enlightenment</h1>
 <div class="section" id="expanding-subspace-minimization-esm-theorem">
-<h3>Expanding Subspace Minimization (ESM) Theorem</h3>
+<h2>Expanding Subspace Minimization (ESM) Theorem</h2>
 <p>Let <span class="math">\(\mathbf{x}_0 \in \mathbb{R}^n\)</span>. Given a set of H-conjugate <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span> directions, and <span class="math">\(\mathbf{x}_k = \mathbf{x}_{k} = \mathbf{x}_{k-1} + \alpha_{k - 1} \mathbf{p}_{k-1}\)</span>, the Expanding Subspace Minimization theorem states that,</p>
 <div class="math">
 \begin{align*}
@@ -605,7 +605,7 @@ f(\mathbf{x}) = \frac{1}{2}\mathbf{x}^T H \mathbf{x} + c^T \mathbf{x} \\
 </div>
 </div>
 <div class="section" id="connection-to-krylov-subspaces">
-<h3>Connection to Krylov Subspaces</h3>
+<h2>Connection to Krylov Subspaces</h2>
 <p>The Expanding Subspace Minimisation (ESM) Theorem proves two things: the next iterate <span class="math">\(\mathbf{x}_i\)</span> minimizes our objective <span class="math">\(f(\mathbf{x})\)</span> over the entire subspace <span class="math">\(\mathbf{x}_0 + \underset{k}{\mathrm{span}}\{ \mathbf{p}_k \}_0^{i - 1}\)</span>; and the next residual <span class="math">\(\mathbf{r}_i\)</span> is orthogonal to all the previous search directions <span class="math">\(\{ \mathbf{p}_k \}_0^{i - 1}\)</span>, that is,</p>
 <div class="math">
 \begin{align*}
@@ -912,7 +912,7 @@ f(\mathbf{x}) = \frac{1}{2}\mathbf{x}^T H \mathbf{x} + c^T \mathbf{x} \\
 </div>
 </div>
 <div class="section" id="conjugate-gradients-a-method-of-conjugate-directions">
-<h2>Conjugate Gradients: A Method of Conjugate Directions</h2>
+<h1>Conjugate Gradients: A Method of Conjugate Directions</h1>
 <p>All of our machinery is in place now. We collect the necessary facts in an iterative loop; the simplicity and terseness of the algorithm completely belies the conceptual buildup we went through in the previous sections. So, without any further ado, let's present the Conjugate Gradient algorithm in one piece now.</p>
 <blockquote>
 <ol class="arabic simple">
@@ -972,7 +972,7 @@ i \leftarrow i + 1 \\
 </blockquote>
 </div>
 <div class="section" id="computational-complexity">
-<h2>Computational Complexity:</h2>
+<h1>Computational Complexity:</h1>
 <p>The dominant costs of the above algorithm is in the Matrix-Vector multiplication step: <span class="math">\(H \mathbf{p}_i\)</span>.</p>
 <p>For a dense matrix <span class="math">\(H\)</span>, the Matrix-Vector multiplication costs, with <span class="math">\(H \rightarrow n \times n\)</span> and <span class="math">\(\mathbf{p}_i \rightarrow n \times 1\)</span>, <span class="math">\(\mathcal{O}(n^2)\)</span>.</p>
 <p>For a sparse matrix <span class="math">\(H\)</span>, Matrix-Vector multiplication costs, <span class="math">\(\mathcal{O}(m)\)</span>, where <span class="math">\(m\)</span> is the non-zero elements in <span class="math">\(H\)</span>.</p>
@@ -992,13 +992,13 @@ i \leftarrow i + 1 \\
 <p>Both methods have a space complexity of <span class="math">\(\mathcal{O}(m)\)</span>.</p>
 </div>
 <div class="section" id="convergence-of-cg">
-<h2>Convergence of CG:</h2>
+<h1>Convergence of CG:</h1>
 <p>In exact arithmetic, the conjugate gradient method will terminate at the solution in at most <span class="math">\(n\)</span> iterations. When the distribution of the eigenvalues of <span class="math">\(H\)</span> has certain favourable features, the algorithm will identify the solution in many fewer than <span class="math">\(n\)</span> iterations.</p>
 <p>If <span class="math">\(H\)</span> has only <span class="math">\(r\)</span> distinct eigenvalues, then the CG iteration will terminate at the solution in at most <span class="math">\(r\)</span> iterations.</p>
 <p>It is generally true that if the eigenvalues occur in <span class="math">\(r\)</span> distinct clusters, the CG iterates will approximately solve the problem in about <span class="math">\(r\)</span> steps.</p>
 </div>
 <div class="section" id="pre-conditioned-cg">
-<h2>Pre conditioned CG:</h2>
+<h1>Pre conditioned CG:</h1>
 <p>When the condition number <span class="math">\(\mathcal{K}\)</span> of <span class="math">\(H\)</span> is really high, then we run into issues. We introduce a technique called as pre-conditioning.</p>
 <p>Here we transform the problem <span class="math">\(Hx = -c\)</span> with the inverse of <span class="math">\(M\)</span> where <span class="math">\(M\)</span> is an SPD and invertible matrix, chosen by the user depending on the problem at hand:</p>
 <div class="math">
@@ -1010,7 +1010,7 @@ M^{-1} H \mathbf{x} = -M^{-1} \mathbf{c} \\
 <p>Most of the standard solver packages use pre-conditioning for faster convergence.</p>
 </div>
 <div class="section" id="naive-code-implementation">
-<h2>Naive Code Implementation</h2>
+<h1>Naive Code Implementation</h1>
 <p>The following class implements the reference Conjugate Gradient algorithm without preconditioning, for educational purposes only. Do not use it on your actual code!</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -1106,7 +1106,7 @@ M^{-1} H \mathbf{x} = -M^{-1} \mathbf{c} \\
 </pre></div>
 </div>
 <div class="section" id="available-software">
-<h2>Available Software</h2>
+<h1>Available Software</h1>
 <p>A high-quality, expert-developed Python implementation of the Conjugate Gradient method is available in the Scipy library as the <a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.cg.html">scipy.sparse.linalg.cg</a> function. See the documentation for more details.</p>
 <p>Well engineered, high performance C language implementations of Conjugate Gradient are available in the Intel Math Kernel Library. The following links contain more information:</p>
 <blockquote>
@@ -1122,7 +1122,7 @@ M^{-1} H \mathbf{x} = -M^{-1} \mathbf{c} \\
 </blockquote>
 </div>
 <div class="section" id="non-linear-cg">
-<h2>Non-Linear CG</h2>
+<h1>Non-Linear CG</h1>
 <p>If our objective function is not convex quadratic as we were dealing with till now, we will have to adapt our current way to fit it into a non-linear functions.</p>
 <p>We were solving exactly for <span class="math">\(\alpha_k\)</span> till now, but in the nonlinear case, we have to use the Backtracking line-search scheme to calculate <span class="math">\(\alpha\)</span>.</p>
 <p>Instead of the residual <span class="math">\(r_k\)</span>, we will use <span class="math">\(\nabla f_k\)</span>, the gradient of the objective function at the current iterate.</p>
@@ -1148,7 +1148,7 @@ M^{-1} H \mathbf{x} = -M^{-1} \mathbf{c} \\
 </div>
 </div>
 <div class="section" id="references">
-<h2>References</h2>
+<h1>References</h1>
 <blockquote>
 <ol class="arabic simple">
 <li><a class="reference external" href="http://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf">An Introduction to the Conjugate Gradient Method Without the Agonizing Pain</a></li>
