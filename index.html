@@ -5,27 +5,27 @@
 <meta charset="utf-8"/>
 <meta content="Pelican" name="generator"/>
 <title>Duality Blog</title>
-<link href="https://manojbaishya.github.io/theme/css/main.css" rel="stylesheet"/>
+<link href="/theme/css/main.css" rel="stylesheet"/>
 </head>
 <body class="home" id="index">
 <header class="body" id="banner">
-<h1><a href="https://manojbaishya.github.io/">Duality Blog</a></h1>
+<h1><a href="/">Duality Blog</a></h1>
 <nav><ul>
-<li><a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a></li>
+<li><a href="/category/linear-algebra.html">linear-algebra</a></li>
 </ul></nav>
 </header><!-- /#banner -->
 <aside class="body" id="featured">
 <article>
-<h1 class="entry-title"><a href="https://manojbaishya.github.io/conjugate-gradient.html">Conjugate Gradient Methods</a></h1>
+<h1 class="entry-title"><a href="/conjugate-gradient.html">Conjugate Gradient Methods</a></h1>
 <footer class="post-info">
 <abbr class="published" title="2021-01-23T12:30:00+05:30">
                 Published: Sat 23 January 2021
         </abbr>
 <address class="vcard author">
-                By                         <a class="url fn" href="https://manojbaishya.github.io/author/rahul-john-roy-piyush-mohapatra-manoj-baishya.html">Rahul John Roy, Piyush Mohapatra, Manoj Baishya</a>
+                By                         <a class="url fn" href="/author/rahul-john-roy-piyush-mohapatra-manoj-baishya.html">Rahul John Roy, Piyush Mohapatra, Manoj Baishya</a>
 </address>
-<p>In <a href="https://manojbaishya.github.io/category/linear-algebra.html">linear-algebra</a>.</p>
-<p>tags: <a href="https://manojbaishya.github.io/tag/linear-algebra.html">linear-algebra</a> <a href="https://manojbaishya.github.io/tag/optimisation.html">optimisation</a> </p>
+<p>In <a href="/category/linear-algebra.html">linear-algebra</a>.</p>
+<p>tags: <a href="/tag/linear-algebra.html">linear-algebra</a> <a href="/tag/optimisation.html">optimisation</a> </p>
 </footer><!-- /.post-info --><div class="section" id="quadratic-forms-and-linear-systems">
 <h2>Quadratic Forms and Linear Systems</h2>
 <p>Many important quantities arising in engineering are mathematically modelled as Quadratic Forms. Output noise power in Signal Processing, Kinetic and Potential Energy functions in Mechanical Engineering, Covariance Models of Random Variable Linear Dependence and Principal Component Analysis in Statistics, etc. are some of the frequently occurring applications of Quadratic Forms, illustrating their ubiquity and importance.</p>
@@ -46,9 +46,9 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 \end{align*}
 </div>
 <p>The graph of a positive-definite convex quadratic form is a hyperparaboloid in <span class="math">\(\mathbb{R}^{n + 1}\)</span> dimensions.</p>
-<object data="https://manojbaishya.github.io/images/qform.svg" type="image/svg+xml">
+<object data="/images/qform.svg" type="image/svg+xml">
 </object>
-<object data="https://manojbaishya.github.io/images/qform_contour.svg" type="image/svg+xml">
+<object data="/images/qform_contour.svg" type="image/svg+xml">
 </object>
 <p>Frequently, in many applications, we are interested in minimizing the quadratic form <span class="math">\(f(x)\)</span>, for example, minimising the energy function of a mechanical system so that it is in a stable state.</p>
 <p>Suppose that, we have at our hands, a quadratic form obtained by mathematically modelling some quantity of interest and we wish to minimize it. At the minimum point  <span class="math">\(\mathbf{x}^*\)</span> (henceforth referred to as the minimizer), the gradient <span class="math">\(\nabla : \mathbb{R}^n \rightarrow \mathbb{R}\)</span> of a function <span class="math">\(f(x)\)</span> is always zero by first order optimality condition. Hence,</p>
@@ -71,7 +71,7 @@ H = H^T, \text{ and } \mathbf{x}^T H \mathbf{x} &gt; 0 \: \forall \: \mathbf{x} 
 \end{align*}
 </div>
 <h1 align="center">
-<img src="https://manojbaishya.github.io/images/heat.png" width="500"/>
+<img src="/images/heat.png" width="500"/>
 </h1><p>If we discretise the domain and convert the above differential equation to a finite difference equation, we obtain a linear system <span class="math">\(H \mathbf{x} = - \mathbf{c}\)</span>, where the temperatures <span class="math">\(\mathbf{x}\)</span> can be a very high dimensional vector due to the underlying problem being continuous. The <span class="math">\(H\)</span> represents the second-order derivative operator <span class="math">\(\frac{d^2 x}{dt^2}\)</span> and <span class="math">\(- \mathbf{c}\)</span> the heat source in the discretised domain <span class="math">\(\mathbf{R}^n\)</span>.</p>
 <p>Since the BVP is continuous, the discretisation <span class="math">\(x\)</span> is made high-dimensional to capture its fidelity; therefore the matrix <span class="math">\(H \in \mathbb{R}^{n \times n}\)</span> is <strong>very large</strong>. More importantly, due to the structure and regularity of the 2<sup>nd</sup> order finite difference operator, we can make the following qualifiers: the matrix <span class="math">\(H\)</span> is <strong>sparse</strong>, <strong>symmetric</strong> and <strong>positive definite</strong>. Solving such a large linear system with a direct matrix factorisation method is prohibitively expensive (of the order of <span class="math">\(\mathcal{O}(\frac{2}{3} n^3)\)</span>). Hence, a better alternative is to solve the system iteratively and reach a solution in <span class="math">\(r &lt;&lt; n\)</span> steps that is close enough to the actual solution, which will cost us much less than a direct method.</p>
 <p>One idea to solve the linear system <span class="math">\(H \mathbf{x} = - \mathbf{c}\)</span> is to use a stationary method, such as Jacobi or Gauss-Seidel. However, there is no guarantee of convergence, even for positive definite matrices.</p>
@@ -89,7 +89,7 @@ H \mathbf{x} = - \mathbf{c} \\
 <p>At the minimum of <span class="math">\(f(\mathbf{x})\)</span>, we would have found the solution to our original linear system.</p>
 <p>We can summarise this section by making the following statement [See PCG Appendix C1 for proof]:</p>
 <h1 align="center">
-<img src="https://manojbaishya.github.io/images/eqv1.svg" width="700"/>
+<img src="/images/eqv1.svg" width="700"/>
 </h1></div>
 <div class="section" id="line-search-techniques">
 <h2>Line Search Techniques</h2>
@@ -134,7 +134,7 @@ H \mathbf{x} = - \mathbf{c} \\
 </div>
 <p>SD moves along (or opposite to be precise) the residual/gradient vector at each iterate. One fact we state without proof [see PCG pg. 6; can be derived from 1D calculus] is that the residual/gradient at the current iterate <strong>i</strong> is always orthogonal to the previous residual/gradient at <strong>i - 1</strong>.</p>
 <h1 align="center">
-<img src="https://manojbaishya.github.io/images/sd.png" width="600"/>
+<img src="/images/sd.png" width="600"/>
 </h1><p>As can be seen from the above picture, this is unfortunate, because we repeat directions in multiple steps a lot, and the number of steps needed to converge to the minimum point <span class="math">\(\mathbf{x}^*\)</span> is extraordinarily large. This could have been avoided if, after taking a new direction each time, we had travelled just the right amount of length in that direction so that in our future march downhill, we never need to step in that direction again.</p>
 <p>This raises an important question: If we picked a direction and took the RIGHT step length along it to avoid repeating it, in how many steps will be reach the minimizer <span class="math">\(\mathbf{x}^*\)</span>?</p>
 <p>The answer is: n steps! (the dimension of the vectorspace). To see why it is so, we need to wait for some more explanations.</p>
@@ -154,7 +154,7 @@ H \mathbf{x} = - \mathbf{c} \\
 <p>Let us select our initial guess as <span class="math">\(\mathbf{x}_0 = \begin{bmatrix} -1 \\ -1 \end{bmatrix}\)</span>. Our first direction of motion is <span class="math">\(\mathbf{p}_0 = \mathbf{e}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\)</span>. Therefore, <span class="math">\(\mathbf{x}_1 =  \mathbf{x}_0  +  \alpha_0 \mathbf{p}_0 = \begin{bmatrix} -1 \\ -1 \end{bmatrix} +  \alpha_0 \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} -1 + \alpha_0 \\ -1 \end{bmatrix}\)</span> and <span class="math">\(\phi(\alpha_0) = f(\mathbf{x}_1) = 4 (-1 + \alpha_0)^2 + (-1)^2\)</span>. Taking the derivative of <span class="math">\(\phi(\alpha_0)\)</span> with respect to <span class="math">\(\alpha_0\)</span>, setting it to zero and solving the equation, we obtain <span class="math">\(\alpha_0 = 1\)</span>. Therefore, <span class="math">\(\mathbf{x}_1 = \begin{bmatrix} 0 \\ -1 \end{bmatrix}\)</span>. Repeating this process for the next direction <span class="math">\(\mathbf{p}_1 = \mathbf{e}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix}\)</span>, we obtain <span class="math">\(\mathbf{x}_2 = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)</span>, which is indeed our minimum <span class="math">\(\mathbf{x}^*\)</span>. We reached our destination in two steps! (= dimension of our decision space <span class="math">\(\mathbb{R}^2\)</span>)</p>
 <p>The contours of the function and our iteration path are as displayed below:</p>
 <h1 align="center">
-<img src="https://manojbaishya.github.io/images/p1_solved.svg" width="700"/>
+<img src="/images/p1_solved.svg" width="700"/>
 </h1></div>
 <div class="section" id="problem-2">
 <h3>Problem 2</h3>
@@ -166,7 +166,7 @@ H \mathbf{x} = - \mathbf{c} \\
 <p>The minimum point is again at <span class="math">\(\mathbf{x}^* = \begin{bmatrix} 0 \\ 0 \end{bmatrix}\)</span>.</p>
 <p>We repeat the same process as outlined in Problem 1, starting from  <span class="math">\(\mathbf{x}_0 = \begin{bmatrix} -1 \\ -1 \end{bmatrix}\)</span>, and picking <span class="math">\(\mathbf{e}_1\)</span> and then <span class="math">\(\mathbf{e}_2\)</span> as search directions. However, this time, we obtain the iterates as <span class="math">\(\mathbf{x}_1 = \begin{bmatrix} \frac{-1}{4} \\ -1 \end{bmatrix}\)</span>, and <span class="math">\(\mathbf{x}_2 = \begin{bmatrix} \frac{-1}{4} \\ \frac{-1}{4} \end{bmatrix}\)</span>. Notice that, we haven't reached our minimizer in two steps.</p>
 <h1 align="center">
-<img src="https://manojbaishya.github.io/images/p2_solved.svg" width="700"/>
+<img src="/images/p2_solved.svg" width="700"/>
 </h1><p>Let us spend sometime looking over what we have done so far and why our coordinate axes approach failed in the second problem. Notice that, in Problem 1, the Hessian Matrix (ie the second derivative of a multivariate scalar function) of the Quadratic Form is diagonal, and hence our coordinate axes are aligned with its eigenvectors. Not only that, we know that for a symmetric matrix, the eigenvectors are always orthogonal, that is, <span class="math">\(\mathbf{v}_i^T \mathbf{v}_j = \left\{     \begin{array}{ll} \text{ non-zero }  &amp; \mbox{if } i = j \\  0 &amp; \mbox{if } i \neq j   \end{array} \right. \: \forall \: i, j \: \in \: [1 \dots n]\)</span>.</p>
 <p>We can write the minimizer as <span class="math">\(\mathbf{x}^* = \mathbf{x}_0 + \alpha_0 \mathbf{p}_0 + \alpha_1 \mathbf{p}_1 = \mathbf{x}_0 + \alpha_0 \mathbf{v}_1 + \alpha_1 \mathbf{v}_2\)</span>. Substitute in <span class="math">\(\mathbf{x}^*\)</span> in the objective function and we will get:</p>
 <div class="math">
@@ -616,7 +616,7 @@ f(\mathbf{x}) = \frac{1}{2}\mathbf{x}^T H \mathbf{x} + c^T \mathbf{x} \\
 </div>
 <p>The image below demonstrates this fact for <span class="math">\(\mathcal{D}_2\)</span>.</p>
 <h1 align="center">
-<img src="https://manojbaishya.github.io/images/osubs.svg" width="700"/>
+<img src="/images/osubs.svg" width="700"/>
 </h1><p>Here we attempt to analyse a few more fundamental issues.</p>
 <p>In plain English, what the first part of the ESM theorem is saying is that given a starting point <span class="math">\(\mathbf{x}_0\)</span>, we keep on enlarging the <em>expanding-subspace</em> <span class="math">\(\mathcal{D}_i\)</span> by one dimension in each step, and we evermore keep getting closer to the solution after gaining that extra degree of freedom of movement in that step. As soon as <span class="math">\(\mathcal{D}_i\)</span> becomes <span class="math">\(\mathbb{R}^n\)</span>, the error gets driven to zero and we have reached our destination!</p>
 <p>Since we have mentioned in the previous section that the directions <span class="math">\(\mathbf{p}\)</span> are built from the linearly independent set of vectors <span class="math">\(\mathbf{u}\)</span>, that is,</p>
