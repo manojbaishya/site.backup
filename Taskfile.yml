@@ -1,0 +1,76 @@
+version: '3'
+
+vars:
+  PY: python3
+  PELICAN: pelican
+  PELICANOPTS: ""
+  BASEDIR: '{{.PWD}}'
+  INPUTDIR: '{{.BASEDIR}}/content'
+  OUTPUTDIR: '{{.BASEDIR}}/output'
+  CONFFILE: '{{.BASEDIR}}/pelicanconf.py'
+  PUBLISHCONF: '{{.BASEDIR}}/publishconf.py'
+  GITHUB_PAGES_BRANCH: main
+  DEBUG: 0
+  RELATIVE: 0
+  SERVER: "0.0.0.0"
+  PORT: 0
+
+tasks:
+  default:
+    cmds:
+      - task: help
+
+  help:
+    desc: Makefile for a pelican Web site
+    cmds:
+      - echo 'Usage:'
+      - echo '   task html                           (re)generate the web site'
+      - echo '   task clean                          remove the generated files'
+      - echo '   task regenerate                     regenerate files upon modification'
+      - echo '   task publish                        generate using production settings'
+      - echo '   task serve [PORT=8000]              serve site at http://localhost:8000'
+      - echo '   task serve-global [SERVER=0.0.0.0]  serve (as root) to $(SERVER):80'
+      - echo '   task devserver [PORT=8000]          serve and regenerate together'
+      - echo '   task ssh_upload                     upload the web site via SSH'
+      - echo '   task rsync_upload                   upload the web site via rsync+ssh'
+      - echo '   task github                         upload the web site via gh-pages'
+      - echo 'Set the DEBUG variable to 1 to enable debugging, e.g. task DEBUG=1 html'
+      - echo 'Set the RELATIVE variable to 1 to enable relative urls'
+
+  html:
+    cmds:
+      - '{{.PELICAN}} {{.INPUTDIR}} -o {{.OUTPUTDIR}} -s {{.CONFFILE}} {{.PELICANOPTS}}'
+
+  clean:
+    cmds:
+      - '[ ! -d "{{.OUTPUTDIR}}" ] || rm -rf "{{.OUTPUTDIR}}"'
+
+  regenerate:
+    cmds:
+      - '{{.PELICAN}} -r {{.INPUTDIR}} -o {{.OUTPUTDIR}} -s {{.CONFFILE}} {{.PELICANOPTS}}'
+
+  serve:
+    cmds:
+      - '{{.PELICAN}} -l {{.INPUTDIR}} -o {{.OUTPUTDIR}} -s {{.CONFFILE}} {{.PELICANOPTS}}'
+
+  serve-global:
+    cmds:
+      - '{{.PELICAN}} -l {{.INPUTDIR}} -o {{.OUTPUTDIR}} -s {{.CONFFILE}} {{.PELICANOPTS}} -b {{.SERVER}}'
+
+  devserver:
+    cmds:
+      - '{{.PELICAN}} -lr {{.INPUTDIR}} -o {{.OUTPUTDIR}} -s {{.CONFFILE}} {{.PELICANOPTS}}'
+
+  devserver-global:
+    cmds:
+      - '{{.PELICAN}} -lr {{.INPUTDIR}} -o {{.OUTPUTDIR}} -s {{.CONFFILE}} {{.PELICANOPTS}} -b 0.0.0.0'
+
+  publish:
+    cmds:
+      - '{{.PELICAN}} {{.INPUTDIR}} -o {{.OUTPUTDIR}} -s {{.PUBLISHCONF}} {{.PELICANOPTS}}'
+
+  github:
+    cmds:
+      - task: publish
+      - ghp-import -m "Generate Pelican site" -b {{.GITHUB_PAGES_BRANCH}} {{.OUTPUTDIR}}
+      - git push origin {{.GITHUB_PAGES_BRANCH}}
